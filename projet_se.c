@@ -84,7 +84,7 @@ int x,r,sum=0 ;
 	scanf("%d",&x); 
 	queue q1 ; 
 	init_q(&q1) ; 	
-	printf("Generating now time for each proc ...\n",x);
+	printf("Generating now time for each proc ...\n");
 	for ( int i = 1 ; i<=x ; ++i) 
 	{
 		r = rand()%10; 
@@ -103,6 +103,8 @@ int t=0,i=1,temp=0;
 		fflush(stdout); 
 		update_bar(sum,temp);
 		printf(ESC CSI "%d" previousLine,2 );// resetting the curesor for the 2 lines 
+
+	sleep(t); 
 		i++; 
 	}	
 	printf("\n\nDone !\n"); 
