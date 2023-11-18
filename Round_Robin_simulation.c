@@ -7,12 +7,52 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "DataStructure.h"
+#define max_chars 50
+// ANSI escape codes for colors
+#define RED_TEXT    "\x1b[31m"
+#define GREEN_TEXT  "\x1b[32m"
+#define YELLOW_TEXT "\x1b[33m"
+#define RESET_TEXT  "\x1b[0m"
+
+// Maximum number of characters in the progress bar
+#define max_chars 50
+
+void update_bar(int total_time, int time_done) {
+    int percentage_done = time_done * 100 / total_time;
+    int num_chars = (percentage_done * max_chars) / 100;
+
+    // Choose color based on the progress percentage
+    const char *color_code;
+    if (percentage_done < 50) {
+        color_code = RED_TEXT;
+    } else if (percentage_done < 80) {
+        color_code = YELLOW_TEXT;
+    } else {
+        color_code = GREEN_TEXT;
+    }
+
+    // Print the colored progress bar
+    printf("%s[", color_code);
+    for (int i = 0; i < num_chars; ++i) {
+        printf("#");
+    }
+    for (int i = 0; i < max_chars - num_chars; ++i) {
+        printf(" ");
+    }
+    printf("] %d%% done%s\n", percentage_done, RESET_TEXT);
+    fflush(stdout);
+}
+
+
+
 
 int main() {
 
-    int nb;
+    int nb ,qtm;
     printf("How many processes do you need? ");
     scanf("%d", &nb);
+    printf("Quantum value ? ");
+    scanf("%d", &qtm);
      /* n7awel nhotha fel for loop*/
     node *tmp;
     node *Head =NULL;
@@ -41,8 +81,6 @@ int main() {
 
     queue file;
     init_queue(&file);
-    int qtm = 3;
-
     enqueue(&file, Head->value);
     int curs = Head->value.Arrival_date;
     printf("curs = %d",curs);
@@ -59,14 +97,18 @@ int main() {
             } else {
                 p1.execution_time = p1.CPU_units;
             }
+            printf("____________________________________________________________");
+            printf("\n");
+            printf(" at t =  %d : ",curs);
+            update_bar(p1.CPU_units,p1.execution_time);
+            printf("Process %s is executing for %d units \n", p1.Name,p1.execution_time);
 
             p1.CPU_units -= p1.execution_time;
-            printf(" at t =  %d : ",curs);
+
             //printf("\n");
             curs =  curs + p1.execution_time;
-            printf("Process %s is executing for %d units \n", p1.Name,p1.execution_time);
-            printf("\n");
 
+            printf("\n");
 
             while (Head != NULL && Head->value.Arrival_date <= curs) {
                 enqueue(&file, Head->value);
@@ -78,6 +120,8 @@ int main() {
             } else {
                 printf("Process %s is terminated\n", p1.Name);
                 printf("\n");
+                printf("________________________________________________________");
+                printf("\n");
             }
         }else{
             enqueue(&file, Head->value);
@@ -86,5 +130,7 @@ int main() {
         }
 
     }
+
+
 
 }
