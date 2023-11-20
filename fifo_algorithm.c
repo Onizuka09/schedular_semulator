@@ -1,111 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h> 
-#include <pthread.h>
-#define max_chars 50
-#define ESC "\033"
-#define CSI "[" 
-#define previousLine "F" 
-#define backspace "D" 
-#define num_bars 1 
-
-typedef struct 
-{ 
-	int val ; 
-	struct node* nxt   ; 
- }node; 
-
-
-typedef  struct { 
-	node* head ; 
-	node* tail ;
- } queue; 
-
-void init_q (queue *q ) { 
-	q->head = NULL ; 
-	q->tail = NULL ;
-} 
-
-bool enqueue ( queue *q, int val ) 
-{ 
-	node* nwnode = (node *)malloc( sizeof(node));
-
-	nwnode->val = val ; 
-	nwnode->nxt = NULL; 
-
-	if ( q->tail == NULL && q->head == NULL) 
-	{ 
-		q->tail= q->head = nwnode ; 
-		return 0 ; 
-	} 
-	q->tail->nxt = nwnode ; 
-	q->tail = nwnode ; 
-	// if the lis is empty 
-
-return  0;
-} 
-int dequeue ( queue *q) 
-{	int res =0 ;  
-	if (q->head == NULL) return  0 ;
-	node  *tmp = q->head ; 
-	res = tmp->val; 
-	if (q->tail == q->head ) 
-		q->tail = q->head = NULL ;
-	else { 
-
-	q->head = q->head->nxt ; 
-	}	
-	free( tmp) ; 	
-		//printf("	-> the queue val : %d\n",res );
-	return res ;	
-		 
-} 
-void update_bar(int total_time,int time_done) { 
-	int percentage_done = time_done *100 / total_time;
-	int num_chars = (percentage_done * max_chars) /100 ;
-	printf("["); 
-	for (int i = 0 ; i<num_chars ; ++i ) 
-	{	
-		printf("#");
-	}
-	for (int i = 0; i<max_chars - num_chars; ++i )
-	{	 
-		printf(" ");
-	}
-
-	printf("] %d%% done \n",percentage_done);
-	fflush(stdout); 
-}
+#include <string.h>
+#include "dataStruct/queue.h"
+#include "display_manger/display_conf.h" 
+#include "process_config/global_config.h"
  int main(void)
 {	
-int x,r,sum=0 ; 
+
+int x,r,sum_ta=0 ; 
 	printf("This is a FiFo proc execution !\n");
-	printf("Enter num of proc \n "); 
-	scanf("%d",&x); 
+	printf("Enter num of proc:  "); 
+	scanf("%d",&x);
+	printf("\n");
 	queue q1 ; 
 	init_q(&q1) ; 	
+	process_settings *proc = malloc(sizeof(process_settings));
 	printf("Generating now time for each proc ...\n");
 	for ( int i = 1 ; i<=x ; ++i) 
 	{
-		r = rand()%10; 
-		printf ("proc_%i = %d \n",i,r) ; 
-		enqueue(&q1,r);
-		sum +=r ; 
+		get_userInput(proc); 
+		enqueue(&q1,proc);
+		sum_ta +=proc->te ; 
 	}
+	
+	bsort(&q1);
 	sleep(2); 
-	printf("Total Time is %d \n",sum );  
-int t=0,i=1,temp=0; 
+	printf("Total Time excution: %ds \n",sum_ta);  
+int t=0,i=1,time_passed=0,time=0; 
 	while (q1.tail != NULL) 
 	{
-		t= dequeue(&q1); 
-		temp+=t;
-		printf("\rExecuting now proc_%d for %d ...\n",i,t);
+		proc = dequeue(&q1); 
+		//proc_print(proc); 
+		printf("\rExecuting now %s for %ds ...\n",proc->name,proc->te);
+		time_passed+=proc->te;
 		fflush(stdout); 
-		update_bar(sum,temp);
+		update_bar(sum_ta,time_passed,proc->te,time,proc->color);
 		printf(ESC CSI "%d" previousLine,2 );// resetting the curesor for the 2 lines 
-
-	sleep(t); 
-		i++; 
+		time+=proc->te;
+		sleep(proc->te); 
 	}	
 	printf("\n\nDone !\n"); 
 	return 0;
