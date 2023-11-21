@@ -25,7 +25,7 @@ int x,r,sum_ta=0 ;
 	}
 	
 	bsort(&q1);
-	sleep(2); 
+//	sleep(2); 
 	printf("Total Time excution: %ds \n",sum_ta);  
 int t=0,i=1,time_passed=0,time=0; 
 	while (q1.tail != NULL) 
@@ -39,7 +39,15 @@ int t=0,i=1,time_passed=0,time=0;
 		printf(ESC CSI "%d" previousLine,2 );// resetting the curesor for the 2 lines 
 		time+=proc->te;
 		sleep(proc->te); 
-	}	
+	}
+/*
+while ( q1.head != NULL ) 
+{ 
+	if (q1.head->proc.ta == time ) 
+		printf ("Proc: %s has arrived exuting it now for: %d \n",q1.head->proc.ta); 
+	proc = dequeue(&q1);
+
+}*/
 	printf("\n\nDone !\n"); 
 	return 0;
 }
