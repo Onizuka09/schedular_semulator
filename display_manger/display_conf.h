@@ -2,6 +2,8 @@
 #define  DISPLAY_CON_H
 #include<stdio.h>
 #include<string.h>
+#include "../process_def.h"
+
 #define max_chars 50 //max num of '#'  
 
 // ANSI escape sequences 
@@ -13,19 +15,7 @@
 #define forward "C"
 #define num_bars 1
 
-// colors 
-#define RED_TEXT    "\x1b[31m"
-#define GREEN_TEXT  "\x1b[32m"
-#define YELLOW_TEXT "\x1b[33m"
-#define RESET_TEXT  "\x1b[0m"
 
-
-typedef enum {
-	green,
-	yellow,
-	red,
-	reset,
-}colors;
 
 void pick_color(colors color, char* ch_color) ;
 colors intToColor(int value); 

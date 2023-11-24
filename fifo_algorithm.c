@@ -5,6 +5,7 @@
 #include "dataStruct/queue.h"
 #include "display_manger/display_conf.h" 
 #include "process_config/global_config.h"
+#include "process_def.h" 
  int main(void)
 {	
 
@@ -37,7 +38,7 @@ int x=3,r,sum_ta=0 ;
     enqueue(&q1, proc2);
     sum_ta += proc2->te;
 
-    strcpy(proc->name, "p3");
+    strcpy(proc3->name, "p3");
     proc3->ta = 1;
     proc3->te = 4;
     proc3->color = yellow;
@@ -53,9 +54,11 @@ int x=3,r,sum_ta=0 ;
 		sum_ta +=proc->te ; 
 	}
 	*/
-
 	bsort(&q1);
 //	sleep(2); 
+	printf("\n"); 
+printTable(&q1,3);
+printf("\n"); 
 	printf("Total Time excution: %ds \n",sum_ta); 
 
 int t=0,i=1,time_passed=0,time=0; 

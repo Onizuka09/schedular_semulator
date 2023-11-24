@@ -18,17 +18,17 @@ $(OBJDIR)/gantt_diag.o:  $(SRCDIR)/gantt_diagram.c
 	$(CC) $(CFLAGS) -c $<   -IdataStruct -Idisplay_manger -o $@
 
 
-$(OBJDIR)/fifo_algorithm.o:  $(SRCDIR)/fifo_algorithm.c  
+$(OBJDIR)/fifo_algorithm.o:  $(SRCDIR)/fifo_algorithm.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $<   -IdataStruct -Idisplay_manger -o $@
 
-$(OBJDIR)/queue.o: dataStruct/queue.c dataStruct/queue.h process_config/global_config.h
-	$(CC) $(CFLAGS) -c $<  -Iprocess_config -o $@
+$(OBJDIR)/queue.o: dataStruct/queue.c dataStruct/queue.h process_config/global_config.h $(SRCDIR)/process_def.h
+	$(CC) $(CFLAGS) -c $<   -o $@
 
-obj/display.o: display_manger/display_conf.c display_manger/display_conf.h
-	$(CC) $(CFLAGS) -c $< -Idisplay_manger -o $@
+obj/display.o: display_manger/display_conf.c display_manger/display_conf.h $(SRCDIR)/process_def.h dataStruct/queue.h 
+	$(CC) $(CFLAGS) -c $<  -o $@
 
-obj/proc.o: process_config/global_config.c process_config/global_config.h  dataStruct/queue.h 
-	$(CC) $(CFLAGS) -c $< -Iprocess_config  -o $@
+obj/proc.o: process_config/global_config.c process_config/global_config.h  dataStruct/queue.h $(SRCDIR)/process_def.h
+	$(CC) $(CFLAGS) -c $< -o $@
 clean:
 	rm  $(OBJDIR)/*.o
 	rm $(BIN)

@@ -16,8 +16,8 @@ void get_userInput(process_settings* proc){
 	printf("\n");
 return ;
 }
-/*
-void printTable_view(process_settings* proc, int num_proc){
+
+static void printTable_view(process_settings* proc, int num_proc){
 int col=4  , ligne=num_proc; 
 //for (int i=0 ; i<col; ++i)
 //{
@@ -31,12 +31,12 @@ void printTable(queue *q1,int num_proc){
 	node *tmp = q1->head; 
     while (tmp!= NULL)
     {
-		process_settings *proc = tmp->proc; 
+		process_settings proc = tmp->proc; 
 		//printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
-		printTable_view(proc,num_proc);
+		printTable_view(&proc,num_proc);
 		printf("\n");
 		tmp=tmp->nxt;
  
     }
 }
-*/
+
