@@ -1,6 +1,6 @@
 #ifndef QUEUE_H
 #define QUEUE_H
-#include "../process_config/global_config.h"
+#include "../process_def.h"
 #include<stdbool.h>
 typedef struct 
 { 
