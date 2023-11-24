@@ -125,5 +125,4 @@ printf("%d",te);
 */
 	fflush(stdout); 
 }
-
-
+    

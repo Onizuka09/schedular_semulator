@@ -1,6 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 #include"../display_manger/display_conf.h"
+
+//#include"../dataStruct/queue.h"
 typedef struct { 
 	int ta; 
 	int te; 
