@@ -26,7 +26,7 @@ colors intToColor(int value) {
     }
 }
 
-void update_bar(int total_time,int current_time,int te,int time,colors cl) {
+void update_bar(int total_time,int te,int time,colors cl) {
 
 	int p_t = time*100/total_time;
 	int written_chars = (p_t * max_chars) /100 ;
@@ -35,7 +35,7 @@ void update_bar(int total_time,int current_time,int te,int time,colors cl) {
 	int p_te = te*100/total_time;
 	int num_chars = (p_te * max_chars) /100 ;
 
-	int p_ct = current_time *100 / total_time;
+	int p_ct = (time+te) *100 / total_time;
 	int char_ct = (p_ct * max_chars) /100 ;
 
 	char cl_str[15]="";
@@ -66,7 +66,8 @@ void update_bar(int total_time,int current_time,int te,int time,colors cl) {
 	fflush(stdout); 
 }
 
-void update_time( int total_time,int current_time,int te,int time,colors cl) {
+void update_time( int total_time,int te,int time,colors cl) {
+
 	int p_t = time*100/total_time;
 	int written_chars = (p_t * max_chars) /100 ;
 
@@ -74,8 +75,7 @@ void update_time( int total_time,int current_time,int te,int time,colors cl) {
 	int p_te = te*100/total_time;
 	int num_chars = (p_te * max_chars) /100 ;
 
-	int p_ct = current_time *100 / total_time;
-	int char_ct = (p_ct * max_chars) /100 ;
+
 if (time !=0) 
 {
 printf(ESC CSI "%d" forward,written_chars+1);
@@ -84,45 +84,13 @@ time+=1;
 }
 else {
     printf(" "); 
-    //num_chars  =num_chars - 2;
 }
-/*if (current_time==total_time)
-{
-    te=total_time;
-    num_chars= char_ct - written_chars+3;
-*/
 printf("%d",time);
 for (int i = 0 ; i<num_chars-2; i++){
 printf(".");
 }
 printf("%d",te); 
 
-/*	char cl_str[15]="";
-	pick_color(cl,cl_str);
-	int num_white_spaces=0;
-	if (time !=0)
-	{	printf(ESC CSI "%d" forward,max_chars);
-		printf(ESC CSI "%d" backspace "\033[K",max_chars - written_chars - 1);   
-		fflush(stdout); 
-		num_white_spaces=max_chars -( num_chars + written_chars );
-	}
-	else 
-	{	num_white_spaces = max_chars - num_chars ;
-		printf("[");
-	}
-	printf("%s",cl_str);
-	for (int i = 0 ; i<num_chars ; ++i ) 
-	{	
-		printf("#");
-	}
-	
-	for (int i = 0; i<num_white_spaces; ++i )
-	{	 
-		printf(" ");
-	}
-
-	printf(RESET_TEXT"] %d%% done\n",p_ct);
-*/
 	fflush(stdout); 
 }
     
