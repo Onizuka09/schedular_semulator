@@ -9,7 +9,7 @@ BIN = main
 all: $(BIN)
 
 $(BIN): $(OBJDIR)/queue.o $(OBJDIR)/fifo_algorithm.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
-	$(CC)  $^ -o $@
+	$(CC)  $^ -o $@ -lm
 
 GANT: $(OBJDIR)/queue.o $(OBJDIR)/gantt_diag.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
 	$(CC)  $^ -o $@
