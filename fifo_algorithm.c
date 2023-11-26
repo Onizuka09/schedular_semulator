@@ -42,7 +42,7 @@ int x=3,r,sum_ta=0 ;
     sum_ta += proc2->te;
 
     strcpy(proc3->name, "p3");
-    proc3->ta = 6;
+    proc3->ta = 9;
     proc3->te = 4;
     proc3->color = yellow;
     proc3->priority = 1;
@@ -66,26 +66,31 @@ printf("\n");
 	printf("Total Time excution: %ds \n",sum_ta); 
 
 //while(
-	int c_time=0,wait_t=0; 
+		int c_time=0,wait_t=0,total_t=0 ,total_wait;
+total_t = 	q1.tail->proc.ta+q1.tail->proc.te; 
+total_wait = total_t - sum_ta; 
 while (q1.head !=NULL) 
 {
 	tproc = dequeue(&q1); 
     if (c_time < tproc->ta-1) // wait 
-	{	wait_t = tproc->ta- c_time -1 ; 
+	{	
+				
+		wait_t = tproc->ta- c_time -1 ; 
 		printf("\r waiting for %d \n",wait_t); 
 		fflush(stdout); 
-		update_bar(sum_ta,wait_t,c_time,reset);
-		update_time(sum_ta,wait_t,c_time,reset);
-		sleep(wait_t) ;	printf(ESC CSI "%d" previousLine,2 );
+		update_bar(total_t,wait_t,c_time,reset);
+		update_time(total_t,wait_t,c_time,reset);
+		sleep(wait_t) ;
+		printf(ESC CSI "%d" previousLine,3 );
 		c_time += wait_t ; 
 	}
-		printf("\rExecuting now %s for %ds ...\n",proc->name,proc->te);
+		printf("\rExecuting now %s for %ds ...\n",tproc->name,tproc->te);
 		fflush(stdout); 
-		update_bar(sum_ta,tproc->te,c_time,tproc->color);
+		update_bar(total_t,tproc->te,c_time,tproc->color);
 		
-		update_time(sum_ta,tproc->te,c_time,tproc->color);
+		update_time(total_t,tproc->te,c_time,tproc->color);
 
-		printf(ESC CSI "%d" previousLine,2 );
+		printf(ESC CSI "%d" previousLine,3);
 		c_time+=tproc->te;
 		sleep(tproc->te); 
 

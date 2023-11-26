@@ -11,9 +11,11 @@
 #define ESC "\033"
 #define CSI "[" 
 #define previousLine "F" 
-#define backspace "D" 
+#define curs_pos "D" 
 #define forward "C"
 #define num_bars 1
+#define delete_line "k"
+#define delete_from_cur ESC CSI delete_line
 
 
 
