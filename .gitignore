@@ -1,4 +1,4 @@
-buil/*.o
+obj/*.o
 main 
 menu
 obj/*
