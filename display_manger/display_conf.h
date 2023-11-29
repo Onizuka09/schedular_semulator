@@ -30,6 +30,8 @@ typedef enum {
 void pick_color(colors color, char* ch_color) ;
 colors intToColor(int value); 
 void update_bar(int total_time,int current_time,int te,int time,colors cl); 
+void update_time( int total_time,int current_time,int te,int time,colors cl) ;
+
 /*-----------------------------------------------------------*/
 
 
