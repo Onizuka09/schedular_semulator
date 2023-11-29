@@ -67,28 +67,30 @@ printf("\n");
 
 //while(
 		int c_time=0,wait_t=0,total_t=0 ,total_wait;
-total_t = 	q1.tail->proc.ta+q1.tail->proc.te; 
+total_t = 	q1.tail->proc.ta+q1.tail->proc.te   ;  
+		int max_ch = round((float)(50/total_t))+50;
+
 total_wait = total_t - sum_ta; 
 while (q1.head !=NULL) 
 {
 	tproc = dequeue(&q1); 
-    if (c_time < tproc->ta-1) // wait 
+    if (c_time <= tproc->ta-1) // wait 
 	{	
-				
-		wait_t = tproc->ta- c_time -1 ; 
+	
+		wait_t = tproc->ta- c_time  ; 
 		printf("\r waiting for %d \n",wait_t); 
 		fflush(stdout); 
-		update_bar(total_t,wait_t,c_time,reset);
-		update_time(total_t,wait_t,c_time,reset);
+		update_bar(total_t,wait_t,c_time,reset,52);
+		update_time(total_t,wait_t,c_time,reset, 52);
 		sleep(wait_t) ;
 		printf(ESC CSI "%d" previousLine,3 );
 		c_time += wait_t ; 
 	}
 		printf("\rExecuting now %s for %ds ...\n",tproc->name,tproc->te);
 		fflush(stdout); 
-		update_bar(total_t,tproc->te,c_time,tproc->color);
+		update_bar(total_t,tproc->te,c_time,tproc->color,52);
 		
-		update_time(total_t,tproc->te,c_time,tproc->color);
+		update_time(total_t,tproc->te,c_time,tproc->color,52);
 
 		printf(ESC CSI "%d" previousLine,3);
 		c_time+=tproc->te;
