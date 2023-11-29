@@ -1,6 +1,13 @@
 #include "display_conf.h"
 #include <math.h>
 
+int calculate_max_chars(int total_time)
+{
+    int max_ch = round((float)(max_chars/total_t))+max_chars;	
+	
+return max_ch;
+}
+
 void pick_color(colors color, char* ch_color) {
 
 
@@ -27,29 +34,30 @@ colors intToColor(int value) {
     }
 }
 
-void update_bar(int total_time,int te,int time,colors cl) {
+void update_bar(int total_time,int te,int time,colors cl,int max_ch) {
+// printf("%d ",total_time);
+//	int p_t = round((float)(time*100)/total_time);
+	int written_chars =round( (float) (time * max_ch) /total_time ) ;
 
-	int p_t = round((float)(time*100)/total_time);
-	int written_chars =round( (float) (p_t * max_chars) /100 ) ;
 
-
-	int p_te =round( (float)(te*100)/total_time);
-	int num_chars =round( (float)(p_te * max_chars) /100) ;
-
+//	int p_te = (float)(te*100)/total_time);
+	int num_chars =round( (float)(te * max_ch) /total_time) ;
+    //printf("num chars %d",num_chars);
 	int p_ct =round ((float) (time+te) *100 / total_time) ;
-	int char_ct = (p_ct * max_chars) /100 ;
-
+//	int char_ct = (p_ct * max_chars) /100 ;
+//printf("chars %d white = %d ", num_chars , - (num_chars+written_chars));
 	char cl_str[15]="";
 	pick_color(cl,cl_str);
 	int num_white_spaces=0;
 	if (time !=0)
-	{	printf(ESC CSI "%d" forward,max_chars);
-		printf(ESC CSI "%d" curs_pos delete_from_cur,max_chars - written_chars - 1);   
+	{	printf(ESC CSI "%d" forward,max_ch+1);
+		printf(ESC CSI "%d" curs_pos delete_from_cur,max_ch - written_chars );   
 		fflush(stdout); 
-		num_white_spaces=max_chars -( num_chars + written_chars );
+		num_white_spaces=max_ch -( num_chars + written_chars );
+        
 	}
 	else 
-	{	num_white_spaces = max_chars - num_chars ;
+	{	num_white_spaces = max_ch - num_chars ;
 		printf("[");
 	}
 	printf("%s",cl_str);
@@ -67,19 +75,27 @@ void update_bar(int total_time,int te,int time,colors cl) {
 	fflush(stdout); 
 }
 
-void update_time( int total_time,int te,int time,colors cl) {
+void update_time( int total_time,int te,int time,colors cl,int max_ch) {
 
-	int p_t = time*100/total_time;
+/* 
+    int p_t = time*100/total_time;
 	int written_chars = (p_t * max_chars) /100 ;
 
 
 	int p_te = te*100/total_time;
 	int num_chars = (p_te * max_chars) /100 ;
 
+*/
+    
+	//int p_t = round((float)(time*100)/total_time);
+	int written_chars =round( (float) (time * max_ch) /total_time ) ;
 
+
+//	int p_te =round( (float)(te*100)/total_time);
+	int num_chars =round( (float)(te * max_ch) /total_time) ;
 if (time !=0) 
 {
-printf(ESC CSI "%d" forward,written_chars+1);
+printf(ESC CSI "%d" forward,written_chars+2);
 te=time+te; 
 time+=1; 
 }
@@ -87,7 +103,7 @@ else {
     printf(" "); 
 }
 printf("%d",time);
-for (int i = 0 ; i<num_chars-2; i++){
+for (int i = 0 ; i<num_chars-1; i++){
 printf(".");
 }
 printf("%d\n",te); 
