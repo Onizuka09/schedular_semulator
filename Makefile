@@ -15,11 +15,11 @@ $(FIFO_bin): $(OBJDIR)/queue.o $(OBJDIR)/fifo_algorithm.o $(OBJDIR)/proc.o $(OBJ
 $(RR_bin): $(OBJDIR)/linkedlist.o  $(OBJDIR)/queue.o $(OBJDIR)/round_robin.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
 	$(CC)  $^ -o $@ -lm
 
-$(OBJDIR)/round_robin.o:  $(SRCDIR)/Round_Robin.c  $(SRCDIR)/process_def.h 
+$(OBJDIR)/round_robin.o:  scheduling_algorithms/Round_Robin.c  $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $<   -IdataStruct -Idisplay_manger -o $@
 
 
-$(OBJDIR)/fifo_algorithm.o:  $(SRCDIR)/fifo_algorithm.c $(SRCDIR)/process_def.h 
+$(OBJDIR)/fifo_algorithm.o:  scheduling_algorithms/fifo_algorithm.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $<   -IdataStruct -Idisplay_manger -o $@
 
 $(OBJDIR)/queue.o: dataStruct/queue.c dataStruct/queue.h  $(SRCDIR)/process_def.h dataStruct/node.h
