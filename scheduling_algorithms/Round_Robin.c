@@ -8,11 +8,11 @@
 #include <stdbool.h>
 
 
-#include "display_manger/display_conf.h" 
-#include "process_config/global_config.h"
-#include "dataStruct/linkedlist.h"
-#include "dataStruct/queue.h"
-#include "process_def.h" 
+#include "../display_manger/display_conf.h" 
+#include "../process_config/global_config.h"
+#include "../dataStruct/linkedlist.h"
+#include "../dataStruct/queue.h"
+#include "../process_def.h" 
 void update_bar_amani(int total_time, int time_done) {
     int percentage_done = time_done * 100 / total_time;
     int num_chars = (percentage_done * max_chars) / 100;
