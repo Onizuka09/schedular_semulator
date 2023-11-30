@@ -6,7 +6,6 @@
 #define YELLOW_TEXT "\x1b[33m"
 #define RESET_TEXT  "\x1b[0m"
 
-
 typedef enum {
 	green,
 	yellow,
@@ -20,8 +19,11 @@ typedef struct {
 	int priority; 
 	char name[10] ;
 	colors color;
+    int remaining_time;
+    int execution_time;// not te 
 
-}process_settings;
+}Process;
+
 
 #endif 
 

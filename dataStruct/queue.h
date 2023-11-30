@@ -1,25 +1,22 @@
 #ifndef QUEUE_H
 #define QUEUE_H
-#include "../process_def.h"
+#include "node.h"
 #include<stdbool.h>
-typedef struct 
-{ 
-	 process_settings proc ;  
-	struct node* nxt   ; 
- }node; 
+
 typedef  struct { 
 	node* head ; 
 	node* tail ;
  } queue; 
 
-void init_q (queue *q );
+void init_queue (queue *q );
 
-bool enqueue ( queue *q, process_settings *proc ) ;
+bool enqueue ( queue *q, Process *proc ) ;
 
-process_settings* dequeue ( queue *q) ;
+Process* dequeue ( queue *q) ;
 
+// void swap(Process* a,Process* b);
 
-void swap(process_settings* a,process_settings* b);
-void bsort(queue *q);
-
+void queue_bsort(queue *q);
+void display(queue *q);
+bool is_empty(queue* q); 
 #endif /* ifndef  */

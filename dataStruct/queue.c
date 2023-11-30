@@ -1,65 +1,74 @@
 #include "queue.h"
 #include<stdlib.h>
-void init_q (queue *q ) { 
+void init_queue (queue *q ) { 
 	q->head = NULL ; 
 	q->tail = NULL ;
 } 
 
 
-bool enqueue ( queue *q, process_settings *proc ) 
+bool enqueue ( queue *q, Process *proc ) 
 { 
 	node* nwnode = (node *)malloc( sizeof(node));
-
+	if (nwnode == NULL ) 
+		return false; 
 	nwnode->proc = *proc ; 
-	nwnode->nxt = NULL; 
+	nwnode->next = NULL; 
 	if ( q->tail == NULL && q->head == NULL) 
 	{ 
 		q->tail= q->head = nwnode ; 
-		return 0 ; 
+		return true  ; 
 	} 
-	q->tail->nxt = nwnode ; 
+	q->tail->next = nwnode ; 
 	q->tail = nwnode ; 
 	// if the lis is empty 
 
-return  0;
+return  true;
 } 
-process_settings* dequeue ( queue *q) 
-{	process_settings *proc = malloc(sizeof(process_settings));
+Process* dequeue ( queue *q) 
+{	Process *proc = malloc(sizeof(Process));
+	if (proc == NULL)
+		return NULL; 
 
-
-	if (q->head == NULL) return  0 ;
+	if (q->head == NULL) return  NULL ;
 	node  *tmp = q->head ; 
 	*proc = tmp->proc; 
 	if (q->tail == q->head ) 
 		q->tail = q->head = NULL ;
 	else { 
-
-	q->head = q->head->nxt ; 
+	q->head = q->head->next ; 
 	}	
 	free( tmp) ; 	
-		//printf("	-> the queue val : %d\n",res );
+
 	return proc ;	
 		 
 }
 
+void display(queue *q) {
+    node *tmp = q->head;
+    while (tmp != NULL) {
+        printf("%d", tmp->proc.te);
+        tmp = tmp->next;
+        printf(" | ");
+    }
+}
 
-void swap(process_settings* a,process_settings* b)
+static void swap(Process* a,Process* b)
 {
-	process_settings temp; 
+	Process temp; 
 	temp =*a; 
 	*a=*b; 
 	*b=temp;
 }
-void bsort(queue *q)
+void queue_bsort(queue *q)
 { 
 	node *i,*j ; 
 
 	bool state=false;
 //	i=q; 
 //	j=i->nxt; 
-	for (i=q->head;i!=NULL;i=i->nxt)
+	for (i=q->head;i!=NULL;i=i->next)
 	{
-	  for (j=i->nxt;j!=NULL;j=j->nxt)
+	  for (j=i->next;j!=NULL;j=j->next)
 	  {
 		{
 		  if (j->proc.ta < i->proc.ta)
@@ -72,3 +81,6 @@ return;
 }
 
 
+bool is_empty(queue* q) {
+    return q->head == NULL;
+}

@@ -17,11 +17,11 @@ int x=3,r,sum_ta=0 ;
 	printf("\n");
 	queue q1,wait_list ;
 
-	init_q(&q1) ; 	
-	init_q(&wait_list); 
-	process_settings *proc = malloc(sizeof(process_settings));
-    process_settings *proc2 = malloc(sizeof(process_settings));
-    process_settings *proc3 = malloc(sizeof(process_settings));
+	init_queue(&q1) ; 	
+	init_queue(&wait_list); 
+	Process *proc = malloc(sizeof(Process));
+    Process *proc2 = malloc(sizeof(Process));
+    Process *proc3 = malloc(sizeof(Process));
 
     printf("\nGenerating now time for each proc ...\n");
     // proc 1
@@ -48,7 +48,7 @@ int x=3,r,sum_ta=0 ;
     proc3->priority = 1;
     enqueue(&q1, proc3);
     sum_ta += proc3->te;
-	process_settings *tproc = malloc(sizeof(process_settings));
+	Process *tproc = malloc(sizeof(Process));
 /* 	printf("Generating now time for each proc ...\n");
 	for ( int i = 1 ; i<=x ; ++i) 
 	{
@@ -57,7 +57,8 @@ int x=3,r,sum_ta=0 ;
 		sum_ta +=proc->te ; 
 	}
 	*/
-	bsort(&q1);
+	queue_bsort(&q1);
+	// bsort;
 //	sleep(2); 
 	printf("\n"); 
 	
@@ -68,7 +69,7 @@ printf("\n");
 //while(
 		int c_time=0,wait_t=0,total_t=0 ,total_wait;
 total_t = 	q1.tail->proc.ta+q1.tail->proc.te   ;  
-		int max_ch = round((float)(50/total_t))+50;
+		// int max_ch = round((float)(50/total_t))+50;
 
 total_wait = total_t - sum_ta; 
 while (q1.head !=NULL) 

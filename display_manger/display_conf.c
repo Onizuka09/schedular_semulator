@@ -3,7 +3,7 @@
 
 int calculate_max_chars(int total_time)
 {
-    int max_ch = round((float)(max_chars/total_t))+max_chars;	
+    int max_ch = round((float)(max_chars/total_time))+max_chars;	
 	
 return max_ch;
 }

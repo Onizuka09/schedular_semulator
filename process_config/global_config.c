@@ -1,5 +1,5 @@
 #include "global_config.h"
-void get_userInput(process_settings* proc){ 
+void get_userInput(Process* proc){ 
 	//proc->name = malloc(255);
 	int cl=0;
 	printf("enter name: "); 
@@ -17,7 +17,7 @@ void get_userInput(process_settings* proc){
 return ;
 }
 
-static void printTable_view(process_settings* proc, int num_proc){
+static void printTable_view(Process* proc, int num_proc){
 int col=4  , ligne=num_proc; 
 //for (int i=0 ; i<col; ++i)
 //{
@@ -31,11 +31,11 @@ void printTable(queue *q1,int num_proc){
 	node *tmp = q1->head; 
     while (tmp!= NULL)
     {
-		process_settings proc = tmp->proc; 
+		Process proc = tmp->proc; 
 		//printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
 		printTable_view(&proc,num_proc);
 		printf("\n");
-		tmp=tmp->nxt;
+		tmp=tmp->next;
  
     }
 }

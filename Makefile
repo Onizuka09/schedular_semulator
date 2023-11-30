@@ -4,24 +4,29 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g 
 SRCDIR = .
 OBJDIR = obj
-BIN = main
+FIFO_bin = fifo
+RR_bin = round_robin 
 # Define targets
-all: $(BIN)
+all: $(FIFO_bin) 
 
-$(BIN): $(OBJDIR)/queue.o $(OBJDIR)/fifo_algorithm.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
+$(FIFO_bin): $(OBJDIR)/queue.o $(OBJDIR)/fifo_algorithm.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
 	$(CC)  $^ -o $@ -lm
 
-GANT: $(OBJDIR)/queue.o $(OBJDIR)/gantt_diag.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
-	$(CC)  $^ -o $@
+$(RR_bin): $(OBJDIR)/linkedlist.o  $(OBJDIR)/queue.o $(OBJDIR)/round_robin.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
+	$(CC)  $^ -o $@ -lm
 
-$(OBJDIR)/gantt_diag.o:  $(SRCDIR)/gantt_diagram.c  
+$(OBJDIR)/round_robin.o:  $(SRCDIR)/Round_Robin.c  $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $<   -IdataStruct -Idisplay_manger -o $@
 
 
 $(OBJDIR)/fifo_algorithm.o:  $(SRCDIR)/fifo_algorithm.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $<   -IdataStruct -Idisplay_manger -o $@
 
-$(OBJDIR)/queue.o: dataStruct/queue.c dataStruct/queue.h process_config/global_config.h $(SRCDIR)/process_def.h
+$(OBJDIR)/queue.o: dataStruct/queue.c dataStruct/queue.h  $(SRCDIR)/process_def.h dataStruct/node.h
+	$(CC) $(CFLAGS) -c $<   -o $@
+
+
+$(OBJDIR)/linkedlist.o: dataStruct/linkedlist.c dataStruct/linkedlist.h  $(SRCDIR)/process_def.h dataStruct/node.h
 	$(CC) $(CFLAGS) -c $<   -o $@
 
 obj/display.o: display_manger/display_conf.c display_manger/display_conf.h $(SRCDIR)/process_def.h dataStruct/queue.h 

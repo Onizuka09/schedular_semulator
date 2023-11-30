@@ -3,7 +3,7 @@
 #include"../display_manger/display_conf.h"
 #include "../process_def.h" 
 #include"../dataStruct/queue.h"
-void get_userInput(process_settings* proc);
+void get_userInput(Process* proc);
 
 void printTable(queue *q1,int num_proc);
 
