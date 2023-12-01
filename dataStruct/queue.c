@@ -1,3 +1,4 @@
+#include<stdio.h>
 #include "queue.h"
 #include<stdlib.h>
 void init_queue (queue *q ) { 
@@ -63,7 +64,7 @@ void queue_bsort(queue *q)
 { 
 	node *i,*j ; 
 
-	bool state=false;
+	//bool state=false;
 //	i=q; 
 //	j=i->nxt; 
 	for (i=q->head;i!=NULL;i=i->next)

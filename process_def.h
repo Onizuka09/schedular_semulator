@@ -24,6 +24,7 @@ typedef struct {
 
 }Process;
 
-
+Process mintempex;
+Process currentProcess;
 #endif 
 

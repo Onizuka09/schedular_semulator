@@ -1,90 +1,94 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-typedef struct process
-{
-    int DA;      // Date d'arrivee (Arrival time)
-    int TE;      // Temps d'execution (Execution time)
-    int tempsej; // Temps de sejour (Turnaround time)
-    int temfin;  
-    int pol;     // Politique
-    int priorite; 
-    int reste;   
-} process;
 
-#define max_chars 50
+#include "../display_manger/display_conf.h" 
+#include "../process_config/global_config.h"
+#include "../dataStruct/linkedlist.h"
+#include "../dataStruct/queue.h"
+#include "../process_def.h" 
 
-void update_bar(int total_time, int time_done)
-{
-    int percentage_done = time_done * 100 / total_time;
-    int num_chars = (percentage_done * max_chars) / 100;
-    printf("[");
-    for (int i = 0; i < num_chars; ++i)
-    {
-        printf("#");
-    }
-    for (int i = 0; i < max_chars - num_chars; ++i)
-    {
-        printf(" ");
-    }
 
-    printf("] %d%% done \n", percentage_done);
-    fflush(stdout);
-}
 
-int main()
-{
-    int i, j, k,nb, s;
-    process *proc;
-    process permut;
 
-    printf("Entrer le nombre de processus\n");
+int main() {
+    int nbr;
+    printf("How many processes do you need? ");
+    scanf("%d", &nbr);
+    // struct Process* currentProcess = NULL;
+    int currentTime = 0;
+    int completed = 0;
 
-    if (scanf("%d", &nb) != 1 || nb <= 0)
-    {
-        printf("Nombre de processus invalide. Le programme se termine.\n");
-        return 1;
+    node* tmp;
+    node *tete = NULL;
+    Process pr;
+   // Process currentProcess;
+
+    for (int i = 0; i < nbr; i++) {
+        printf("Enter the name of process %d: ", i + 1);
+        scanf("%s", pr.name);
+        printf("Enter the CPU units of process %d: ", i + 1);
+        scanf("%d", &pr.te);
+        printf("Enter the arrival date of process %d: ", i + 1);
+        scanf("%d", &pr.ta);
+        tmp = create_new_node(pr);
+        insert_at_head(&tete, tmp);
     }
 
+    printf("Unsorted linked list: ");
+    printlist(tete);
+
+    linkedlist_bubbleSort(&tete, nbr);
+    printf("Sorted linked list: ");
+    printlist(tete);
+
+    printf("Shortest Remaining Time (SRT) Scheduling:\n");
+
+/////////////////////////////////////////////////////////
+ queue file;
+    init_queue(&file);
+    enqueue(&file,&tete->proc);
+    int curs =tete->proc.ta;
+    printf("curs = %d",curs);
+    printf("\n");
+   tete = tete->next;
+
+
+   
     
-    proc = (process *)malloc(sizeof(process) * nb);
-
-    s = 0;
-
-    for (k = 0; k < nb; k++)
-    {
-        printf("entrer la date d'arrivee du processus (%d)\n", k+ 1);
-        scanf("%d", &proc[k].DA);
-        printf("entrer la duree d'execution du processus (%d)\n", k+ 1);
-        scanf("%d", &proc[k].TE);
-        s += proc[k].TE;
-    }
-
-    // Trier le tableau par ordre croissant de temps d'exécution
-    for (i = 0; i < nb - 1; i++)
-    {
-        for (j = 0; j < nb - i - 1; j++)
-        {
-            if (proc[j].TE > proc[j + 1].TE)
-            {
-                // Échanger les éléments
-                permut = proc[j];
-                proc[j] = proc[j + 1];
-                proc[j + 1] = permut;
-            }
+    
+   
+    while (completed < nbr) {
+        while (tete != NULL && tete->proc.ta <= currentTime) {
+           enqueue(&file,&tete->proc);
+           tete =tete->next;
         }
+
+        //struct Process mintempex = dequeue(&file);
+
+// Corrected access to process information
+if (mintempex.remaining_time > 0) {
+    currentProcess = mintempex;
+    printf("Executing process %s at time %d\n", currentProcess.name, currentTime);
+    currentProcess.remaining_time--;
+
+    if (currentProcess.remaining_time == 0) {
+        completed++;
+        printf("Process %s completed at time %d\n", currentProcess.name, currentTime);
     }
 
-    int rest = s;
-for (i = 0; i < nb; i++)
-{
-    printf("executing p%d avec te=%d\n", i, proc[i].TE);
-    rest -= proc[i].TE;
-    update_bar(s, rest);
-}
+    while (!is_empty(&file)) {
+    dequeue(&file);}
+}}
+   
+   
+    while (tete != NULL) {
+        node* temp =tete;
+       tete = tete->next;
+        free(temp);
+    }
 
-
-    free(proc); // Libérer la mémoire allouée dynamiquement
-
-    return 0;
+   
 }
