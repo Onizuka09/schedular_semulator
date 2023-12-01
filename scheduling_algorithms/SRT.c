@@ -8,10 +8,10 @@
 #include "../process_config/global_config.h"
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
-#include "../process_def.h" 
+#include "../process_def.h"
 
-
-
+Process mintempex;
+Process currentProcess;
 
 int main() {
     int nbr;
