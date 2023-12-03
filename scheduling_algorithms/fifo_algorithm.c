@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h> 
 #include <string.h>
-#include "dataStruct/queue.h"
-#include "display_manger/display_conf.h" 
-#include "process_config/global_config.h"
-#include "process_def.h" 
+#include "../dataStruct/queue.h"
+#include "../display_manger/display_conf.h" 
+#include "../process_config/global_config.h"
+#include "../process_def.h" 
  int main(void)
     
 {	
