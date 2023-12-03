@@ -2,4 +2,4 @@ build/
 main 
 menu
 obj/*
-.vscode
+.vscode/
