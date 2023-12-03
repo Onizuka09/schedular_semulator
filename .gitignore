@@ -2,3 +2,4 @@ obj/*.o
 main 
 menu
 obj/*
+.vscode
