@@ -14,15 +14,14 @@
 #define curs_pos "D" 
 #define forward "C"
 #define num_bars 1
-#define delete_line "k"
-#define delete_from_cur ESC CSI delete_line
-
-
+#define erase_in_line "k"
+#define erase_from_cur ESC CSI erase_in_line
+#define clear_line ESC CSI erase_in_line
 
 void pick_color(colors color, char* ch_color) ;
 colors intToColor(int value); 
-void update_bar(int total_time,int te,int time,colors cl,int max_ch); 
-void update_time( int total_time,int te,int time,colors cl,int max_ch) ;
+void update_bar(int total_time,int te,int time,colors cl); 
+void update_time( int total_time,int te,int time,colors cl) ;
 
 /*-----------------------------------------------------------*/
 
