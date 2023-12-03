@@ -6,7 +6,7 @@ int my_round(float num )
 	if (tmp <=5 )
 		return floor(num); 
 	else
-		return floor(num);
+		return floor(num)+1;
 	
 }
 int calculate_max_chars(int total_time)
