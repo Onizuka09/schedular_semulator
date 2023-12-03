@@ -15,7 +15,7 @@ $(FIFO_bin): $(OBJDIR)/queue.o $(OBJDIR)/fifo_algorithm.o $(OBJDIR)/proc.o $(OBJ
 $(RR_bin): $(OBJDIR)/linkedlist.o  $(OBJDIR)/queue.o $(OBJDIR)/round_robin.o $(OBJDIR)/proc.o $(OBJDIR)/display.o
 	$(CC)  $^ -o $@ -lm
 
-$(OBJDIR)/round_robin.o:  $(SRCDIR)/Round_Robin.c  $(SRCDIR)/process_def.h 
+$(OBJDIR)/round_robin.o:  scheduling_algorithms/Round_Robin.c  $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $<   -IdataStruct -Idisplay_manger -o $@
 
 

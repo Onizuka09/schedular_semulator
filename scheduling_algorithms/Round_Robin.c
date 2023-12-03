@@ -8,11 +8,11 @@
 #include <stdbool.h>
 
 
-#include "display_manger/display_conf.h" 
-#include "process_config/global_config.h"
-#include "dataStruct/linkedlist.h"
-#include "dataStruct/queue.h"
-#include "process_def.h" 
+#include "../display_manger/display_conf.h"
+#include "../process_config/global_config.h"
+#include "../dataStruct/linkedlist.h"
+#include "../dataStruct/queue.h"
+#include "../process_def.h" 
 void update_bar_amani(int total_time, int time_done) {
     int percentage_done = time_done * 100 / total_time;
     int num_chars = (percentage_done * max_chars) / 100;
@@ -42,9 +42,7 @@ void update_bar_amani(int total_time, int time_done) {
 
 int main() {
 
-    int nb ,qtm;
-    printf("How many processes do you need? ");
-    scanf("%d", &nb);
+    int qtm;
     printf("Quantum value ? ");
     scanf("%d", &qtm);
      /* n7awel nhotha fel for loop*/
@@ -52,7 +50,35 @@ int main() {
     node *Head =NULL;
     Process p ;
     int color; 
-     for (int i =0 ; i<nb;i++){
+
+    // Open the CSV file for reading
+    FILE *fpt;
+    fpt = fopen("file_manipulation/File.csv", "r");
+    if (fpt == NULL) {
+        fprintf(stderr, "Error opening the file.\n");
+        return 1;
+    }
+
+    
+
+// Read the header line from the CSV file
+    char buffer[100];
+    fgets(buffer, sizeof(buffer), fpt);
+
+    // Read the remaining lines from the CSV file
+    while (fgets(buffer, sizeof(buffer), fpt) != NULL) {
+        
+        // Parse the CSV line
+        if (sscanf(buffer, "%19[^,], %d, %d, %d", p.name, &p.te, &p.ta, &p.priority) == 4) {
+            // Create a new node and insert it into the linked list
+            tmp=create_new_node(p);
+            insert_at_head(&Head, tmp);
+            
+        }
+    }
+
+
+     /*for (int i =0 ; i<nb;i++){
          printf("enter the name  the process n %d: ",i+1);
          scanf("%s",p.name);
          printf("enter the CPU units of the process n %d: ",i+1);
@@ -61,14 +87,19 @@ int main() {
          scanf("%d",&p.ta);
          printf("enter the color%d: ",i+1);
          scanf ("%d",&color);
+
+         
          p.color = intToColor(color);
+
+
+
          tmp=create_new_node(p);
          insert_at_head(&Head, tmp);
-     }
+     }*/
     printlist(Head);
 
      //tri lel linked list
-    linkedlist_bubbleSort(&Head,nb);
+    linkedlist_bubbleSort(&Head,8);
     printf ("linked list is sorted : ");
     printlist(Head);
 
