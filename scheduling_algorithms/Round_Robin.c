@@ -8,7 +8,9 @@
 #include <stdbool.h>
 
 
-#include "../display_manger/display_conf.h"
+
+#include "../display_manger/display_conf.h" 
+
 #include "../process_config/global_config.h"
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
