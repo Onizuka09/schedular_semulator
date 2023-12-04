@@ -12,7 +12,7 @@ int my_round(float num )
 int calculate_max_chars(int total_time)
 {
 	float quotion = (float)max_chars / total_time;
-	int max_ch = my_round(quotion)+max_chars;
+	int max_ch = (floor(quotion) +1 )*total_time;
 	// printf("%d", max_ch);
 	return max_ch;
 }
