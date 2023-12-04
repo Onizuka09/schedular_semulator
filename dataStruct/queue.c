@@ -85,3 +85,46 @@ return;
 bool is_empty(queue* q) {
     return q->head == NULL;
 }
+
+
+// Fonction pour ajouter un processus à une file triée par priorité
+queue *enfilerTrieeParPriorite(queue *f, Process p) {
+    node *nouveauElement = (node *)malloc(sizeof(node));
+    nouveauElement->proc = p;
+    nouveauElement->next = NULL;
+
+    if (f == NULL || f->head == NULL || p.priority > f->head->proc.priority) {
+        // Cas spécial : le nouveau processus a une priorité plus élevée que tous les autres
+        nouveauElement->next = f->head;
+        f->head = nouveauElement;
+    } else {
+        node *courant = f->head;
+        while (courant->next != NULL && p.priority <= courant->next->proc.priority) {
+            courant = courant->next;
+        }
+        nouveauElement->next = courant->next;
+        courant->next = nouveauElement;
+    }
+
+    return f;
+}
+
+// Fonction pour extraire les processus de la file initiale et les placer dans une autre file
+queue *extraireParTempsEtPriorite(queue *f, int tempsActuel) {
+    queue *fileExtraite = NULL;
+
+    while (f != NULL && f->head != NULL && f->head->proc.ta <= tempsActuel) {
+        Process processusCourant = f->head->proc;
+
+        // Ajouter le processus à la file extraite triée par priorité
+        fileExtraite = enfilerTrieeParPriorite(fileExtraite, processusCourant);
+
+        // Supprimer le processus de la file initiale
+        node *temp = f->head;
+        f->head = f->head->next;
+        free(temp);
+    }
+
+    return fileExtraite;
+}
+

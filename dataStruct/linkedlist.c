@@ -63,4 +63,5 @@ int linkedlist_bubbleSort( node** head, int count)
         if (swapped == 0)
             break;
     }
+     return 0;
 }
