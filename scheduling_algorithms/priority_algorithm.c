@@ -8,7 +8,20 @@
 #include "../process_def.h"
 
 
+void afficherFile(queue *file) {
+    if (file == NULL || file->tail == 0) {
+        printf("La file est vide.\n");
+        return;
+    }
 
+    printf("Contenu de la file : ");
+    node *actuel = file->head;
+    while (actuel != NULL) {
+        printf("%d ", actuel->proc);  // Assurez-vous de changer le type de valeur en fonction de votre implémentation
+        actuel = actuel->next;
+    }
+    printf("\n");
+}
 
 void update_bar_priority(int total_time, int time_done) {
     int percentage_done = time_done * 100 / total_time;
@@ -39,7 +52,7 @@ void update_bar_priority(int total_time, int time_done) {
 int main() {
     node *tmp;
     node *Head = NULL;
-    Process p;
+    Process p , *proc;
     int color;
     
 
@@ -79,7 +92,42 @@ int main() {
 
     sleep(2);
     printf("Total Time is %d\n", sum);
+
+    int tempsActuel = 0;
+    queue *fileParPriorite = extraireParTempsEtPriorite(Head, tempsActuel);
+
+    afficherFile(fileParPriorite);
+
+    /* proc = &fileParPriorite->head->proc;
+
+    for (int i=0 ; i < proc->te+1; i++)
+    {
+         printf("#");
+    }
     
+    tempsActuel += proc->te;
+
+     printf("\n\nDone!\n"); 
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*     
       // Exécuter les processus triés par priorité
     for (int tempsActuel = 0; tempsActuel < sum;) {
         // Extraire les processus de la file initiale et les placer dans la file triée par priorité
@@ -110,7 +158,7 @@ int main() {
         update_bar_priority(sum, tempsActuel);
     }
 
-    printf("\n\nDone!\n");
+    printf("\n\nDone!\n"); */
 
     // ... (Libération de la mémoire, etc.)
 
