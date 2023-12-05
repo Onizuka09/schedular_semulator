@@ -1,29 +1,18 @@
+
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../display_manger/display_conf.h"
+
+
+
+#include "../display_manger/display_conf.h" 
+
 #include "../process_config/global_config.h"
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
-#include "../process_def.h"
-
-
-void afficherFile(queue *file) {
-    if (file == NULL || file->tail == 0) {
-        printf("La file est vide.\n");
-        return;
-    }
-
-    printf("Contenu de la file : ");
-    node *actuel = file->head;
-    while (actuel != NULL) {
-        printf("%d ", actuel->proc);  // Assurez-vous de changer le type de valeur en fonction de votre implémentation
-        actuel = actuel->next;
-    }
-    printf("\n");
-}
-
-void update_bar_priority(int total_time, int time_done) {
+#include "../process_def.h" 
+void update_bar_amani(int total_time, int time_done) {
     int percentage_done = time_done * 100 / total_time;
     int num_chars = (percentage_done * max_chars) / 100;
 
@@ -49,12 +38,15 @@ void update_bar_priority(int total_time, int time_done) {
     fflush(stdout);
 }
 
+
 int main() {
+
+  
+     /* n7awel nhotha fel for loop*/
     node *tmp;
-    node *Head = NULL;
-    Process p , *proc;
-    int color;
-    
+    node *Head =NULL;
+    Process p ;
+    int color, sum=0 ; 
 
     // Open the CSV file for reading
     FILE *fpt;
@@ -64,102 +56,73 @@ int main() {
         return 1;
     }
 
-    // Read the header line from the CSV file
+    
+
+// Read the header line from the CSV file
     char buffer[100];
     fgets(buffer, sizeof(buffer), fpt);
-   
+
     // Read the remaining lines from the CSV file
     while (fgets(buffer, sizeof(buffer), fpt) != NULL) {
+        
         // Parse the CSV line
         if (sscanf(buffer, "%19[^,], %d, %d, %d", p.name, &p.te, &p.ta, &p.priority) == 4) {
             // Create a new node and insert it into the linked list
-            
-            tmp = create_new_node(p);
+            tmp=create_new_node(p);
             insert_at_head(&Head, tmp);
+            sum+= sum+p.te;
+            
         }
     }
 
     printlist(Head);
-    int sum = 0;
-    for (tmp = Head; tmp != NULL; tmp = tmp->next) {
-        sum += tmp->proc.te;
-    }
 
-    // Tri de la liste chaînée
-    linkedlist_bubbleSort(&Head, 8);
-    printf("Linked list is sorted: ");
+     //tri lel linked list
+    linkedlist_bubbleSort(&Head,8);
+    printf ("linked list is sorted : ");
     printlist(Head);
 
-    sleep(2);
-    printf("Total Time is %d\n", sum);
 
-   /*  int tempsActuel = 0;
-    queue *fileParPriorite = extraireParTempsEtPriorite(Head, tempsActuel);
+  // priority non scheduling simulation
+    queue file;
+    init_queue(&file);
+    queue fileExecute;
+    init_queue(&fileExecute);
+    node *tmp1;
+    node *Head1 = NULL;
 
-    afficherFile(fileParPriorite); */
+    enqueue(&file, &Head->proc);
+    int curs = Head->proc.ta;
+    printf("curs = %d", curs);
+    printf("\n");
 
-    /* proc = &fileParPriorite->head->proc;
-
-    for (int i=0 ; i < proc->te+1; i++)
-    {
-         printf("#");
-    }
-    
-    tempsActuel += proc->te;
-
-     printf("\n\nDone!\n"); 
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-      // Exécuter les processus triés par priorité
-    for (int tempsActuel = 0; tempsActuel < sum;) {
-        // Extraire les processus de la file initiale et les placer dans la file triée par priorité
-        queue *fileParPriorite = extraireParTempsEtPriorite(Head, tempsActuel);
-
-        if (!is_empty(&fileParPriorite) ){
-            // Exécuter le processus en tête de la file triée par priorité
-            Process *processusEnCours = dequeue(fileParPriorite);
-
-            // Afficher l'exécution du processus
-            printf("Execution du processus %s pendant %d unités de temps\n", processusEnCours->name, processusEnCours->te);
-
-            // Mise à jour du temps actuel
-            tempsActuel += processusEnCours->te;
-
-            // Afficher l'état des processus après l'exécution
-            printf("Etat des processus après l'execution :\n");
-            printlist(fileParPriorite->head);
-
-            // Libérer la mémoire du processus en cours
-            free(processusEnCours);
-        } else {
-            // S'il n'y a pas de processus à exécuter à ce moment, incrémentez simplement le temps actuel
-            tempsActuel++;
+    while (!is_empty(&file) || Head != NULL) {
+        if (!is_empty(&file)) {
+            while (file.head->proc.ta <= curs) {
+                printf(".......");
+                Process *p1 = dequeue(&file);
+                printf(".........");
+                tmp1 = create_new_node_new(p1);
+                insert_at_head(&Head1, tmp1);
+                linkedlist_bubbleSortpriority(&Head1, 8);
+                printf("linked list is sorted by priority: ");
+                printlist(Head1);
+              /*   Head1 = Head1->next; */
+               file.head= file.head->next;
+                update_bar_amani(sum, p1->te);
+                printf("Process %s is executing for %d units \n", p1->name, p1->te);
+                free(p1);
+            }
+            curs += Head1->proc.te;
         }
 
-        // Mise à jour de la barre de progression
-        update_bar_priority(sum, tempsActuel);
+        // Assurez-vous que la file se vide correctement
+        if (Head != NULL) {
+            Head = Head->next;
+        }
     }
 
-    printf("\n\nDone!\n");
-
+    // ...
 
     return 0;
 }
