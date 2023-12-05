@@ -1,47 +1,41 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../process_def.h"
 
 
-int main(){
-    // Definition of the Process structure representing a process with name, CPU units, priority, and arrival date.
-    typedef struct Process{
-        char* Name;
-        int CPU_units;
-        int priority;
-        int Arrival_date;
-    }Process;
-
-    //create a csv file
+int main() {
+    // create a csv file
     FILE *fpt;
-    fpt = fopen("MyFile.csv", "w+");
-    fprintf(fpt,"Process_Name, CPU_units, Arrival_date, Priority\n");
+    fpt = fopen("File.csv", "w+");
+    fprintf(fpt, "Process_Name, te, ta, Priority\n");
+    int time();
+    srand((unsigned int)time(NULL));
 
-    int nb ;
-    printf ("How many processes do you need? ");
-    scanf("%d" ,&nb);
+    int nb_proc = rand() % 10 + 1;
 
-//Allocate memory for an array of processes.
-Process* tab= malloc(nb * sizeof(Process*));
+    // Allocate memory for an array of processes.
+    Process *tab = malloc(nb_proc * sizeof(Process));
 
-// lazem nasn3 nb process
-for (  int i=1;i<=nb ;i++) {
- //Name of the process
-    tab[i].Name = (char*)malloc(sizeof(char*));
-    printf (" Name Of process number %d",i);
-    scanf("%s" ,tab[i].Name);
-//cpu units
-    printf (" CPU units of process number %d",i);
-    scanf("%d" ,&tab[i].CPU_units);
-//Arrival date
-    printf (" Arrival date  of process number %d",i);
-    scanf("%d" ,&tab[i].Arrival_date);
-//Priority
-    printf ("priority  of process number %d",i);
-    scanf("%d" ,&tab[i].priority);
+    // lazem nasn3 nb process
+    for (int i = 0; i < nb_proc; i++) {
+        // Name of the process
+        sprintf(tab[i].name, "P%d", i + 1);
 
-fprintf(fpt, "%s, %d, %d, %d \n", tab[i].Name, tab[i].CPU_units, tab[i].Arrival_date, tab[i].priority);
-}
+        // cpu units
+        tab[i].te = rand() % 10 + 1;
 
-    return 0;
+        // Arrival date
+        tab[i].ta = rand() % 10 + 1;
+
+        // Priority
+        tab[i].priority = rand() % nb_proc + 1;
+
+        fprintf(fpt, "%s, %d, %d, %d\n", tab[i].name, tab[i].te, tab[i].ta, tab[i].priority);
+    }
+
+    free(tab); 
+
+    fclose(fpt);
+    return nb_proc;
 }
