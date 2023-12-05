@@ -19,6 +19,7 @@ tPRIORITY: create_BUILD_DIR $(PRIORITY_bin)
 $(FIFO_bin): $(BUILD_DIR)/queue.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
+
 $(RR_bin): $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/round_robin.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
@@ -30,6 +31,7 @@ $(PRIORITY_bin): $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/pri
 
 $(BUILD_DIR)/round_robin.o: scheduling_algorithms/Round_Robin.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
+
 
 $(BUILD_DIR)/fifo_algorithm.o: scheduling_algorithms/fifo_algorithm.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@

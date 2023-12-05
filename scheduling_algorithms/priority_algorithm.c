@@ -93,10 +93,10 @@ int main() {
     sleep(2);
     printf("Total Time is %d\n", sum);
 
-    int tempsActuel = 0;
+   /*  int tempsActuel = 0;
     queue *fileParPriorite = extraireParTempsEtPriorite(Head, tempsActuel);
 
-    afficherFile(fileParPriorite);
+    afficherFile(fileParPriorite); */
 
     /* proc = &fileParPriorite->head->proc;
 
@@ -127,7 +127,7 @@ int main() {
 
 
 
-/*     
+    
       // Exécuter les processus triés par priorité
     for (int tempsActuel = 0; tempsActuel < sum;) {
         // Extraire les processus de la file initiale et les placer dans la file triée par priorité
@@ -158,9 +158,8 @@ int main() {
         update_bar_priority(sum, tempsActuel);
     }
 
-    printf("\n\nDone!\n"); */
+    printf("\n\nDone!\n");
 
-    // ... (Libération de la mémoire, etc.)
 
     return 0;
 }
