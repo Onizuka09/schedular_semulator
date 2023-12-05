@@ -29,7 +29,7 @@ $(BUILD_DIR)/round_robin.o: scheduling_algorithms/Round_Robin.c $(SRCDIR)/proces
 $(BUILD_DIR)/fifo_algorithm.o: scheduling_algorithms/fifo_algorithm.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
 
-$(BUILD_DIR)/srt.o: scheduling_algorithms/SRT_moktar.c $(SRCDIR)/process_def.h 
+$(BUILD_DIR)/srt.o: scheduling_algorithms/SRT_2.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
 
 $(BUILD_DIR)/queue.o: dataStruct/queue.c dataStruct/queue.h $(SRCDIR)/process_def.h dataStruct/node.h
