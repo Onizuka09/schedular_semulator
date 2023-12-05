@@ -81,24 +81,7 @@ int main() {
     }
 
 
-     /*for (int i =0 ; i<nb;i++){
-         printf("enter the name  the process n %d: ",i+1);
-         scanf("%s",p.name);
-         printf("enter the CPU units of the process n %d: ",i+1);
-         scanf("%d",&p.te);
-         printf("enter the Arrival date of the process n %d: ",i+1);
-         scanf("%d",&p.ta);
-         printf("enter the color%d: ",i+1);
-         scanf ("%d",&color);
-
-         
-         p.color = intToColor(color);
-
-
-
-         tmp=create_new_node(p);
-         insert_at_head(&Head, tmp);
-     }*/
+     
     printlist(Head);
 
      //tri lel linked list
