@@ -17,7 +17,7 @@ void get_userInput(Process* proc){
 return ;
 }
 
-static void printTable_view(Process* proc, int num_proc){
+void printTable_view(Process* proc, int num_proc){
 int col=4  , ligne=num_proc; 
 //for (int i=0 ; i<col; ++i)
 //{
@@ -36,7 +36,20 @@ void printTable(queue *q1,int num_proc){
 		printTable_view(&proc,num_proc);
 		printf("\n");
 		tmp=tmp->next;
- 
     }
+	printf("\n");
 }
-
+void printTable_linkedList(node *head, int num_proc)
+{
+	node *tmp = head;
+	printf("P_name\tTa\tTe\tPriority\n");
+	while (tmp != NULL)
+	{
+		Process proc = tmp->proc;
+		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
+		printTable_view(&proc, num_proc);
+		printf("\n");
+		tmp = tmp->next;
+	}
+	printf("\n");
+}
