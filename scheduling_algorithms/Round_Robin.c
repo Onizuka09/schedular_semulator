@@ -15,31 +15,7 @@
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
 #include "../process_def.h" 
-void update_bar_amani(int total_time, int time_done) {
-	int percentage_done = time_done * 100 / total_time;
-	int num_chars = (percentage_done * max_chars) / 100;
 
-	// Choose color based on the progress percentage
-	const char *color_code;
-	if (percentage_done < 50) {
-		color_code = RED_TEXT;
-	} else if (percentage_done < 80) {
-		color_code = YELLOW_TEXT;
-	} else {
-		color_code = GREEN_TEXT;
-	}
-
-	// Print the colored progress bar
-	printf("%s[", color_code);
-	for (int i = 0; i < num_chars; ++i) {
-		printf("#");
-	}
-	for (int i = 0; i < max_chars - num_chars; ++i) {
-		printf(" ");
-	}
-	printf("] %d%% done%s\n", percentage_done, RESET_TEXT);
-	fflush(stdout);
-}
 int calculate_simulation_time(node *head)
 {
 	int total_t = 0;
@@ -102,21 +78,22 @@ int main() {
 
 
 	 
-	printlist(Head);
+//	printlist(Head);
 
 	 //tri lel linked list
-	linkedlist_bubbleSort(&Head,nb_proc);
+ 
+    linkedlist_bubbleSort(&Head,nb_proc);
+/*  
 	printf ("linked list is sorted : ");
 	printlist(Head);
-
-
-// Round-robin scheduling simulation
-
+*/
+printTable_linkedList(Head,0);  // Round-robin scheduling simulation
+	printf("Round Robin simulation \n"); 
 	int total_t;
 	total_t = calculate_simulation_time(Head);
 	queue wait_list;
 	init_queue(&wait_list);
-	printf("total time %d \n",total_t );
+	printf("Total simulation time %d \n",total_t );
 
 	enqueue(&wait_list,&Head->proc);
 	int c_time = 0,wait_time=0;  
@@ -148,13 +125,7 @@ int main() {
 			} else {
 				p1->execution_time = p1->te;
 			}
-			// printf("____________________________________________________________");
-			// printf("\n");
-			// printf(" at t =  %d : ",curs);
-			// update_bar_amani(p1->te,p1->execution_time);
-			// printf("Process %s is executing for %d units \n", p1->name,p1->execution_time);
-			
-			printf(clear_line);
+
 			fflush(stdout);
 			printf("\rexecuting proc %s for %d \n", p1->name, p1->execution_time);
 
@@ -165,11 +136,9 @@ int main() {
 
 			p1->te -= p1->execution_time;
 
-			//printf("\n");
 			curs =  curs + p1->execution_time;
 			c_time += p1->execution_time;
 
-			// printf("\n");
 
 			while (Head != NULL && Head->proc.ta <= curs) {
 				enqueue(&wait_list, &Head->proc);
@@ -179,13 +148,9 @@ int main() {
 			if (p1->te > 0) {
 				enqueue(&wait_list, p1);
 			} else {
-				// printf("Process %s is terminated\n", p1->name);
 				tempRot = tempRot + (curs-p1->ta);
 				temAtt = temAtt + (tempRot-te);
-				// printf("%d",temAtt);
-				// printf("\n");
-				// printf("________________________________________________________");
-				// printf("\n");
+	
 			}
 		}else{
 			enqueue(&wait_list,&Head->proc);
@@ -195,7 +160,7 @@ int main() {
 
 	}
 	
-	printf("\n \n \n ");
+	printf("\n\n\n");
 	printf("done\n");
 	int tempRotMoy = tempRot / nb_proc;
 	int temAttMoy = temAtt/nb_proc;
