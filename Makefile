@@ -36,7 +36,7 @@ $(BUILD_DIR)/round_robin.o: scheduling_algorithms/Round_Robin.c $(SRCDIR)/proces
 $(BUILD_DIR)/fifo_algorithm.o: scheduling_algorithms/fifo_algorithm.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
 
-$(BUILD_DIR)/srt.o: scheduling_algorithms/SRT.c $(SRCDIR)/process_def.h 
+$(BUILD_DIR)/srt.o: scheduling_algorithms/SRT_2.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
 
 $(BUILD_DIR)/priority_algorithm.o: scheduling_algorithms/priority_algorithm.c $(SRCDIR)/process_def.h 

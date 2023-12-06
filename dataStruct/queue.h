@@ -14,9 +14,15 @@ bool enqueue ( queue *q, Process *proc ) ;
 
 Process* dequeue ( queue *q) ;
 
+<<<<<<< HEAD
 
+=======
+// void swap(Process* a,Process* b);
+void queue_bsort_te(queue *q);
+>>>>>>> 432c11562221fdcfbdc7c3c13efd6064dca847e6
 
 void queue_bsort(queue *q);
+void queue_bsort_1(queue *q);
 void display(queue *q);
 bool is_empty(queue* q); 
 
