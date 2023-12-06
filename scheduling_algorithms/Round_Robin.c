@@ -44,7 +44,7 @@ void update_bar_amani(int total_time, int time_done) {
 
 int main() {
 
-    int qtm;
+    int qtm , nb_proc=0;
     printf("Quantum value ? ");
     scanf("%d", &qtm);
      /* n7awel nhotha fel for loop*/
@@ -75,6 +75,7 @@ int main() {
             // Create a new node and insert it into the linked list
             tmp=create_new_node(p);
             insert_at_head(&Head, tmp);
+            nb_proc++;
             
         }
     }
@@ -101,7 +102,7 @@ int main() {
     printlist(Head);
 
      //tri lel linked list
-    linkedlist_bubbleSort(&Head,8);
+    linkedlist_bubbleSort(&Head,nb_proc);
     printf ("linked list is sorted : ");
     printlist(Head);
 
