@@ -106,6 +106,31 @@ void queue_bsort_1(queue *q)
 
 	return;
 }
+void queue_bsort_2(queue *q)
+{
+	node *i, *j;
+
+	// bool state=false;
+	//	i=q;
+	//	j=i->nxt;
+	for (i = q->head; i != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			{
+				if (j->proc.ta < i->proc.ta)
+					swap(&(j->proc), &(i->proc));
+				else if (j->proc.ta == i->proc.ta)
+				{
+					if ((j->proc.priority > i->proc.priority))
+						swap(&(j->proc), &(i->proc));
+				}
+			}
+		}
+	}
+
+	return;
+}
 void queue_bsort_te(queue *q)
 {
 	node *i, *j;
@@ -131,6 +156,33 @@ void queue_bsort_te(queue *q)
 
 	return;
 }
+
+void queue_bsort_priority(queue *q)
+{
+	node *i, *j;
+
+	// bool state=false;
+	//	i=q;
+	//	j=i->nxt;
+	for (i = q->head; i != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			{
+				if (j->proc.priority > i->proc.priority)
+					swap(&(j->proc), &(i->proc));
+				else if (j->proc.priority == i->proc.priority)
+				{
+					if ((j->proc.ta < i->proc.ta))
+						swap(&(j->proc), &(i->proc));
+				}
+			}
+		}
+	}
+
+	return;
+}
+
 
 bool is_empty(queue* q) {
     return q->head == NULL;
