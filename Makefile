@@ -23,11 +23,13 @@ $(FIFO_bin): $(BUILD_DIR)/queue.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/pro
 $(RR_bin): $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/round_robin.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
+
 $(SRT_bin): $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/srt.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
 $(PRIORITY_bin): $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/priority_algorithm.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
+
 
 $(BUILD_DIR)/round_robin.o: scheduling_algorithms/Round_Robin.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@

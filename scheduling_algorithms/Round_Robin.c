@@ -44,7 +44,7 @@ void update_bar_amani(int total_time, int time_done) {
 
 int main() {
 
-    int qtm;
+    int qtm , nb_proc=0 , tempRot=0 , temAtt =0;
     printf("Quantum value ? ");
     scanf("%d", &qtm);
      /* n7awel nhotha fel for loop*/
@@ -75,33 +75,17 @@ int main() {
             // Create a new node and insert it into the linked list
             tmp=create_new_node(p);
             insert_at_head(&Head, tmp);
+            nb_proc++;
             
         }
     }
 
 
-     /*for (int i =0 ; i<nb;i++){
-         printf("enter the name  the process n %d: ",i+1);
-         scanf("%s",p.name);
-         printf("enter the CPU units of the process n %d: ",i+1);
-         scanf("%d",&p.te);
-         printf("enter the Arrival date of the process n %d: ",i+1);
-         scanf("%d",&p.ta);
-         printf("enter the color%d: ",i+1);
-         scanf ("%d",&color);
-
-         
-         p.color = intToColor(color);
-
-
-
-         tmp=create_new_node(p);
-         insert_at_head(&Head, tmp);
-     }*/
+     
     printlist(Head);
 
      //tri lel linked list
-    linkedlist_bubbleSort(&Head,8);
+    linkedlist_bubbleSort(&Head,nb_proc);
     printf ("linked list is sorted : ");
     printlist(Head);
 
@@ -118,13 +102,13 @@ int main() {
     printf("curs = %d",curs);
     printf("\n");
     Head = Head->next;
-    
+    int te;
 
     while (!is_empty(&file) || Head != NULL ) {
         if (!is_empty(&file)) {
 
             Process *p1 = dequeue(&file);
-
+            te=p1->te;
             if (p1->te >= qtm) {
                 p1->execution_time = qtm;
             } else {
@@ -135,6 +119,8 @@ int main() {
             printf(" at t =  %d : ",curs);
             update_bar_amani(p1->te,p1->execution_time);
             printf("Process %s is executing for %d units \n", p1->name,p1->execution_time);
+            
+            
 
             p1->te -= p1->execution_time;
 
@@ -152,6 +138,9 @@ int main() {
                 enqueue(&file, p1);
             } else {
                 printf("Process %s is terminated\n", p1->name);
+                tempRot = tempRot + (curs-p1->ta);
+                temAtt = temAtt + (tempRot-te);
+                printf("%d",temAtt);
                 printf("\n");
                 printf("________________________________________________________");
                 printf("\n");
@@ -163,5 +152,8 @@ int main() {
         }
 
     }
-
+    int tempRotMoy = tempRot/nb_proc;
+    int temAttMoy = temAtt/nb_proc;
+printf("temp de rotation moy = %d ",tempRotMoy);
+printf("temp d'attente moy = %d ",temAttMoy);
 }
