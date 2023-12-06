@@ -8,6 +8,13 @@ node *create_new_node(Process value){
         result->next =NULL;
         return result;
 }
+
+node *create_new_node_new(Process *value){
+        node *result = malloc(sizeof(node));
+        result->proc = *value;
+        result->next =NULL;
+        return result;
+}
 node *insert_at_head(node **head, node *node_to_insert){
     node_to_insert->next = *head;
     *head = node_to_insert;
@@ -63,4 +70,39 @@ int linkedlist_bubbleSort( node** head, int count)
         if (swapped == 0)
             break;
     }
+     return 0;
+}
+
+
+/* Function to sort the list */
+int linkedlist_bubbleSortpriority( node** head, int count)
+{
+     node** h;
+    int i, j, swapped;
+
+    for (i = 0; i <= count; i++) {
+
+        h = head;
+        swapped = 0;
+
+        for (j = 0; j < count - i - 1; j++) {
+
+             node* p1 = *h;
+             node* p2 = p1->next;
+
+            if (p1->proc.priority > p2->proc.priority) {
+
+                /* update the link after swapping */
+                *h = swap(p1, p2);
+                swapped = 1;
+            }
+
+            h = &(*h)->next;
+        }
+
+        /* break if the loop ended without any swap */
+        if (swapped == 0)
+            break;
+    }
+     return 0;
 }

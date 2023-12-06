@@ -1,6 +1,8 @@
+
 Process_Name, te, ta, Priority
 P1, 5, 0, 3
 P2, 3, 1, 2
 P3, 1, 2, 4
 P4, 2, 4, 1
+
 

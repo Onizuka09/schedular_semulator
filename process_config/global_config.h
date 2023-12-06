@@ -6,10 +6,9 @@
 void get_userInput(Process* proc);
 
 void printTable(queue *q1,int num_proc);
-
+void printTable_linkedList(node *head, int num_proc);
+void printTable_view(Process *proc, int num_proc);
 /*----------------------------------------*/
-
-
 
 #endif /* ifndef  */
 
