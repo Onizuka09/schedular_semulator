@@ -3,9 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-
-
 #include "../display_manger/display_conf.h" 
 
 #include "../process_config/global_config.h"
@@ -47,6 +44,7 @@ int main() {
     node *Head =NULL;
     Process p ;
     int color, sum=0 ; 
+    int nb_proc=0, nb_proc1=0;
 
     // Open the CSV file for reading
     FILE *fpt;
@@ -70,6 +68,7 @@ int main() {
             // Create a new node and insert it into the linked list
             tmp=create_new_node(p);
             insert_at_head(&Head, tmp);
+            nb_proc++;
             sum+= sum+p.te;
             
         }
@@ -78,7 +77,8 @@ int main() {
     printlist(Head);
 
      //tri lel linked list
-    linkedlist_bubbleSort(&Head,8);
+    linkedlist_bubbleSort(&Head,nb_proc);
+
     printf ("linked list is sorted : ");
     printlist(Head);
 
@@ -102,13 +102,15 @@ int main() {
                 printf(".......");
                 Process *p1 = dequeue(&file);
                 printf(".........");
-                tmp1 = create_new_node_new(p1);
+                tmp1 = create_new_node(*p1);
                 insert_at_head(&Head1, tmp1);
-                linkedlist_bubbleSortpriority(&Head1, 8);
+                nb_proc1++;
+                linkedlist_bubbleSortpriority(&Head1, nb_proc1);
+
                 printf("linked list is sorted by priority: ");
                 printlist(Head1);
               /*   Head1 = Head1->next; */
-               file.head= file.head->next;
+                file.head= file.head->next;
                 update_bar_amani(sum, p1->te);
                 printf("Process %s is executing for %d units \n", p1->name, p1->te);
                 free(p1);
@@ -122,7 +124,7 @@ int main() {
         }
     }
 
-    // ...
+
 
     return 0;
 }
