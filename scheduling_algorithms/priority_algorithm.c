@@ -97,7 +97,7 @@ int main() {
     printf("\n");
 
     while (!is_empty(&file) || Head != NULL) {
-        if (!is_empty(&file)) {
+        if (!is_empty(&file)) { 
             while (file.head->proc.ta <= curs) {
                 printf(".......");
                 Process *p1 = dequeue(&file);
