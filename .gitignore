@@ -5,3 +5,4 @@ obj/*
 .vscode/
 test
 test_color.c
+file_manipulation/file.csv
