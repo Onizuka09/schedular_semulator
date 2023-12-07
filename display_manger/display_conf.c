@@ -189,6 +189,7 @@ void update_time( int total_time,int te,int time,colors cl) {
 
 //	int p_te =my_round( (float)(te*100)/total_time);
 	int num_chars =my_round( (float)(te * max_ch) /total_time) ;
+	int num_points; 
 if (time !=0) 
 {
 printf(ESC CSI "%d" forward,written_chars+1);
@@ -199,11 +200,19 @@ else {
     printf(" "); 
 }
 printf("%d",time);
-for (int i = 0 ; i<num_chars-2; i++){
+num_points = num_chars - 1;
+if (time >= 10 && time <= 100)
+	num_points = num_chars - 2;
+for (int i = 0 ; i<num_points; i++){
 printf(".");
 }
-printf("%d\n",te); 
-
-	fflush(stdout); 
+if (total_time == te)
+{
+	printf(ESC CSI erase_in_line);
+	printf("%d Time(s)\n", te);
+}
+else 
+	printf("\n");
+fflush(stdout);
 }
     
