@@ -16,7 +16,7 @@ tRR: create_BUILD_DIR $(RR_bin)
 tSRT: create_BUILD_DIR $(SRT_bin)
 tPRIORITY: create_BUILD_DIR $(PRIORITY_bin)
 
-$(FIFO_bin): $(BUILD_DIR)/queue.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
+$(FIFO_bin): $(BUILD_DIR)/queue.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
 
@@ -50,11 +50,11 @@ $(BUILD_DIR)/queue.o: dataStruct/queue.c dataStruct/queue.h $(SRCDIR)/process_de
 $(BUILD_DIR)/linkedlist.o: dataStruct/linkedlist.c dataStruct/linkedlist.h $(SRCDIR)/process_def.h dataStruct/node.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/display.o: display_manger/display_conf.c display_manger/display_conf.h $(SRCDIR)/process_def.h dataStruct/queue.h 
+$(BUILD_DIR)/display.o: display_manger/display_conf.c display_manger/display_conf.h process_config/global_config.h $(SRCDIR)/process_def.h dataStruct/queue.h 
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/proc.o: process_config/global_config.c process_config/global_config.h dataStruct/queue.h $(SRCDIR)/process_def.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/conf.o: process_config/global_config.c process_config/global_config.h $(SRCDIR)/process_def.h
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
 create_BUILD_DIR: 
 	mkdir -p $(PWD)/$(BUILD_DIR)
