@@ -18,28 +18,115 @@ int calculate_max_chars(int total_time)
 }
 
 void pick_color(colors color, char* ch_color) {
+	switch (color)
+	{
+		case E_RESET_C:
+			strcpy(ch_color, RESET);
+			break;
+
+		case E_BLACK_C:
+			strcpy(ch_color, BLACK);
+			break;
+		
+		case E_GREY_C:
+			strcpy(ch_color, GREY);
+			break;
+		
+		case E_RED_C:
+			strcpy(ch_color, RED);
+			break;
+
+		case E_GREEN_C:
+			strcpy(ch_color, GREEN);
+			break;
+
+		case E_YELLOW_C:
+			strcpy(ch_color, YELLOW);
+			break;
+
+		case E_BLUE_C:
+			strcpy(ch_color, BLUE);
+			break;
+
+		case E_PURPLE_C:
+			strcpy(ch_color, PURPLE);
+			break;
+
+		case E_CYAN_C:
+			strcpy(ch_color, CYAN);
+			break;
+
+		case E_BRIGHT_GREY_C:
+			strcpy(ch_color, BRIGHT_GREY);
+			break;
+
+		case E_BRIGHT_RED_C:
+			strcpy(ch_color, BRIGHT_RED);
+			break;
+
+		case E_BRIGHT_GREEN_C:
+			strcpy(ch_color, BRIGHT_GREEN);
+			break;
+
+		case E_BRIGHT_YELLOW_C:
+			strcpy(ch_color, BRIGHT_YELLOW);
+			break;
+
+		case E_BRIGHT_BLUE_C:
+			strcpy(ch_color, BRIGHT_BLUE);
+			break;
+
+		case E_BRIGHT_PURPLE_C:
+			strcpy(ch_color, BRIGHT_PURPLE);
+			break;
+
+		case E_BRIGHT_CYAN_C:
+			strcpy(ch_color, BRIGHT_CYAN);
+			break;
+
+		default  :
+			strcpy(ch_color, RESET);
+		break;
+	}
 
 
-    if (color == green)
-        strcpy(ch_color, GREEN_TEXT);
-    else if (color == red)
-        strcpy(ch_color, RED_TEXT);
-    else if (color == yellow)
-        strcpy(ch_color, YELLOW_TEXT);
-    else
-        strcpy(ch_color, RESET_TEXT);
+
 }
 
 colors intToColor(int value) {
     switch (value) {
-        case 0:
-            return green;
         case 1:
-            return yellow;
+            return E_BLACK_C;
         case 2:
-            return red;
-        default:
-            return reset;
+            return E_GREY_C;
+        case 3:
+            return E_RED_C;
+		case 4:
+			return E_GREEN_C;
+		case 5:
+			return E_YELLOW_C;
+		case 6:
+			return E_BLUE_C;
+		case 7:
+			return E_BLUE_C;
+		case 8:
+			return E_CYAN_C;
+		case 9:
+			return E_BRIGHT_GREY_C;
+		case 10:
+			return E_BRIGHT_RED_C;
+		case 11:
+			return E_BRIGHT_GREEN_C;
+		case 12:
+			return E_BRIGHT_YELLOW_C;
+		case 13:
+			return E_BRIGHT_BLUE_C;
+		case 14:
+			return E_BRIGHT_PURPLE_C;
+		case 15:
+			return E_BRIGHT_CYAN_C;
+		default:
+			return E_BLACK_C;
     }
 }
 
@@ -80,7 +167,7 @@ int written_chars = my_round((float)(time * max_ch) / total_time);
 		printf(" ");
 	}
 
-	printf(RESET_TEXT"] %d%% done\n",p_ct);
+	printf(RESET"] %d%% done\n",p_ct);
 	fflush(stdout); 
 }
 

@@ -185,9 +185,9 @@ int main() {
 			printf(clear_line);
 			fflush(stdout);
 			printf("\rwaiting for %d \n", wait_time);
-			
-			update_bar(total_t, wait_time, c_time, reset);
-			update_time(total_t, wait_time, c_time, reset);
+
+			update_bar(total_t, wait_time, c_time, E_RESET_C);
+			update_time(total_t, wait_time, c_time, E_RESET_C);
 			sleep(wait_time);
 			printf(ESC CSI "%d" previousLine, 3);
 			c_time += wait_time;
@@ -218,78 +218,30 @@ int main() {
 			// printf("%d ",c_time);
 			}
 		}
-		}
-		queue_bsort_te(&wait_list);
-		// printf("a");
-		while (!is_empty(&wait_list))
-		{ // fifo
-			// te=0;
-			w_proc = dequeue(&wait_list);
-
-			te = w_proc->remaining_time;
-			printf("\rexcuting porc %s for %d\n", w_proc->name, te);
-			fflush(stdout);
-			update_bar(total_t, te, c_time, w_proc->color);
-
-			update_time(total_t, te, c_time, w_proc->color);
-
-			printf(ESC CSI "%d" previousLine, 3);
-			sleep(te);
-			c_time += te;
-			}
-		printf("\n\n\n");
-		printf("done \n");
-
-		// pr.remaining_time= pr.te;
-		// chead->proc.remaining_time = 1;
-		/*
-			while (completed < nbr)
-			{
-				while (chead != NULL && chead->proc.ta == currentTime &&  chead->proc.remaining_time>0 )
-				{
-					enqueue(&file,&chead->proc);
-					chead =chead->next;
-				}
-				while (!is_empty(&file))
-				{
-					Process *mintempex = dequeue(&file);// on fixé que le head de que est le min temps d'escution chaque fois
-					printf("mintex= %d\n",mintempex->remaining_time);
-					printf("pr= %d\n",pr.remaining_time);
-					if (pr.remaining_time > mintempex->remaining_time&& mintempex->remaining_time > 0 && mintempex->ta == currentTime)
-					{//si temps a executé du process actuelle superieur a min on inverse et on boucle jusqu'a le file est terminé
-						pr=*mintempex;
-						printf("Process %s avec le min de temps execution\n", pr.name);
-						printf("nom du prcess avec min tex %s\n",pr.name);
-					}
-				}
-				printf("p=%s\n ",pr.name);
-				pr.execution_time++;
-				printf("execution_time= %d\n",pr.te);
-				pr.remaining_time--;
-				printf("remaining_time= %d\n",pr.remaining_time);
-				currentTime++;
-				printf("currenttime= %d\n",currentTime);
-				printf("____________________________________________________________");
-				printf("\n");
-				// printf(" at t =  %d : ",chead);
-				update_bar_amani_copie(pr.te,pr.te);
-				printf("Process %s is executing for %d units \n", pr.name,pr.te);
-				if (mintempex->proc.remaining_time == 0)
-				{
-					tre= tre+currentTime-pr.ta;
-					tat =tat +tre-pr.te;
-					completed++;
-					printf("completed%d",completed);
-					printf("Process %s is terminated\n", pr.name);
-					printf("\n");
-					printf("________________________________________________________");
-					printf("\n");
-				}
-			}
+	}
+	queue_bsort_te(&wait_list);
+		
+	while (!is_empty(&wait_list))
+	{ // fifo
+		
+		w_proc = dequeue(&wait_list);
+		te = w_proc->remaining_time;
+		printf("\rexcuting porc %s for %d\n", w_proc->name, te);
+		fflush(stdout);
+		update_bar(total_t, te, c_time, w_proc->color);
+		update_time(total_t, te, c_time, w_proc->color);
+		printf(ESC CSI "%d" previousLine, 3);
+		sleep(te);
+		c_time += te;
+	}
+	printf("\n\n\n");
+	printf("done \n");
+/*
 			MOYTR =tre/nbr;
 			MOYTA =tat /nbr;
 			printf("MOYTR%f",MOYTR);
 			*/
+
 		return 0;
 }
 
@@ -298,18 +250,4 @@ int main() {
 
 
 
-
-//printf("le moyenne temps de rotat ion totale = %f\n", MOYTR);
-//printf("le moyenne temps d'attente totale = %f\n", MOYTA);
-
-   
-   /*while (tete != NULL) {
-		node* temp =tete;
-	   tete = tete->next;
-		free(temp);*/
-	//}
-
-  /*while (!is_empty(&file)) {
-	dequeue(&file);
-	}*/
 	

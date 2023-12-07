@@ -3,6 +3,9 @@
         "type_traits": "c",
         "node.h": "c",
         "queue.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "memory": "c",
+        "random": "c",
+        "optional": "c"
     }
 }

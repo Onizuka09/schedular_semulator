@@ -112,8 +112,8 @@ printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 				fflush(stdout);
 				printf("\rwaiting for %d \n", wait_time);
 
-				update_bar(total_t, wait_time, c_time, reset);
-				update_time(total_t, wait_time, c_time, reset);
+				update_bar(total_t, wait_time, c_time, E_RESET_C);
+				update_time(total_t, wait_time, c_time, E_RESET_C);
 				sleep(wait_time);
 				printf(ESC CSI "%d" previousLine, 3);
 				c_time += wait_time;
