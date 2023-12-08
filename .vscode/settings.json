@@ -6,6 +6,8 @@
         "typeinfo": "c",
         "memory": "c",
         "random": "c",
-        "optional": "c"
+        "optional": "c",
+        "global_config.h": "c",
+        "csv_file_manip.h": "c"
     }
 }
