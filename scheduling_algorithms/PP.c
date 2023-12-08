@@ -93,7 +93,8 @@ printf("\n");
      c_time = 0 ; 
     // wait list awel proc liked list
     // likend list pas
-    while (curs < total_t)
+    //TODO: create a function that get the last process arrival time 
+    while (curs <=9) // last p.ta in my list 
     {
         // printf(" curs = %d",curs);
         // printf("\n");
@@ -151,6 +152,26 @@ printf("\n");
     }
     
 }
+linkedlist_bubbleSortpriority(&Head2, l2);
+while (Head2!= NULL){
+
+    printf(clear_line);
+    fflush(stdout);
+    printf("\rexecuting proc %s for %d \n", Head2->proc.name, Head2->proc.te);
+    update_bar(total_t, Head2->proc.te, c_time, Head2->proc.color);
+    update_time(total_t, Head2->proc.te, c_time, Head2->proc.color);
+    sleep(Head2->proc.te);
+    printf(ESC CSI "%d" previousLine, 3);
+
+    // curs++;
+    c_time += Head2->proc.te;
+    Head2 = Head2->next; 
+}
+// sort waitlits par rapport priority 
+// si ( waitlist not empty )
+// head .te > execute 
+// c_time += te 
+// head -> next 
 printf("\n\n\n");
 printf("done !!\n");
 }
