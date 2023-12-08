@@ -12,57 +12,7 @@
 #include "../file_manipulation/csv_file_manip.h"
 node* mintempex;
 Process currentProcess;
-/*
-int calculate_simulation_time(node* head)
-{
-	int total_t = 0;
-	node *n;
-	Process p;
-	n = head;
-	while (n != NULL)
-	{
-		p = n->proc;
-		if (total_t < p.ta)
-		{
-			total_t = p.ta;
-		}
-		total_t += p.te;
-		n = n->next;
-	}
-	free(n);
-	return total_t;
-}
 
-void search_for_least_min_te(queue* q,queue* wait_list,int time)
-{	Process *p ;
-	queue *tmp = (queue *)malloc(sizeof(queue));
-	if (tmp == NULL)
-	{
-		// Handle the case where memory allocation fails
-		// (e.g., print an error message and exit the program)
-		fprintf(stderr, "Failed to allocate memory for queue.\n");
-		exit(EXIT_FAILURE);
-	}
-	init_queue(tmp);
-	tmp->head = q->head;
-	while (tmp->head != NULL)
-	{
-		if (tmp->head->proc.ta <= time)
-		{
-			p = dequeue(tmp);
-			q->head = tmp->head;
-			// printTable_view(p,0);
-			enqueue(wait_list, p);
-
-		}
-		else {
-			tmp->head = tmp->head->next;
-		}
-	}
-	free(tmp);
-	return;
-}
-*/
 int nbr = 0;
 float MOYTR = 0;
 float MOYTA = 0;
@@ -70,13 +20,12 @@ int tre = 0, tat = 0;
 
 int main() {
    
-	// scanf("%d", &nbr);
-	// struct Process* currentProcess = NULL;
+	/
 	
 
 	node* tmp;
 	node *tete = NULL;
-	// node *chead = tete;
+	
 	Process pr;
    // Process currentProcess;
 
