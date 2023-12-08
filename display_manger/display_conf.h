@@ -4,7 +4,7 @@
 #include<string.h>
 #include "../process_def.h"
 
-#define max_chars 50 //max num of '#'  
+#define max_chars 135 //max num of '#'  
 
 // ANSI escape sequences 
 
