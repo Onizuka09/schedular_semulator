@@ -7,6 +7,7 @@ FIFO_bin := fifo
 RR_bin := round_robin 
 SRT_bin := srt 
 PRIORITY_bin := priority
+Multi_bin := multiLevel
 
 # Define targets
 all: $(FIFO_bin)
@@ -15,6 +16,7 @@ tfifo: create_BUILD_DIR $(FIFO_bin)
 tRR: create_BUILD_DIR $(RR_bin)
 tSRT: create_BUILD_DIR $(SRT_bin)
 tPRIORITY: create_BUILD_DIR $(PRIORITY_bin)
+tMulti: create_BUILD_DIR $(Multi_bin)
 
 $(FIFO_bin): $(BUILD_DIR)/queue.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
@@ -30,6 +32,9 @@ $(SRT_bin): $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/srt.o $(
 $(PRIORITY_bin): $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/priority_algorithm.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
+ $(Multi_bin) :  $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/multi_Level.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
+	$(CC) $^ -o $@ -lm
+
 
 $(BUILD_DIR)/round_robin.o: scheduling_algorithms/Round_Robin.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
@@ -42,6 +47,9 @@ $(BUILD_DIR)/srt.o: scheduling_algorithms/SRT_2.c $(SRCDIR)/process_def.h
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
 
 $(BUILD_DIR)/priority_algorithm.o: scheduling_algorithms/priority_algorithm.c $(SRCDIR)/process_def.h 
+	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
+
+$(BUILD_DIR)/multi_Level.o: scheduling_algorithms/multi_Level.c $(SRCDIR)/process_def.h 
 	$(CC) $(CFLAGS) -c $< -IdataStruct -Idisplay_manger -o $@
 
 $(BUILD_DIR)/queue.o: dataStruct/queue.c dataStruct/queue.h $(SRCDIR)/process_def.h dataStruct/node.h
@@ -79,4 +87,8 @@ clean:
 	@if [ -e $(PRIORITY_bin) ]; then \
 		rm $(PRIORITY_bin); \
 		echo "Removed $(PRIORITY_bin)."; \
+	fi
+	@if [ -e $(Multi_bin) ]; then \
+		rm $(Multi_bin); \
+		echo "Removed $(Multi_bin)."; \
 	fi
