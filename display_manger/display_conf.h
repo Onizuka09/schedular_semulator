@@ -5,7 +5,7 @@
 #include "../process_def.h"
 #include "../dataStruct/queue.h"
 #include "../process_config/global_config.h"
-#define max_chars 100 //max num of '#'  
+#define max_chars 135 //max num of '#'  
 
 // ANSI escape sequences 
 
