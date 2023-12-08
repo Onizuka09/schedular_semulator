@@ -100,7 +100,7 @@ clean:
 		rm $(Multi_bin); \
 		echo "Removed $(Multi_bin)."; \
 	fi
-	@if [ -e $(Multi_bin) ]; then \
+	@if [ -e $(PP_bin) ]; then \
 		rm $(PP_bin); \
 		echo "Removed $(PP_bin)."; \
 	fi

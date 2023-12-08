@@ -7,5 +7,6 @@
         "memory": "c",
         "random": "c",
         "optional": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }
