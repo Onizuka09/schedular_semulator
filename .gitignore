@@ -3,3 +3,5 @@ main
 menu
 obj/*
 .vscode/
+test
+test_color.c

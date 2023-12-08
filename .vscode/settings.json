@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "type_traits": "c",
-        "node.h": "c",
-        "queue.h": "c",
-        "typeinfo": "c"
-    }
-}

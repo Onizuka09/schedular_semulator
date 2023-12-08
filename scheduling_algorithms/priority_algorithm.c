@@ -8,9 +8,9 @@
 #include "../process_config/global_config.h"
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
-#include "../process_def.h" 
-
-
+#include "../process_def.h"
+#include "../file_manipulation/csv_file_manip.h"
+/*
 int calculate_simulation_time(queue q)
 {
 	int total_t = 0;
@@ -30,31 +30,8 @@ int calculate_simulation_time(queue q)
 	free(n);
 	return total_t;
 }
-void update_bar_amani(int total_time, int time_done) {
-    int percentage_done = time_done * 100 / total_time;
-    int num_chars = (percentage_done * max_chars) / 100;
 
-    // Choose color based on the progress percentage
-    const char *color_code;
-    if (percentage_done < 50) {
-        color_code = RED_TEXT;
-    } else if (percentage_done < 80) {
-        color_code = YELLOW_TEXT;
-    } else {
-        color_code = GREEN_TEXT;
-    }
 
-    // Print the colored progress bar
-    printf("%s[", color_code);
-    for (int i = 0; i < num_chars; ++i) {
-        printf("#");
-    }
-    for (int i = 0; i < max_chars - num_chars; ++i) {
-        printf(" ");
-    }
-    printf("] %d%% done%s\n", percentage_done, RESET_TEXT);
-    fflush(stdout);
-}
 void search_for_least_min_te(queue* q,queue* wait_list,int time) 
 {	Process *p ;
 	queue *tmp = (queue *)malloc(sizeof(queue));
@@ -84,7 +61,7 @@ void search_for_least_min_te(queue* q,queue* wait_list,int time)
 	free(tmp);
 	return;
 }
-
+*/
 int main() {
 
   
@@ -100,7 +77,8 @@ int main() {
     init_queue(&wait_list);
     Process *c_proc, *w_proc;
     // Open the CSV file for reading
-    FILE *fpt;
+ 
+/*    FILE *fpt;
     fpt = fopen("file_manipulation/File.csv", "r");
     if (fpt == NULL) {
         fprintf(stderr, "Error opening the file.\n");
@@ -129,6 +107,14 @@ int main() {
             
         }
     }
+	*/
+	int nbr = 0; 
+	char *csv = CSV_file_name;
+	// Create_CSV_file(csv);
+	// fill_csv_file(csv);
+	Head = Read_csv_file(csv, &nbr);
+	printf("nbr proc: %d\n", nbr);
+	tmp = Head;
 	while (tmp != NULL) // transfomr a linked list to a queue ; 
 	{
 		enqueue(&q1,&tmp->proc);
@@ -160,7 +146,7 @@ int main() {
     int c_time = 0, te = 0, wait_time = 0,ta=0;
 
 	int last_proc_ta = q1.tail->proc.ta;
-	int total_t = calculate_simulation_time(q1);
+	int total_t = calculate_simulation_time(q1.head);
 	printf("Total simulation time %d\n", total_t);
 	printf("\nPriority:\n");
 	printf("%d \n", is_empty(&wait_list));
@@ -174,10 +160,10 @@ int main() {
 			printf(clear_line);
 			fflush(stdout);
 			printf("\rwaiting for %d \n", wait_time);
-			
-			 update_bar(total_t, wait_time, c_time, reset);
-			update_time(total_t, wait_time, c_time, reset);
-			sleep(wait_time);
+
+            update_bar(total_t, wait_time, c_time, E_RESET_C);
+            update_time(total_t, wait_time, c_time, E_RESET_C);
+            sleep(wait_time);
 			printf(ESC CSI "%d" previousLine, 3);
 			c_time += wait_time;
 		}
@@ -212,36 +198,7 @@ int main() {
 
         printf("\n\n\n");
 		printf("done \n");
-/*
-    while (!is_empty(&file) || Head != NULL) {
-        if (!is_empty(&file)) { 
-            while (file.head->proc.ta <= curs) {
-                printf(".......");
-                Process *p1 = dequeue(&file);
-                printf(".........");
-                tmp1 = create_new_node(*p1);
-                insert_at_head(&Head1, tmp1);
-                nb_proc1++;
-                linkedlist_bubbleSortpriority(&Head1, nb_proc1);
 
-                printf("linked list is sorted by priority: ");
-                printlist(Head1);
-              //  Head1 = Head1->next; 
-                file.head= file.head->next;
-                update_bar_amani(sum, p1->te);
-                printf("Process %s is executing for %d units \n", p1->name, p1->te);
-                free(p1);
-            }
-            curs += Head1->proc.te;
-        }
-
-        // Assurez-vous que la file se vide correctement
-        if (Head != NULL) {
-            Head = Head->next;
-        }
-    }
-
-*/
 
     return 0;
 }

@@ -188,3 +188,33 @@ bool is_empty(queue* q) {
     return q->head == NULL;
 }
 
+void search_for_least_min_te(queue *q, queue *wait_list, int time)
+{
+	Process *p;
+	queue *tmp = (queue *)malloc(sizeof(queue));
+	if (tmp == NULL)
+	{
+		// Handle the case where memory allocation fails
+		// (e.g., print an error message and exit the program)
+		fprintf(stderr, "Failed to allocate memory for queue.\n");
+		exit(EXIT_FAILURE);
+	}
+	init_queue(tmp);
+	tmp->head = q->head;
+	while (tmp->head != NULL)
+	{
+		if (tmp->head->proc.ta <= time)
+		{
+			p = dequeue(tmp);
+			q->head = tmp->head;
+			// printTable_view(p,0);
+			enqueue(wait_list, p);
+		}
+		else
+		{
+			tmp->head = tmp->head->next;
+		}
+	}
+	free(tmp);
+	return;
+}

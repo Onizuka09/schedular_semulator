@@ -1,15 +1,76 @@
 #include "display_conf.h"
 #include <math.h>
-int my_round(float num )
-{	
-	int tmp =(int) (num *10)%10 ; 
-	if (tmp <=5 )
-		return floor(num); 
-	else
-		return floor(num)+1;
-	
+static void Color_to_string(colors color, char *ch_color)
+{
+	switch (color)
+	{
+	case E_BLACK_C:
+		strcpy(ch_color, BLACK "BLACK" RESET);
+		break;
+
+	case E_GREY_C:
+		strcpy(ch_color, GREY "GREY" RESET);
+		break;
+
+	case E_RED_C:
+		strcpy(ch_color, RED "RED" RESET);
+		break;
+
+	case E_GREEN_C:
+		strcpy(ch_color, GREEN "GREEN" RESET);
+		break;
+
+	case E_YELLOW_C:
+		strcpy(ch_color, YELLOW "YELLOW" RESET);
+		break;
+
+	case E_BLUE_C:
+		strcpy(ch_color, BLUE "BLUE" RESET);
+		break;
+
+	case E_PURPLE_C:
+		strcpy(ch_color, PURPLE "PURPLE" RESET);
+		break;
+
+	case E_CYAN_C:
+		strcpy(ch_color, CYAN "CYAN" RESET);
+		break;
+
+	case E_BRIGHT_GREY_C:
+		strcpy(ch_color, BRIGHT_GREY "BRIGHT_GREY" RESET);
+		break;
+
+	case E_BRIGHT_RED_C:
+		strcpy(ch_color, BRIGHT_RED "BRIGHT_RED" RESET);
+		break;
+
+	case E_BRIGHT_GREEN_C:
+		strcpy(ch_color, BRIGHT_GREEN "BRIGHT_GREEN" RESET);
+		break;
+
+	case E_BRIGHT_YELLOW_C:
+		strcpy(ch_color, BRIGHT_YELLOW "BRIGHT_YELLOW" RESET);
+		break;
+
+	case E_BRIGHT_BLUE_C:
+		strcpy(ch_color, BRIGHT_BLUE "BRIGHT_BLUE" RESET);
+		break;
+
+	case E_BRIGHT_PURPLE_C:
+		strcpy(ch_color, BRIGHT_PURPLE "BRIGHT_PURPLE" RESET);
+		break;
+
+	case E_BRIGHT_CYAN_C:
+		strcpy(ch_color, BRIGHT_CYAN "BRIGHT_CYAN" RESET);
+		break;
+
+	default:
+		strcpy(ch_color, RESET "WHITE" RESET);
+		break;
+	}
 }
-int calculate_max_chars(int total_time)
+
+static int calculate_max_chars(int total_time)
 {
 	float quotion = (float)max_chars / total_time;
 	int max_ch = (floor(quotion) +1 )*total_time;
@@ -18,28 +79,115 @@ int calculate_max_chars(int total_time)
 }
 
 void pick_color(colors color, char* ch_color) {
+	switch (color)
+	{
+		case E_RESET_C:
+			strcpy(ch_color, RESET);
+			break;
+
+		case E_BLACK_C:
+			strcpy(ch_color, BLACK);
+			break;
+		
+		case E_GREY_C:
+			strcpy(ch_color, GREY);
+			break;
+		
+		case E_RED_C:
+			strcpy(ch_color, RED);
+			break;
+
+		case E_GREEN_C:
+			strcpy(ch_color, GREEN);
+			break;
+
+		case E_YELLOW_C:
+			strcpy(ch_color, YELLOW);
+			break;
+
+		case E_BLUE_C:
+			strcpy(ch_color, BLUE);
+			break;
+
+		case E_PURPLE_C:
+			strcpy(ch_color, PURPLE);
+			break;
+
+		case E_CYAN_C:
+			strcpy(ch_color, CYAN);
+			break;
+
+		case E_BRIGHT_GREY_C:
+			strcpy(ch_color, BRIGHT_GREY);
+			break;
+
+		case E_BRIGHT_RED_C:
+			strcpy(ch_color, BRIGHT_RED);
+			break;
+
+		case E_BRIGHT_GREEN_C:
+			strcpy(ch_color, BRIGHT_GREEN);
+			break;
+
+		case E_BRIGHT_YELLOW_C:
+			strcpy(ch_color, BRIGHT_YELLOW);
+			break;
+
+		case E_BRIGHT_BLUE_C:
+			strcpy(ch_color, BRIGHT_BLUE);
+			break;
+
+		case E_BRIGHT_PURPLE_C:
+			strcpy(ch_color, BRIGHT_PURPLE);
+			break;
+
+		case E_BRIGHT_CYAN_C:
+			strcpy(ch_color, BRIGHT_CYAN);
+			break;
+
+		default  :
+			strcpy(ch_color, RESET);
+		break;
+	}
 
 
-    if (color == green)
-        strcpy(ch_color, GREEN_TEXT);
-    else if (color == red)
-        strcpy(ch_color, RED_TEXT);
-    else if (color == yellow)
-        strcpy(ch_color, YELLOW_TEXT);
-    else
-        strcpy(ch_color, RESET_TEXT);
+
 }
 
 colors intToColor(int value) {
     switch (value) {
-        case 0:
-            return green;
         case 1:
-            return yellow;
+            return E_BLACK_C;
         case 2:
-            return red;
-        default:
-            return reset;
+            return E_GREY_C;
+        case 3:
+            return E_RED_C;
+		case 4:
+			return E_GREEN_C;
+		case 5:
+			return E_YELLOW_C;
+		case 6:
+			return E_BLUE_C;
+		case 7:
+			return E_PURPLE_C;
+		case 8:
+			return E_CYAN_C;
+		case 9:
+			return E_BRIGHT_GREY_C;
+		case 10:
+			return E_BRIGHT_RED_C;
+		case 11:
+			return E_BRIGHT_GREEN_C;
+		case 12:
+			return E_BRIGHT_YELLOW_C;
+		case 13:
+			return E_BRIGHT_BLUE_C;
+		case 14:
+			return E_BRIGHT_PURPLE_C;
+		case 15:
+			return E_BRIGHT_CYAN_C;
+		default:
+			return E_BLACK_C;
     }
 }
 
@@ -80,7 +228,7 @@ int written_chars = my_round((float)(time * max_ch) / total_time);
 		printf(" ");
 	}
 
-	printf(RESET_TEXT"] %d%% done\n",p_ct);
+	printf(RESET"] %d%% done\n",p_ct);
 	fflush(stdout); 
 }
 
@@ -102,6 +250,7 @@ void update_time( int total_time,int te,int time,colors cl) {
 
 //	int p_te =my_round( (float)(te*100)/total_time);
 	int num_chars =my_round( (float)(te * max_ch) /total_time) ;
+	int num_points; 
 if (time !=0) 
 {
 printf(ESC CSI "%d" forward,written_chars+1);
@@ -112,11 +261,61 @@ else {
     printf(" "); 
 }
 printf("%d",time);
-for (int i = 0 ; i<num_chars-2; i++){
+num_points = num_chars - 1;
+if (time >= 10 && time <= 100)
+	num_points = num_chars - 2;
+for (int i = 0 ; i<num_points; i++){
 printf(".");
 }
-printf("%d\n",te); 
-
-	fflush(stdout); 
+if (total_time == te)
+{
+	printf(ESC CSI erase_in_line);
+	printf("%d Time(s)\n", te);
+}
+else 
+	printf("\n");
+fflush(stdout);
 }
     
+// ---------------------------//
+void printTable_view(Process *proc, int num_proc)
+{
+	int col = 4, ligne = num_proc;
+	char ch_color[50];
+	// for (int i=0 ; i<col; ++i)
+	//{
+	printf("%s\t", proc->name);
+	printf("%d\t", proc->ta);
+	printf("%d\t", proc->te);
+	printf("   %d\t", proc->priority);
+	Color_to_string(proc->color, ch_color);
+	printf("\t%s\t", ch_color);
+}
+void printTable(queue *q1, int num_proc)
+{
+	printf("P_name\tTa\tTe\tPriority\tColor\n");
+	node *tmp = q1->head;
+	while (tmp != NULL)
+	{
+		Process proc = tmp->proc;
+		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
+		printTable_view(&proc, num_proc);
+		printf("\n");
+		tmp = tmp->next;
+	}
+	printf("\n");
+}
+void printTable_linkedList(node *head, int num_proc)
+{
+	node *tmp = head;
+	printf("P_name\tTa\tTe\tPriority\tColor\n");
+	while (tmp != NULL)
+	{
+		Process proc = tmp->proc;
+		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
+		printTable_view(&proc, num_proc);
+		printf("\n");
+		tmp = tmp->next;
+	}
+	printf("\n");
+}
