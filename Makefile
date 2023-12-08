@@ -35,10 +35,10 @@ $(SRT_bin): $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(
 $(PRIORITY_bin):$(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/priority_algorithm.o $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
- $(Multi_bin) :  $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/multi_Level.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
+ $(Multi_bin) : $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/multi_Level.o $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
- $(PP_bin) :  $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/PP.o $(BUILD_DIR)/proc.o $(BUILD_DIR)/display.o
+ $(PP_bin) : $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/PP.o $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
 $(BUILD_DIR)/PP.o: scheduling_algorithms/PP.c $(SRCDIR)/process_def.h 

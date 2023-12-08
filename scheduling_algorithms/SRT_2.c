@@ -20,7 +20,6 @@ int tre = 0, tat = 0;
 
 int main() {
    
-	/
 	
 
 	node* tmp;

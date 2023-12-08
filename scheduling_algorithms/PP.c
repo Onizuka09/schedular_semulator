@@ -13,25 +13,7 @@
 #include "../dataStruct/queue.h"
 #include "../process_def.h" 
 
-int calculate_simulation_time(node *head)
-{
-	int total_t = 0;
-	node *n;
-	Process p;
-	n = head;
-	while (n != NULL)
-	{
-		p = n->proc;
-		if (total_t < p.ta)
-		{
-			total_t = p.ta;
-		}
-		total_t += p.te;
-		n = n->next;
-	}
-	//free(n);
-	return total_t;
-}
+
 
 
 

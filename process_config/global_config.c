@@ -2,80 +2,11 @@
 
 int my_round(float num)
 {
-<<<<<<< HEAD
-	switch (color)
-	{
-	case E_BLACK_C:
-		strcpy(ch_color, BLACK "BLACK" RESET);
-		break;
-
-	case E_GREY_C:
-		strcpy(ch_color, GREY"GREY"RESET);
-		break;
-
-	case E_RED_C:
-		strcpy(ch_color, RED"RED"RESET);
-		break;
-
-	case E_GREEN_C:
-		strcpy(ch_color, GREEN"GREEN"RESET);
-		break;
-
-	case E_YELLOW_C:
-		strcpy(ch_color, YELLOW"YELLOW" RESET);
-		break;
-
-	case E_BLUE_C:
-		strcpy(ch_color, BLUE"BLUE"RESET);
-		break;
-
-	case E_PURPLE_C:
-		strcpy(ch_color, PURPLE"PURPLE"RESET);
-		break;
-
-	case E_CYAN_C:
-		strcpy(ch_color, CYAN"CYAN"RESET);
-		break;
-
-	case E_BRIGHT_GREY_C:
-		strcpy(ch_color, BRIGHT_GREY"BRIGHT_GREY"RESET);
-		break;
-
-	case E_BRIGHT_RED_C:
-		strcpy(ch_color, BRIGHT_RED"BRIGHT_RED"RESET);
-		break;
-
-	case E_BRIGHT_GREEN_C:
-		strcpy(ch_color, BRIGHT_GREEN"BRIGHT_GREEN"RESET);
-		break;
-
-	case E_BRIGHT_YELLOW_C:
-		strcpy(ch_color, BRIGHT_YELLOW "BRIGHT_YELLOW"RESET);
-		break;
-
-	case E_BRIGHT_BLUE_C:
-		strcpy(ch_color, BRIGHT_BLUE"BRIGHT_BLUE"RESET);
-		break;
-
-	case E_BRIGHT_PURPLE_C:
-		strcpy(ch_color, BRIGHT_PURPLE"BRIGHT_PURPLE"RESET);
-		break;
-
-	case E_BRIGHT_CYAN_C:
-		strcpy(ch_color, BRIGHT_CYAN"BRIGHT_CYAN"RESET);
-		break;
-
-	default:
-		strcpy(ch_color, RESET"WHITE"RESET);
-		break;
-	}
-=======
 	int tmp = (int)(num * 10) % 10;
 	if (tmp <= 5)
 		return floor(num);
 	else
 		return floor(num) + 1;
->>>>>>> main
 }
 void init_rand(void)
 {
