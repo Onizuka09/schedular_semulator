@@ -1,6 +1,12 @@
 #ifndef PROC_CONFIG_H
 #define PROC_CONFIG_H
 
+
+#define CSV_file_name "Processes.csv"
+#define CSV_file_header "P_Name, ta, te, Priority, Color\n"
+
+#define MAX_num_proc 10
+
 #define RESET "\x1b[0m"
 #define BLACK "\x1b[1m"
 #define GREY "\x1b[2m"
@@ -36,7 +42,12 @@ typedef enum
 	E_BRIGHT_BLUE_C,
 	E_BRIGHT_PURPLE_C,
 	E_BRIGHT_CYAN_C,
+	TOTAL_COLORS
 } colors;
+#define TOTAL_CL (int)TOTAL_COLORS - 2
+// random genearation 
+#define max_TE 10 
+#define max_TA 10 
 
 typedef struct { 
 	int ta; 

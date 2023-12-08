@@ -9,58 +9,9 @@
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
 #include "../process_def.h"
-
+#include "../file_manipulation/csv_file_manip.h"
 node* mintempex;
 Process currentProcess;
-
-int calculate_simulation_time(queue q)
-{
-	int total_t = 0;
-	node *n; 
-	Process p;
-	n = q.head; 
-	while (n != NULL)
-	{
-		p = n->proc;
-		if (total_t < p.ta)
-		{
-			total_t = p.ta;
-		}
-		total_t += p.te;
-		n = n->next;
-	}
-	free(n);
-	return total_t;
-}
-void search_for_least_min_te(queue* q,queue* wait_list,int time) 
-{	Process *p ;
-	queue *tmp = (queue *)malloc(sizeof(queue));
-	if (tmp == NULL)
-	{
-		// Handle the case where memory allocation fails
-		// (e.g., print an error message and exit the program)
-		fprintf(stderr, "Failed to allocate memory for queue.\n");
-		exit(EXIT_FAILURE);
-	}
-	init_queue(tmp);
-	tmp->head = q->head;
-	while (tmp->head != NULL)
-	{
-		if (tmp->head->proc.ta == time)
-		{
-			p = dequeue(tmp);
-			q->head = tmp->head;
-			// printTable_view(p,0);
-			enqueue(wait_list, p);
-
-		}
-		else {
-			tmp->head = tmp->head->next;
-		}
-	}
-	free(tmp);
-	return;
-}
 
 int nbr = 0;
 float MOYTR = 0;
@@ -69,45 +20,22 @@ int tre = 0, tat = 0;
 
 int main() {
    
-	// scanf("%d", &nbr);
-	// struct Process* currentProcess = NULL;
+	/
 	
 
 	node* tmp;
 	node *tete = NULL;
-	// node *chead = tete;
+	
 	Process pr;
    // Process currentProcess;
 
-	FILE *fpt;
-	fpt = fopen("file_manipulation/File.csv", "r");
-	if (fpt == NULL)
-	{
-		fprintf(stderr, "Error opening the file.\n");
-		return 1;
-	}
-
-	// Read the header line from the CSV file
-	char buffer[100];
-	fgets(buffer, sizeof(buffer), fpt);
-
-	// Read the remaining lines from the CSV file
-	int color=0;
-	while (fgets(buffer, sizeof(buffer), fpt) != NULL)
-	{
-
-		// Parse the CSV line
-		if (sscanf(buffer, "%19[^,], %d, %d, %d,%d", pr.name, &pr.te, &pr.ta, &pr.priority,&color) == 5)
-		{
-			// Create a new node and insert it into the linked list
-			pr.color = intToColor(color);
-			tmp = create_new_node(pr);
-			insert_at_head(&tete, tmp);
-			nbr ++; 
-		}
-	}
+	char *csv = CSV_file_name;
+	// Create_CSV_file(csv);
+	// fill_csv_file(csv);
+	tete = Read_csv_file(csv, &nbr);
 	printf("nbr proc: %d\n", nbr);
-
+	// linkedlist_bubbleSort(&tete, nbr);
+	// printTable_linkedList(tete, 0);
 
 	tmp = tete; 
 	while (tmp!=NULL) // set up remaining time to be the same as te  
@@ -148,7 +76,7 @@ int main() {
 	int c_time = 0, te = 0, wait_time = 0,ta=0;
 
 	int last_proc_ta = q1.tail->proc.ta;
-	int total_t = calculate_simulation_time(q1);
+	int total_t = calculate_simulation_time(q1.head);
 	printf("Total simulation time %d\n", total_t);
 	printf("\nShortest Remaining Time (SRT) Scheduling:\n");
 	printf("%d \n", is_empty(&wait_list));
@@ -158,16 +86,18 @@ int main() {
 		while (!is_empty(&wait_list) && c_time <ta)
 		{
 			// printf("a\n");
+			int diff = ta - c_time; 
 			w_proc = dequeue(&wait_list);
-			if (ta< w_proc->remaining_time )
+			if (diff < w_proc->remaining_time )
 			{
-				te = w_proc->remaining_time - ta; 
+				te = diff; 
 			}
 			else {
 				te = w_proc->remaining_time;
+				//ta - c_time;
 			}
-			// printf("\rexcuting porc %s for %d\n", w_proc->name, te);
-			// update_bar(total_time,te,c_time,w_proc->color);
+			printf(clear_line);
+			fflush(stdout);
 			printf("\rexcuting porc %s for %d\n", w_proc->name, te);
 			fflush(stdout);
 			update_bar(total_t, te, c_time, w_proc->color);
@@ -176,6 +106,12 @@ int main() {
 			printf(ESC CSI "%d" previousLine, 3);
 			sleep(te);
 			c_time += te;
+			w_proc->remaining_time -= te;
+			if (w_proc->remaining_time != 0)
+			{ // printf("")
+				enqueue(&wait_list, w_proc);
+				// printf("%d ",c_time);
+			}
 		}
 
 			// c_proc = dequeue(&q1) ;
@@ -201,6 +137,8 @@ int main() {
 		{
 			te = 1;
 			w_proc->remaining_time -=te;
+			printf(clear_line);
+			fflush(stdout);
 			printf("\rexcuting porc %s for %d\n",w_proc->name ,te);
 			fflush(stdout);
 			update_bar(total_t, te, c_time, w_proc->color);
@@ -226,6 +164,8 @@ int main() {
 		
 		w_proc = dequeue(&wait_list);
 		te = w_proc->remaining_time;
+		printf(clear_line);
+		fflush(stdout);
 		printf("\rexcuting porc %s for %d\n", w_proc->name, te);
 		fflush(stdout);
 		update_bar(total_t, te, c_time, w_proc->color);
