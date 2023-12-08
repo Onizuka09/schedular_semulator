@@ -25,7 +25,7 @@ static void Color_to_string(colors color, char *ch_color)
 		break;
 
 	case E_BLUE_C:
-		strcpy(ch_color, BLUE "YELLOW" RESET);
+		strcpy(ch_color, BLUE "BLUE" RESET);
 		break;
 
 	case E_PURPLE_C:
@@ -169,7 +169,7 @@ colors intToColor(int value) {
 		case 6:
 			return E_BLUE_C;
 		case 7:
-			return E_BLUE_C;
+			return E_PURPLE_C;
 		case 8:
 			return E_CYAN_C;
 		case 9:
