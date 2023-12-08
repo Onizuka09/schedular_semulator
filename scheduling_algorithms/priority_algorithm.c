@@ -8,9 +8,9 @@
 #include "../process_config/global_config.h"
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
-#include "../process_def.h" 
-
-
+#include "../process_def.h"
+#include "../file_manipulation/csv_file_manip.h"
+/*
 int calculate_simulation_time(queue q)
 {
 	int total_t = 0;
@@ -61,7 +61,7 @@ void search_for_least_min_te(queue* q,queue* wait_list,int time)
 	free(tmp);
 	return;
 }
-
+*/
 int main() {
 
   
@@ -77,7 +77,8 @@ int main() {
     init_queue(&wait_list);
     Process *c_proc, *w_proc;
     // Open the CSV file for reading
-    FILE *fpt;
+ 
+/*    FILE *fpt;
     fpt = fopen("file_manipulation/File.csv", "r");
     if (fpt == NULL) {
         fprintf(stderr, "Error opening the file.\n");
@@ -106,6 +107,14 @@ int main() {
             
         }
     }
+	*/
+	int nbr = 0; 
+	char *csv = CSV_file_name;
+	// Create_CSV_file(csv);
+	// fill_csv_file(csv);
+	Head = Read_csv_file(csv, &nbr);
+	printf("nbr proc: %d\n", nbr);
+	tmp = Head;
 	while (tmp != NULL) // transfomr a linked list to a queue ; 
 	{
 		enqueue(&q1,&tmp->proc);
@@ -137,7 +146,7 @@ int main() {
     int c_time = 0, te = 0, wait_time = 0,ta=0;
 
 	int last_proc_ta = q1.tail->proc.ta;
-	int total_t = calculate_simulation_time(q1);
+	int total_t = calculate_simulation_time(q1.head);
 	printf("Total simulation time %d\n", total_t);
 	printf("\nPriority:\n");
 	printf("%d \n", is_empty(&wait_list));
