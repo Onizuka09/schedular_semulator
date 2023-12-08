@@ -24,7 +24,7 @@ static void Color_to_string(colors color, char *ch_color)
 		break;
 
 	case E_BLUE_C:
-		strcpy(ch_color, BLUE"YELLOW"RESET);
+		strcpy(ch_color, BLUE"BLUE"RESET);
 		break;
 
 	case E_PURPLE_C:
