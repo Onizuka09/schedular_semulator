@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 P_Name, ta, te, Priority, Color
 P1,4,3,10,1
 P9,4,8,10,2	
@@ -9,6 +10,14 @@ P6,9,1,6,7
 P5,9,8, 6,8	
 P7,10,1,6,9
 P4,10,9,2,10
+=======
+Process_Name, te, ta, Priority,color
+P1, 5, 1, 3, 1
+P2, 3, 1, 2, 3
+P3, 1, 2, 4, 5
+P4, 2, 4, 1, 7
+
+>>>>>>> 8a5daa1 ( first step in multilevel)
 
 
 
