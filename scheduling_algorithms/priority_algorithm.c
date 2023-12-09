@@ -1,17 +1,7 @@
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include "../display_manger/display_conf.h" 
+#include "scheculing_algorithm.h"
 
-#include "../process_config/global_config.h"
-#include "../dataStruct/linkedlist.h"
-#include "../dataStruct/queue.h"
-#include "../process_def.h"
-#include "../file_manipulation/csv_file_manip.h"
-
-int main() {
+void Priority_algo(void) {
 
   
      /* n7awel nhotha fel for loop*/
@@ -73,6 +63,7 @@ int main() {
 		queue_bsort_priority(&wait_list);
 
        while (!is_empty(&wait_list))
+	   {
 			w_proc = dequeue(&wait_list);
  
 			te = w_proc->te;
@@ -95,5 +86,5 @@ int main() {
 		printf("done \n");
 
 
-    return 0;
+    return ;
 }

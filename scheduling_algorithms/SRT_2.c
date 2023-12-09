@@ -1,24 +1,10 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-
-#include "../display_manger/display_conf.h" 
-#include "../process_config/global_config.h"
-#include "../dataStruct/linkedlist.h"
-#include "../dataStruct/queue.h"
-#include "../process_def.h"
-#include "../file_manipulation/csv_file_manip.h"
-node* mintempex;
-Process currentProcess;
-
+#include "scheculing_algorithm.h"
 int nbr = 0;
 float MOYTR = 0;
 float MOYTA = 0;
 int tre = 0, tat = 0;
 
-int main() {
+void SRT_algo(void ) {
 
 
 	node* tmp;
@@ -156,7 +142,7 @@ int main() {
 			printf("MOYTR%f",MOYTR);
 			*/
 
-		return 0;
+		return ;
 }
 
 

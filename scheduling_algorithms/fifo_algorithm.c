@@ -1,14 +1,6 @@
-#include <stdio.h>		
-#include <stdlib.h>
-#include <stdbool.h> 
-#include <string.h>
-#include "../dataStruct/queue.h"
-#include "../display_manger/display_conf.h" 
-#include "../process_config/global_config.h"
-#include "../process_def.h"
-#include "../file_manipulation/csv_file_manip.h"
+#include "scheculing_algorithm.h"
 
-int main(void)
+void FIFO_algo(void)
     
 {	
 
@@ -71,5 +63,5 @@ int main(void)
 	}
 
 	printf("\n\n\nDone !\n"); 
-	return 0;
+	return ;
 }
