@@ -4,14 +4,8 @@ float MOYTR = 0;
 float MOYTA = 0;
 int tre = 0, tat = 0;
 
-<<<<<<< HEAD
-int main() {
-   
-	
-=======
 void SRT_algo(void ) {
 
->>>>>>> main
 
 	node* tmp;
 	node *tete = NULL;
