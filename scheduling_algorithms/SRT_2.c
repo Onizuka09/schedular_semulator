@@ -19,34 +19,26 @@ float MOYTA = 0;
 int tre = 0, tat = 0;
 
 int main() {
-   
-	/
-	
+
 
 	node* tmp;
 	node *tete = NULL;
 	
 	Process pr;
-   // Process currentProcess;
 
 	char *csv = CSV_file_name;
 	// Create_CSV_file(csv);
 	// fill_csv_file(csv);
 	tete = Read_csv_file(csv, &nbr);
 	printf("nbr proc: %d\n", nbr);
-	// linkedlist_bubbleSort(&tete, nbr);
-	// printTable_linkedList(tete, 0);
-
 	tmp = tete; 
 	while (tmp!=NULL) // set up remaining time to be the same as te  
 	{
 		tmp->proc.remaining_time = tmp->proc.te;
 		tmp = tmp->next; 
-		/* code */
 	}
 	
 
-	/////////////////////////////////////////////////////////
 	
 	Process *c_proc, *w_proc;
 	queue wait_list;
@@ -59,18 +51,8 @@ int main() {
 		enqueue(&q1,&tmp->proc);
 		tmp= tmp->next;
 	}
-	// display(&q1);
 	queue_bsort_1(&q1);
-	/*
-	printTable(&q1, 0);
-	c_proc = dequeue(&q1);
 
-	printf("\n\n");
-	search_for_least_min_te(&q1, &wait_list, 8);
-	
-	// printf("%d", q1.tail->proc.te);
-	printTable(&wait_list, 0);
-*/
 	printTable(&q1, 0);
 
 	int c_time = 0, te = 0, wait_time = 0,ta=0;
@@ -85,7 +67,6 @@ int main() {
 		ta = q1.head->proc.ta;
 		while (!is_empty(&wait_list) && c_time <ta)
 		{
-			// printf("a\n");
 			int diff = ta - c_time; 
 			w_proc = dequeue(&wait_list);
 			if (diff < w_proc->remaining_time )
@@ -94,7 +75,6 @@ int main() {
 			}
 			else {
 				te = w_proc->remaining_time;
-				//ta - c_time;
 			}
 			printf(clear_line);
 			fflush(stdout);
@@ -108,13 +88,11 @@ int main() {
 			c_time += te;
 			w_proc->remaining_time -= te;
 			if (w_proc->remaining_time != 0)
-			{ // printf("")
+			{ 
 				enqueue(&wait_list, w_proc);
-				// printf("%d ",c_time);
 			}
 		}
 
-			// c_proc = dequeue(&q1) ;
 		if (c_time < q1.head->proc.ta) // check for waiting time
 		{
 			wait_time = q1.head->proc.ta - c_time;
@@ -129,9 +107,7 @@ int main() {
 			c_time += wait_time;
 		}
 		search_for_least_min_te(&q1, &wait_list, c_time);
-		// if (!is_empty(&wait_list))
 		queue_bsort_te(&wait_list);
-		// printTable(&wait_list, 0);
 		w_proc = dequeue(&wait_list);
 		if (c_time <= last_proc_ta)
 		{
@@ -146,14 +122,12 @@ int main() {
 			update_time(total_t,te, c_time, w_proc->color);
 
 			printf(ESC CSI "%d" previousLine, 3);
-			// update_bar(total_time, te, c_time, w_proc->color);
 			sleep(te);
 			c_time +=te;
 			if (w_proc->remaining_time !=0)
-			{	// printf("")
+			{	
 				enqueue(&wait_list, w_proc);
 				
-			// printf("%d ",c_time);
 			}
 		}
 	}

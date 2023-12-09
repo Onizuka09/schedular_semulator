@@ -6,37 +6,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-
-
 #include "../display_manger/display_conf.h" 
-
 #include "../process_config/global_config.h"
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
 #include "../process_def.h"
 #include "../file_manipulation/csv_file_manip.h"
-/*
-int calculate_simulation_time(node *head)
-{
-	int total_t = 0;
-	node *n;
-	Process p;
-	n = head;
-	while (n != NULL)
-	{
-		p = n->proc;
-		if (total_t < p.ta)
-		{
-			total_t = p.ta;
-		}
-		total_t += p.te;
-		n = n->next;
-	}
-	free(n);
-	return total_t;
-}
-*/
+
 int main() {
 
 	int qtm , nb_proc=0 , tempRot=0 , temAtt =0;
@@ -46,41 +22,6 @@ int main() {
 
 	node *tmp;
 	node *Head =NULL;
-	/*
-		Process p ;
-		int color;
-
-		// Open the CSV file for reading
-		FILE *fpt;
-		fpt = fopen("file_manipulation/File.csv", "r");
-		if (fpt == NULL) {
-			fprintf(stderr, "Error opening the file.\n");
-			return 1;
-		}
-
-
-
-	// Read the header line from the CSV file
-		char buffer[100];
-		fgets(buffer, sizeof(buffer), fpt);
-
-		// Read the remaining lines from the CSV file
-		while (fgets(buffer, sizeof(buffer), fpt) != NULL) {
-
-			// Parse the CSV line
-			if (sscanf(buffer, "%19[^,], %d, %d, %d,%d", p.name, &p.te, &p.ta, &p.priority,&color) == 5) {
-
-				// Create a new node and insert it into the linked list
-				p.color = intToColor(color);
-				tmp = create_new_node(p);
-				insert_at_head(&Head, tmp);
-				nb_proc++;
-
-			}
-		}
-	*/
-
-	//	read csv file 
 
 	char *csv = CSV_file_name;
 	Head = Read_csv_file(csv, &nb_proc);
@@ -90,10 +31,7 @@ int main() {
 
 	// tri lel linked list
 	linkedlist_bubbleSort(&Head,nb_proc);
-/*  
-	printf ("linked list is sorted : ");
-	printlist(Head);
-*/
+
 printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 	printf("Round Robin simulation \n"); 
 	int total_t;
