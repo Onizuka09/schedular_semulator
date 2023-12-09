@@ -12,7 +12,7 @@
 #include "../dataStruct/linkedlist.h"
 #include "../dataStruct/queue.h"
 #include "../process_def.h" 
-
+#include "../file_manipulation/csv_file_manip.h"
 
 
 
@@ -20,42 +20,19 @@
 
 int main() {
 
-    int qtm , nb_proc=0;
-    printf("Quantum value ? ");
-    scanf("%d", &qtm);
-     /* n7awel nhotha fel for loop*/
+    int nb_proc=0;
     node *tmp;
-    node *Head =NULL;
-    Process p ;
-    int color; 
+    node *Head = NULL ;// (node *)malloc(sizeof(node));
+    //Process p ;
+    //int color; 
 
-    // Open the CSV file for reading
-    FILE *fpt;
-    fpt = fopen("file_manipulation/File.csv", "r");
-    if (fpt == NULL) {
-        fprintf(stderr, "Error opening the file.\n");
-        return 1;
-    }
+    //	read csv file 
 
-// Read the header line from the CSV file
-    char buffer[100];
-    fgets(buffer, sizeof(buffer), fpt);
+	char *csv = CSV_file_name;
+	Head = Read_csv_file(csv, &nb_proc);
+	printf("nbr proc: %d\n", nb_proc);
+    // printTable_linkedList(Head,0);
 
-    // Read the remaining lines from the CSV file
-    while (fgets(buffer, sizeof(buffer), fpt) != NULL) {
-        
-        // Parse the CSV line
-        if (sscanf(buffer, "%19[^,], %d, %d, %d,%d", p.name, &p.te, &p.ta, &p.priority,&color) == 5) {
-            // Create a new node and insert it into the linked list
-            p.color = intToColor(color);
-            tmp=create_new_node(p);
-            insert_at_head(&Head, tmp);
-            nb_proc++;
-            
-        }
-    }
-
-printf("nbr proc: %d\n", nb_proc);
 linkedlist_bubbleSort(&Head,nb_proc);
 printTable_linkedList(Head,0);
 printf("linked list loula sorted by ta\n");
@@ -72,11 +49,24 @@ printf("\n");
     bool b = true;
     int total_t = calculate_simulation_time(Head);
     curs = Head->proc.ta;
-     c_time = 0 ; 
+    c_time = 0 ; 
     // wait list awel proc liked list
     // likend list pas
     //TODO: create a function that get the last process arrival time 
-    while (curs <=9) // last p.ta in my list 
+    
+    node* CHead = Head;
+    while (CHead->next!=NULL)
+    {
+        CHead=CHead->next;
+
+    }
+    int last_node = CHead->proc.ta;
+    //printf("last node : %d",last_node);
+    
+printf("\n");
+
+
+    while (curs <=last_node) // last p.ta in my list 
     {
         // printf(" curs = %d",curs);
         // printf("\n");
