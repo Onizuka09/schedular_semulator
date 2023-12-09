@@ -3,22 +3,10 @@
 //
 
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include "../display_manger/display_conf.h"
-#include "../process_config/global_config.h"
-#include "../dataStruct/linkedlist.h"
-#include "../dataStruct/queue.h"
-#include "../process_def.h" 
-#include "../file_manipulation/csv_file_manip.h"
+#include "scheculing_algorithm.h"
 
 
-
-
-
-int main() {
+void PP() {
 
     int nb_proc=0;
     node *tmp;
@@ -141,5 +129,6 @@ while (Head2!= NULL){
 printf("\n\n\n");
 printf("done !!\n");
 printTable_linkedList(Head,0);
+return;
 
 }
