@@ -1,6 +1,8 @@
 #include "csv_file_manip.h"
 
-bool Create_CSV_file(char * file_name )
+//updt
+
+bool Create_CSV_file(char * file_name , char * header )
 {
     FILE *fpt;
     fpt = fopen(file_name, "w+");
@@ -9,7 +11,7 @@ bool Create_CSV_file(char * file_name )
         printf("unable to create file");
         exit(EXIT_FAILURE);
     }
-    fprintf(fpt,CSV_file_header);
+    fprintf(fpt,header);
     fclose(fpt);
     return true;
 }

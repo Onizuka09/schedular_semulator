@@ -4,6 +4,10 @@
 
 #define CSV_file_name "Processes.csv"
 #define CSV_file_header "P_Name, ta, te, Priority, Color\n"
+//upd1
+#define CSV_file_name2 "metrics_info.csv"
+#define CSV_file_header2 "P_Name, ta,tend, te\n"
+
 
 #define MAX_num_proc 10
 

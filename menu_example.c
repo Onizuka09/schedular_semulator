@@ -20,7 +20,7 @@ void Generate_processes ()
 	printf("Generating ... \n");
 	sleep(1);
 	char *file_name = CSV_file_name;
-	Create_CSV_file(file_name);
+	Create_CSV_file(file_name,CSV_file_header);
 	fill_csv_file(file_name); 
 	printf("Generated processes \n");
 	display_f(file_name);

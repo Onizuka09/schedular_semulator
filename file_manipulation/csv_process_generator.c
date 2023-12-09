@@ -7,7 +7,11 @@
 int main() {
     // create a csv file
     char *csv = CSV_file_name; 
-    Create_CSV_file(csv);
+    char*csv2 = CSV_file_name2;
+    Create_CSV_file(csv,CSV_file_header);
+    //updt2
+    Create_CSV_file(csv2,CSV_file_header);
+
     fill_csv_file(csv);
     node *tete;
     int nb=0;
