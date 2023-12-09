@@ -18,11 +18,12 @@ void SRT_algo(void ) {
 	tete = Read_csv_file(csv, &nbr);
 	printf("nbr proc: %d\n", nbr);
 	tmp = tete; 
+	/*
 	while (tmp!=NULL) // set up remaining time to be the same as te  
 	{
 		tmp->proc.remaining_time = tmp->proc.te;
 		tmp = tmp->next; 
-	}
+	}*/
 	
 
 	

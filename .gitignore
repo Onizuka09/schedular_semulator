@@ -5,3 +5,4 @@ obj/*
 .vscode/
 test
 test_color.c
+Processes.csv

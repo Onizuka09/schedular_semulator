@@ -90,11 +90,20 @@ int linkedlist_bubbleSortpriority( node** head, int count)
              node* p1 = *h;
              node* p2 = p1->next;
 
-            if (p1->proc.priority > p2->proc.priority) {
+            if (p1->proc.priority < p2->proc.priority) {
 
                 /* update the link after swapping */
                 *h = swap(p1, p2);
                 swapped = 1;
+            }
+            else if (p1->proc.priority == p2->proc.priority){
+                if (p1->proc.ta > p2->proc.ta) {
+
+                /* update the link after swapping */
+                *h = swap(p1, p2);
+                swapped = 1;
+            }
+
             }
 
             h = &(*h)->next;
