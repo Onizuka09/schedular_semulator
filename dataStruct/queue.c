@@ -73,14 +73,64 @@ void queue_bsort(queue *q)
 	  {
 		{
 		  if (j->proc.ta < i->proc.ta)
-		  	swap(&(j->proc), &(i->proc)); 
+		  	swap(&(j->proc), &(i->proc));
+
 		}
 	  }
 	}
 
 return; 
 }
+void queue_bsort_1(queue *q)
+{
+	node *i, *j;
 
+	// bool state=false;
+	//	i=q;
+	//	j=i->nxt;
+	for (i = q->head; i != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			{
+				if (j->proc.ta < i->proc.ta)
+					swap(&(j->proc), &(i->proc));
+				else if (j->proc.ta == i->proc.ta)
+				{
+					if ((j->proc.te < i->proc.te))
+						swap(&(j->proc), &(i->proc));
+				}
+			}
+		}
+	}
+
+	return;
+}
+void queue_bsort_te(queue *q)
+{
+	node *i, *j;
+
+	// bool state=false;
+	//	i=q;
+	//	j=i->nxt;
+	for (i = q->head; i != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			{
+				if (j->proc.remaining_time < i->proc.remaining_time)
+					swap(&(j->proc), &(i->proc));
+				else if (j->proc.remaining_time == i->proc.remaining_time)
+				{
+					if ((j->proc.ta < i->proc.ta))
+						swap(&(j->proc), &(i->proc));
+				}
+			}
+		}
+	}
+
+	return;
+}
 
 bool is_empty(queue* q) {
     return q->head == NULL;
