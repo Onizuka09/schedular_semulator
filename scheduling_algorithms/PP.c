@@ -87,6 +87,18 @@ printf("\n");
     //nexicuty awl process fel waitlist 
     Head2->proc.remaining_time--;
     Head2->proc.execution_time=1;
+
+
+    ////////////////////////////////modifier1
+    if ( Head2->proc.remaining_time==0){
+Head2->proc.tf=c_time;
+printf  ("le process %s termine  %d\n ",Head2->proc.name,Head2->proc.tf);
+
+    }
+////////////////////////////////////////modifier2
+
+
+
     //printf("process  %s",Head2->proc.name);
     //printf(" is exucuting for 1 unit");
 

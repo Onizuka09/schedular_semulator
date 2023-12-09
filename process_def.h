@@ -57,7 +57,7 @@ typedef struct {
 	colors color;
     int remaining_time;
     int execution_time;// not te 
-
+	int tf;//date final mariem modifier//////////////////////////////////////////////
 }Process;
 
 

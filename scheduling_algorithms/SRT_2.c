@@ -74,10 +74,15 @@ void SRT_algo(void ) {
 			sleep(te);
 			c_time += te;
 			w_proc->remaining_time -= te;
-			if (w_proc->remaining_time != 0)
-			{ 
-				enqueue(&wait_list, w_proc);
-			}
+			///////////////////////modifier1
+			 if (w_proc->remaining_time == 0) {
+            
+            w_proc->tf = c_time;
+            printf("Process %s completed at time %d\n", w_proc->name, w_proc->tf);
+            /////////////////////////////end modifier
+        } else {
+            enqueue(&wait_list, w_proc);
+        }
 		}
 
 		if (c_time < q1.head->proc.ta) // check for waiting time

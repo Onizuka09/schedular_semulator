@@ -14,6 +14,7 @@ void FIFO_algo(void)
 	node *tmp;
 	node *Head = NULL;
 	Head = Read_csv_file(csv, &nb_proc);
+	
 	tmp = Head;
 	while (tmp != NULL) // transfomr a linked list to a queue ;
 	{
@@ -32,7 +33,7 @@ void FIFO_algo(void)
 	total_t = calculate_simulation_time(q1.head) ; 
 	printf("tottal time 2: %d \n", total_t);
 	printf("This is a FiFo proc execution !\n");
-
+	tproc->remaining_time = tproc->te;
 	while (q1.head !=NULL)
 	{
 		tproc = dequeue(&q1);
@@ -48,16 +49,25 @@ void FIFO_algo(void)
 				sleep(wait_t);
 				printf(ESC CSI "%d" previousLine, 3);
 				c_time += wait_t;
-
+				///////////////////modifier 1
+				tproc->remaining_time-=wait_t ;
+				//////////////////////////////end modifier 1
+		
 		}
 			printf("\rExecuting now %s for %ds ...\n",tproc->name,tproc->te);
 			fflush(stdout);
 			update_bar(total_t,tproc->te,c_time,tproc->color);
 
 			update_time(total_t,tproc->te,c_time,tproc->color);
-
+			
 			printf(ESC CSI "%d" previousLine,3);
 			c_time+=tproc->te;
+			
+			/////////////////modifier2
+			if(tproc->te ==0){   tproc->tf=c_time;
+				printf("%scompleted at %d\n",tproc->name,c_time) ;     }
+/////////////////////////end modifier 2
+
 
 			sleep(tproc->te);
 	}

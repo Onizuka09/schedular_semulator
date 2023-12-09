@@ -96,6 +96,11 @@ printTable_linkedList(CHead,0);  // Round-robin scheduling simulation
 			} else {
 				tempRot = tempRot + (curs-p1->ta);
 				temAtt = temAtt + (tempRot-p1->te);
+				////////////modifier 1
+
+			 p1->tf = curs;
+                printf("Process %s completed at time %d\n", p1->name, p1->tf);
+				////////////end modifier
 	
 			}
 		}else{
@@ -105,6 +110,8 @@ printTable_linkedList(CHead,0);  // Round-robin scheduling simulation
 			c_time = CHead->proc.ta;
 			CHead = CHead->next;
 		}
+		
+
 
 	}
 	

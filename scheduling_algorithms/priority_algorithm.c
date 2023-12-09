@@ -76,6 +76,12 @@ void Priority_algo(void) {
 			printf(ESC CSI "%d" previousLine, 3);
 			sleep(te);
 			c_time += te;
+////////////////////////////////////////////modified 1
+ 			w_proc->tf = c_time;
+            printf("%s completed at %d\n", w_proc->name, c_time);
+
+///////////////////////////////////////////modified2 
+
             search_for_least_min_te(&q1, &wait_list, c_time);
 		    queue_bsort_priority(&wait_list);
 			}
