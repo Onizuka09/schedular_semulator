@@ -43,6 +43,7 @@ node* Read_csv_file(char* file_name,int *nbr)
         {
             // Create a new node and insert it into the linked list
             pr.color = intToColor(color);
+            pr.remaining_time=pr.te;
             tmp = create_new_node(pr);
             insert_at_head(&tete, tmp);
             (*nbr) ++;
@@ -51,6 +52,12 @@ node* Read_csv_file(char* file_name,int *nbr)
     fclose(fpt);
     // printTable_linkedList(tete,0);
     return tete;  
+}
+void print_csv_file_processes(char* file_name){
+    node * head; 
+    int nb = 0 ;
+    head = Read_csv_file(file_name,&nb);
+    printTable_linkedList(head, nb); 
 }
 bool fill_csv_file(char* file_name )
 {

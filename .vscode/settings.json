@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "type_traits": "c",
+        "node.h": "c",
+        "queue.h": "c",
+        "typeinfo": "c",
+        "memory": "c",
+        "random": "c",
+        "optional": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}
