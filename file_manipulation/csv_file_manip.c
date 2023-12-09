@@ -52,6 +52,12 @@ node* Read_csv_file(char* file_name,int *nbr)
     // printTable_linkedList(tete,0);
     return tete;  
 }
+void print_csv_file_processes(char* file_name){
+    node * head; 
+    int nb = 0 ;
+    head = Read_csv_file(file_name,&nb);
+    printTable_linkedList(head, nb); 
+}
 bool fill_csv_file(char* file_name )
 {
 
