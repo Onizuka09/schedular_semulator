@@ -106,6 +106,31 @@ void queue_bsort_1(queue *q)
 
 	return;
 }
+void queue_bsort_2(queue *q)
+{
+	node *i, *j;
+
+	// bool state=false;
+	//	i=q;
+	//	j=i->nxt;
+	for (i = q->head; i != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			{
+				if (j->proc.ta < i->proc.ta)
+					swap(&(j->proc), &(i->proc));
+				else if (j->proc.ta == i->proc.ta)
+				{
+					if ((j->proc.priority > i->proc.priority))
+						swap(&(j->proc), &(i->proc));
+				}
+			}
+		}
+	}
+
+	return;
+}
 void queue_bsort_te(queue *q)
 {
 	node *i, *j;
@@ -132,6 +157,64 @@ void queue_bsort_te(queue *q)
 	return;
 }
 
+void queue_bsort_priority(queue *q)
+{
+	node *i, *j;
+
+	// bool state=false;
+	//	i=q;
+	//	j=i->nxt;
+	for (i = q->head; i != NULL; i = i->next)
+	{
+		for (j = i->next; j != NULL; j = j->next)
+		{
+			{
+				if (j->proc.priority > i->proc.priority)
+					swap(&(j->proc), &(i->proc));
+				else if (j->proc.priority == i->proc.priority)
+				{
+					if ((j->proc.ta < i->proc.ta))
+						swap(&(j->proc), &(i->proc));
+				}
+			}
+		}
+	}
+
+	return;
+}
+
+
 bool is_empty(queue* q) {
     return q->head == NULL;
+}
+
+void search_for_least_min_te(queue *q, queue *wait_list, int time)
+{
+	Process *p;
+	queue *tmp = (queue *)malloc(sizeof(queue));
+	if (tmp == NULL)
+	{
+		// Handle the case where memory allocation fails
+		// (e.g., print an error message and exit the program)
+		fprintf(stderr, "Failed to allocate memory for queue.\n");
+		exit(EXIT_FAILURE);
+	}
+	init_queue(tmp);
+	tmp->head = q->head;
+	while (tmp->head != NULL)
+	{
+		if (tmp->head->proc.ta <= time)
+		{
+			p = dequeue(tmp);
+			q->head = tmp->head;
+			// printTable_view(p,0);
+			enqueue(wait_list, p);
+		}
+		else
+		{
+			tmp->head = tmp->head->next;
+		}
+	}
+	free(tmp);
+	return;
 }
