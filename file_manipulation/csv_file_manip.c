@@ -43,6 +43,7 @@ node* Read_csv_file(char* file_name,int *nbr)
         {
             // Create a new node and insert it into the linked list
             pr.color = intToColor(color);
+            pr.remaining_time=pr.te;
             tmp = create_new_node(pr);
             insert_at_head(&tete, tmp);
             (*nbr) ++;
