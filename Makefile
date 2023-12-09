@@ -10,8 +10,9 @@ PRIORITY_bin := priority
 Multi_bin := multiLevel
 PP_bin := PP
 
+BIN := schedular_semulator 
 # Define targets
-all: $(FIFO_bin)
+all: create_BUILD_DIR $(BIN)
 
 tfifo: create_BUILD_DIR $(FIFO_bin)
 tRR: create_BUILD_DIR $(RR_bin)
@@ -21,6 +22,10 @@ tMulti: create_BUILD_DIR $(Multi_bin)
 tPP: create_BUILD_DIR $(PP_bin)
 
 # linking
+#---------------------------- main -----
+$(BIN): menu_example.c process_def.h $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o  $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/round_robin.o $(BUILD_DIR)/priority_algorithm.o $(BUILD_DIR)/srt.o 
+	gcc $^ -o $@ -lm 
+# ---------------------------------------------linking ---------------------------------
 $(FIFO_bin): $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o
 	$(CC) $^ -o $@ -lm
 
@@ -106,4 +111,7 @@ clean:
 	@if [ -e $(PP_bin) ]; then \
 		rm $(PP_bin); \
 		echo "Removed $(PP_bin)."; \
+	@if [ -e $(BIN) ]; then \
+		rm $(BIN); \
+		echo "Removed $(BIN)."; \
 	fi

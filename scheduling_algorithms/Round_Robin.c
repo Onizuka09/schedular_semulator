@@ -2,20 +2,9 @@
 // Created by amani on 18/11/23.
 //
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include "scheculing_algorithm.h"
 
-#include "../display_manger/display_conf.h" 
-
-#include "../process_config/global_config.h"
-#include "../dataStruct/linkedlist.h"
-#include "../dataStruct/queue.h"
-#include "../process_def.h"
-#include "../file_manipulation/csv_file_manip.h"
-
-int main() {
+void Round_Robin_algo (void ) {
 
 	int qtm , nb_proc=0 , tempRot=0 , temAtt =0;
 	printf("Quantum value ? ");
@@ -35,10 +24,7 @@ int main() {
 
 	// tri lel linked list
 	linkedlist_bubbleSort(&Head,nb_proc);
-/*  
-	printf ("linked list is sorted : ");
-	printlist(Head);
-*/
+
 printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 	printf("Round Robin simulation \n"); 
 	int total_t;
@@ -117,6 +103,6 @@ printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 	printf("done\n");
 	int tempRotMoy = tempRot / nb_proc;
 	int temAttMoy = temAtt/nb_proc;
-printf("temp de rotation moy = %d \n",tempRotMoy);
-printf("temp d'attente moy = %d \n",temAttMoy);
+// printf("temp de rotation moy = %d \n",tempRotMoy);
+// printf("temp d'attente moy = %d \n",temAttMoy);
 }
