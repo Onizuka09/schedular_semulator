@@ -11,9 +11,13 @@
 #include "../process_def.h"
 #include "../file_manipulation/csv_file_manip.h"
 #include "../dataStruct/linkedlist.h"
+//#include <unistd.h>
+
 
 void FIFO_algo(void);
 void SRT_algo(void);
 void Round_Robin_algo(void);
 void Priority_algo(void);
+void multi_level(void);
+void PP ( void);
 #endif
