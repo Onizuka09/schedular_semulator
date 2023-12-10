@@ -319,3 +319,32 @@ void printTable_linkedList(node *head, int num_proc)
 	}
 	printf("\n");
 }
+
+void printTable_view_metrics(Process *proc, int num_proc)
+{
+	int col = 4, ligne = num_proc;
+	char ch_color[50];
+	// for (int i=0 ; i<col; ++i)
+	//{
+	printf("%s\t", proc->name);
+	printf("%d\t", proc->ta);
+	printf("%d\t", proc->te);
+	printf("%d\t", proc->end);
+	printf("   %d\t", proc->priority);
+	Color_to_string(proc->color, ch_color);
+	printf("\t%s\t", ch_color);
+}
+void printTable_metrics(node *head, int num_proc)
+{
+	node *tmp = head;
+	printf("P_name\tTa\tTe\tend\tPriority\tColor\n");
+	while (tmp != NULL)
+	{
+		Process proc = tmp->proc;
+		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
+		printTable_view_metrics(&proc, num_proc);
+		printf("\n");
+		tmp = tmp->next;
+	}
+	printf("\n");
+}
