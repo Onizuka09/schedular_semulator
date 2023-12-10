@@ -174,7 +174,6 @@ printf("done !!\n");
 printTable_metrics(&metrics_q,nb_proc);
 
 
-return;
 char *title = "Round-Robin Execution";
 
 create_widget(&GUIq, title);
