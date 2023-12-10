@@ -18,31 +18,40 @@ void Round_Robin_algo (void ) {
 	node *tmp;
 	node *Head =NULL;
 
+	//	read csv file 
+
 	char *csv = CSV_file_name;
 	Head = Read_csv_file(csv, &nb_proc);
+
+	//mod1
+	node* CHead=Head;
 	printf("nbr proc: %d\n", nb_proc);
 
 
 
 	// tri lel linked list
-	linkedlist_bubbleSort(&Head,nb_proc);
+	linkedlist_bubbleSort(&CHead,nb_proc);
 
-printTable_linkedList(Head,0);  // Round-robin scheduling simulation
+printTable_linkedList(CHead,0);  // Round-robin scheduling simulation
 	printf("Round Robin simulation \n"); 
 	int total_t;
-	total_t = calculate_simulation_time(Head);
+	total_t = calculate_simulation_time(CHead);
 	queue wait_list;
 	init_queue(&wait_list);
 	printf("Total simulation time %d \n",total_t );
 
-	enqueue(&wait_list,&Head->proc);
+    //upd
+	enqueue(&wait_list,&CHead->proc);
 	int c_time = 0,wait_time=0;  
-	int curs = Head->proc.ta;
+	//upd
+	int curs = CHead->proc.ta;
 	printf("curs = %d",curs);
 	printf("\n");
-	Head = Head->next;
+	//upd
+	CHead = CHead->next;
 	int te;
-	while (!is_empty(&wait_list) || Head != NULL ) {
+	//updt
+	while (!is_empty(&wait_list) || CHead != NULL ) {
 		if (!is_empty(&wait_list)) {
 			Process *p1 = dequeue(&wait_list);
 			if (c_time < p1->ta)
@@ -65,10 +74,10 @@ printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 
 			}
 			te=p1->te;
-			if (p1->te >= qtm) {
+			if (p1->remaining_time >= qtm) {
 				p1->execution_time = qtm;
 			} else {
-				p1->execution_time = p1->te;
+				p1->execution_time = p1->remaining_time;
 			}
 
 			fflush(stdout);
@@ -85,27 +94,31 @@ printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 			enqueue(&GUIq, Gproc);
 			p1->te -= p1->execution_time;
 
+			p1->remaining_time -= p1->execution_time;
+
 			curs =  curs + p1->execution_time;
 			c_time += p1->execution_time;
 
-
-			while (Head != NULL && Head->proc.ta <= curs) {
-				enqueue(&wait_list, &Head->proc);
-				Head = Head->next;
+//updt
+			while (CHead != NULL && CHead->proc.ta <= curs) {
+				enqueue(&wait_list, &CHead->proc);
+				//UPT
+				CHead = CHead->next;
 			}
 
-			if (p1->te > 0) {
+			if (p1->remaining_time > 0) {
 				enqueue(&wait_list, p1);
 			} else {
 				tempRot = tempRot + (curs-p1->ta);
-				temAtt = temAtt + (tempRot-te);
+				temAtt = temAtt + (tempRot-p1->te);
 	
 			}
 		}else{
-			enqueue(&wait_list,&Head->proc);
-			curs = Head->proc.ta;
-			c_time = Head->proc.ta;
-			Head = Head->next;
+			//UPDT
+			enqueue(&wait_list,&CHead->proc);
+			curs = CHead->proc.ta;
+			c_time = CHead->proc.ta;
+			CHead = CHead->next;
 		}
 
 

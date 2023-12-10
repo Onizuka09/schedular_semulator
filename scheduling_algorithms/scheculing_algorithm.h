@@ -17,4 +17,5 @@ void FIFO_algo(void);
 void SRT_algo(void);
 void Round_Robin_algo(void);
 void Priority_algo(void);
+void Priority_Preamptive(void);
 #endif
