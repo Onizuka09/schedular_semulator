@@ -13,6 +13,16 @@ void SRT_algo(void ) {
 	Process pr;
 
 	char *csv = CSV_file_name;
+	/////////////////////
+FILE *csvFile = fopen("processes1.csv", "w");
+
+if (csvFile == NULL) {
+    fprintf(stderr, "Erreur d'ouverture du fichier CSV.\n");
+    exit(EXIT_FAILURE);
+}
+////////////////
+
+
 	// Create_CSV_file(csv);
 	// fill_csv_file(csv);
 	tete = Read_csv_file(csv, &nbr);
@@ -63,6 +73,7 @@ void SRT_algo(void ) {
 			else {
 				te = w_proc->remaining_time;
 			}
+
 			printf(clear_line);
 			fflush(stdout);
 			printf("\rexcuting porc %s for %d\n", w_proc->name, te);
@@ -79,6 +90,8 @@ void SRT_algo(void ) {
             
             w_proc->tf = c_time;
             printf("Process %s completed at time %d\n", w_proc->name, w_proc->tf);
+
+			fprintf(csvFile, "Process %s completed at time %d\n", w_proc->name, w_proc->tf);
             /////////////////////////////end modifier
         } else {
             enqueue(&wait_list, w_proc);
@@ -116,7 +129,14 @@ void SRT_algo(void ) {
 			printf(ESC CSI "%d" previousLine, 3);
 			sleep(te);
 			c_time +=te;
-			if (w_proc->remaining_time !=0)
+			/////////////////modified 2
+			if (w_proc->remaining_time == 0) {
+            
+            w_proc->tf = c_time;
+            printf("Process %s completed at time %d\n", w_proc->name, w_proc->tf);
+			fprintf(csvFile, "Process %s completed at time %d\n", w_proc->name, w_proc->tf);}
+			///////////////////end modified 
+			else
 			{	
 				enqueue(&wait_list, w_proc);
 				
@@ -139,6 +159,13 @@ void SRT_algo(void ) {
 		printf(ESC CSI "%d" previousLine, 3);
 		sleep(te);
 		c_time += te;
+		///////////////////modified 3
+		if (w_proc->remaining_time == 0) {
+            
+            w_proc->tf = c_time;
+            printf("Process %s completed at time %d\n", w_proc->name, w_proc->tf);
+			fprintf(csvFile, "Process %s completed at time %d\n", w_proc->name, w_proc->tf);}
+			//////////////////////end
 	}
 	printf("\n\n\n");
 	printf("done \n");
@@ -147,7 +174,7 @@ void SRT_algo(void ) {
 			MOYTA =tat /nbr;
 			printf("MOYTR%f",MOYTR);
 			*/
-
+    fclose(csvFile);
 		return ;
 }
 

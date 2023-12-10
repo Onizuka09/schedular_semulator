@@ -115,3 +115,50 @@ int linkedlist_bubbleSortpriority( node** head, int count)
     }
      return 0;
 }
+
+
+
+
+int temps_rotation( int tf,int ta){
+return tf-ta;
+}
+
+
+int temps_attente(int tf , int ta, int te ){
+    int tr = temps_rotation(  tf, ta);
+return tr-te;
+}
+ 
+ int MOY_TR(int tf,int ta ,int nbr){
+ int mtr=0;
+   float moyenne_tr;
+ for(int i=0, i<nbr ,i++){
+//read tf 
+//read ta 
+mtr+= temps_rotation(  tf, ta);
+
+
+}
+moyenne_tr= mtr/nbr;
+return moyenne_tr;
+
+
+
+ }
+
+ int MOY_TA(int tf , int ta, int te ,int nbr){
+   int mta=0;
+   float moyenne_ta;
+for(int i=0, i<nbr ,i++){
+//read tf 
+//read ta 
+// read te 
+mta+= temps_attente(  tf, ta,te);
+
+
+}
+moyenne_ta= mta/nbr;
+return moyenne_ta;
+
+
+ }

@@ -14,7 +14,14 @@ void FIFO_algo(void)
 	node *tmp;
 	node *Head = NULL;
 	Head = Read_csv_file(csv, &nb_proc);
-	
+	  /////////////////////mofifffffffffff
+FILE *csvFile = fopen("processes1.csv", "w");
+
+if (csvFile == NULL) {
+    fprintf(stderr, "Erreur d'ouverture du fichier CSV.\n");
+    exit(EXIT_FAILURE);
+}
+////////////////mofifffffffffffffff
 	tmp = Head;
 	while (tmp != NULL) // transfomr a linked list to a queue ;
 	{
@@ -49,12 +56,16 @@ void FIFO_algo(void)
 				sleep(wait_t);
 				printf(ESC CSI "%d" previousLine, 3);
 				c_time += wait_t;
-				///////////////////modifier 1
-				tproc->remaining_time-=wait_t ;
-				//////////////////////////////end modifier 1
+				
 		
 		}
 			printf("\rExecuting now %s for %ds ...\n",tproc->name,tproc->te);
+			/////////////////modifier2
+				tproc->tf=c_time;
+				printf("%scompleted at %d\n",tproc->name,c_time) ;  
+				fprintf(csvFile, "Process %s completed at time %d\n", tproc->name,c_time);
+				 /////////////////////////end modifier 2
+
 			fflush(stdout);
 			update_bar(total_t,tproc->te,c_time,tproc->color);
 
@@ -63,15 +74,13 @@ void FIFO_algo(void)
 			printf(ESC CSI "%d" previousLine,3);
 			c_time+=tproc->te;
 			
-			/////////////////modifier2
-			if(tproc->te ==0){   tproc->tf=c_time;
-				printf("%scompleted at %d\n",tproc->name,c_time) ;     }
-/////////////////////////end modifier 2
+			
 
 
 			sleep(tproc->te);
 	}
 
 	printf("\n\n\nDone !\n"); 
+	fclose(csvFile);
 	return ;
 }

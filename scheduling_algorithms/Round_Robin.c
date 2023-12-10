@@ -17,6 +17,14 @@ void Round_Robin_algo (void ) {
 	//	read csv file 
 
 	char *csv = CSV_file_name;
+	/////////////////////mofifffffffffff
+FILE *csvFile = fopen("processes1.csv", "w");
+
+if (csvFile == NULL) {
+    fprintf(stderr, "Erreur d'ouverture du fichier CSV.\n");
+    exit(EXIT_FAILURE);
+}
+////////////////mofifffffffffffffff
 	Head = Read_csv_file(csv, &nb_proc);
 
 	//mod1
@@ -84,7 +92,7 @@ printTable_linkedList(CHead,0);  // Round-robin scheduling simulation
 			curs =  curs + p1->execution_time;
 			c_time += p1->execution_time;
 
-//updt
+
 			while (CHead != NULL && CHead->proc.ta <= curs) {
 				enqueue(&wait_list, &CHead->proc);
 				//UPT
@@ -100,6 +108,7 @@ printTable_linkedList(CHead,0);  // Round-robin scheduling simulation
 
 			 p1->tf = curs;
                 printf("Process %s completed at time %d\n", p1->name, p1->tf);
+				fprintf(csvFile, "Process %s completed at time %d\n", p1->name, p1->tf);
 				////////////end modifier
 	
 			}
@@ -122,4 +131,5 @@ printTable_linkedList(CHead,0);  // Round-robin scheduling simulation
 // printf("temp de rotation moy = %d \n",tempRotMoy);
 // printf("temp d'attente moy = %d \n",temAttMoy);
 printTable_linkedList(Head,0);
+fclose(csvFile);
 }

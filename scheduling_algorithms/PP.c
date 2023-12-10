@@ -15,6 +15,15 @@ void PP() {
     //	read csv file 
 
 	char *csv = CSV_file_name;
+
+    /////////////////////mofifffffffffff
+FILE *csvFile = fopen("processes1.csv", "w");
+
+if (csvFile == NULL) {
+    fprintf(stderr, "Erreur d'ouverture du fichier CSV.\n");
+    exit(EXIT_FAILURE);
+}
+////////////////mofifffffffffffffff
 	Head = Read_csv_file(csv, &nb_proc);
 	printf("nbr proc: %d\n", nb_proc);
 
@@ -93,6 +102,7 @@ printf("\n");
     if ( Head2->proc.remaining_time==0){
 Head2->proc.tf=c_time;
 printf  ("le process %s termine  %d\n ",Head2->proc.name,Head2->proc.tf);
+fprintf(csvFile, "Process %s completed at time %d\n", Head2->proc.name,Head2->proc.tf);
 
     }
 ////////////////////////////////////////modifier2
@@ -118,7 +128,11 @@ printf  ("le process %s termine  %d\n ",Head2->proc.name,Head2->proc.tf);
         //printf("is terminated");
         Head2=Head2->next;
         l2--;
-
+///////////////////////////////modif2
+Head2->proc.tf=c_time;
+printf  ("le process %s termine  %d\n ",Head2->proc.name,Head2->proc.tf);
+fprintf(csvFile, "Process %s completed at time %d\n", Head2->proc.name,Head2->proc.tf);
+//////////////////////modif2
     }
     
 }
@@ -136,11 +150,18 @@ while (Head2!= NULL){
     // curs++;
     c_time += Head2->proc.remaining_time;
     Head2 = Head2->next; 
+    ///////////////////////modif3
+if (Head2->proc.remaining_time==0){
+    Head2->proc.tf=c_time;
+printf  ("le process %s termine  %d\n ",Head2->proc.name,Head2->proc.tf);
+fprintf(csvFile, "Process %s completed at time %d\n", Head2->proc.name,Head2->proc.tf);
+}
+///////////////modif3
 }
  
 printf("\n\n\n");
 printf("done !!\n");
 printTable_linkedList(Head,0);
 return;
-
+fclose(csvFile);
 }

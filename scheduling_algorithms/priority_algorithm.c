@@ -21,6 +21,14 @@ void Priority_algo(void) {
 	// Create_CSV_file(csv);
 	// fill_csv_file(csv);
 	Head = Read_csv_file(csv, &nbr);
+	  /////////////////////mofifffffffffff
+FILE *csvFile = fopen("processes1.csv", "w");
+
+if (csvFile == NULL) {
+    fprintf(stderr, "Erreur d'ouverture du fichier CSV.\n");
+    exit(EXIT_FAILURE);
+}
+////////////////mofifffffffffffffff
 	printf("nbr proc: %d\n", nbr);
 	tmp = Head;
 	while (tmp != NULL) // transfomr a linked list to a queue ; 
@@ -79,7 +87,7 @@ void Priority_algo(void) {
 ////////////////////////////////////////////modified 1
  			w_proc->tf = c_time;
             printf("%s completed at %d\n", w_proc->name, c_time);
-
+fprintf(csvFile, "Process %s completed at time %d\n", w_proc->name,c_time); 
 ///////////////////////////////////////////modified2 
 
             search_for_least_min_te(&q1, &wait_list, c_time);
@@ -91,6 +99,7 @@ void Priority_algo(void) {
         printf("\n\n\n");
 		printf("done \n");
 
-
+fclose(csvFile);
     return ;
+
 }
