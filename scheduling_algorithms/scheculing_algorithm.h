@@ -18,6 +18,6 @@ void FIFO_algo(void);
 void SRT_algo(void);
 void Round_Robin_algo(void);
 void Priority_algo(void);
-void multi_level(void);
+//void multi_level(void);
 void PP ( void);
 #endif
