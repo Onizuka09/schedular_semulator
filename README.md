@@ -8,3 +8,11 @@ This is a university project about creating C application that simulates the exe
 ##  set GTK-30:
 to install GTK-3 jut run: 
 `sudo apt install libgtk-3-dev`
+
+## Installation 
+1- `make` 
+
+2- `./schedular_semulator`
+
+## Github Link 
+LINK: https://github.com/Onizuka09/projet_se.git
