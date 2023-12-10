@@ -30,6 +30,8 @@ int curs = 0,c_time=0,wait_time=0;
 
     node *tmp2;
     node *Head2 =NULL;
+    node *metrics_pp= NULL;
+    metrics_pp = Head;
     int l2=0;
     bool b = true;
     int total_t = calculate_simulation_time(Head);
@@ -67,7 +69,9 @@ printf("\n");
                 CHead = CHead->next;
             }
             else{ b=false;}
-    }
+       }
+
+       
     if (c_time < Head2->proc.ta)
     {
         wait_time = Head2->proc.ta - c_time;
@@ -98,16 +102,20 @@ printf("\n");
     sleep(Head2->proc.execution_time);
 	printf(ESC CSI "%d" previousLine, 3);
 
+    
     curs++;
     c_time++;
     b = true;
     if (Head2->proc.remaining_time==0){
         //printf("\n process %s" , Head2->proc.name);
         //printf("is terminated");
+        //mtrc
+        metrics_pp->proc.end =c_time;
         Head2=Head2->next;
         l2--;
 
     }
+    
     
 }
 linkedlist_bubbleSortpriority(&Head2, l2);
@@ -123,12 +131,16 @@ while (Head2!= NULL){
 
     // curs++;
     c_time += Head2->proc.remaining_time;
+    //mtrcs
+    metrics_pp->proc.end =c_time;
     Head2 = Head2->next; 
 }
  
 printf("\n\n\n");
 printf("done !!\n");
-printTable_linkedList(Head,0);
+printTable_metrics(metrics_pp,0);
+
+
 return;
 
 }
