@@ -63,6 +63,7 @@ typedef struct {
     int execution_time;// not te 
 	//nest7a9ha fel multilevel
 	int remaining_qtm;
+	int end ;
 
 }Process;
 
