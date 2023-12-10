@@ -104,7 +104,11 @@ int calculateNumPriorities(node* head2) {
     return numPriorities;
 }
 
+void join_team(LinkedListOfQueues* lq, node* Head)
+{
 
+
+}
 
 
 
@@ -222,134 +226,143 @@ void assign_priorities(LinkedListOfQueues* teamList, int priorities[], int numPr
     }
 }
 
+void  insert_liknedlist_of_queue_at_id(LinkedListOfQueues* teamList,Process *proc, int id )
+{
+    while (teamList->head!= NULL)
+    {
 
-//ne5dem function ta9ra mel head2 w thot kol process fel queue ily 5assa byh kenou share pr maa had a5er w tfas5ou mel head2 sinon kenou andou unique pr mata3ml chy
-LinkedListOfQueues* join_team(LinkedListOfQueues* teamList, node* head2) {
-    
-}
-
-
-
-
-
-
-void main() {
-
-    int qtm , nb_proc=0;
-    printf("Quantum value ? ");
-    scanf("%d", &qtm);
-    
-    node *tmp;
-    node *Head =NULL;
-   
-   //	read csv file 
-	char *csv = CSV_file_name;
-	Head = Read_csv_file(csv, &nb_proc);
-	printf("nbr proc: %d\n", nb_proc);
-
-
-printf("nbr proc: %d\n", nb_proc);
-printTable_linkedList(Head,0);
-linkedlist_bubbleSort(&Head,nb_proc);
-printf("\nlinked list loula sorted by ta\n");
-printlist(Head);
-
-/*******************************************************************************/
-
-// ne7seb 9adeh andi men groupe
-int nbP=calculateNumPriorities(Head);
-
-//tawa nasn3 linkedlist of queus fer8a de taiile nbP
-LinkedListOfQueues teamlist = create_linked_list_of_queues(nbP);
-int* priorityArray = get_repeated_priorities(Head, &nbP);
-// Sort the array
-bubbleSort(priorityArray, nbP);
-// Assign priorities to each queue in teamList
-assign_priorities(&teamlist, priorityArray, nbP);
-
-//print list 
-
-while (teamlist.head != NULL) {
-    if (teamlist.head->queue != NULL) {
-        if (teamlist.head->queue->id != NULL) {
-            printf("\n%d", teamlist.head->queue->id);
-        } else {
-            break;}
     }
-
-    teamlist.head = teamlist.head->next;
+}
+//ne5dem function ta9ra mel head2 w thot kol process fel queue ily 5assa byh kenou share pr maa had a5er w tfas5ou mel head2 sinon kenou andou unique pr mata3ml chy
+LinkedListOfQueues* join_team(LinkedListOfQueues* teamList, node* lk,int* p_arr,int size_p) {
+    node *i;
+    node *j;
+    int counter=0; 
+    // int check
+    int p=0; 
+    Process *pr; 
+    while (counter !=size_p)
+    {
+        p = *(p_arr + counter);
+        for (i = lk; i != NULL; i = i->next)
+        {
+            
+                if (i->proc.priority == p )
+                {
+                    pr = &(i->proc);
+                    insert_liknedlist_of_queue_at_id(teamList,pr, p);
+                }
+        }
+        counter ++; 
+    }
 }
 
-
-
-// algo 
-int current_time = Head->proc.ta;
-node * Chead = Head;
-node * waitlist;
-int l2=0;
-int lastnode;
-// bech ykounou fi wost while curs < last node
-while ( current_time<lastnode){
-
-    while (Head != NULL)
+void main()
+    {
+        int qtm, nb_proc = 0;
+        printf("Quantum value ? ");
+        scanf("%d", &qtm);
+        node *tmp;
+        node *Head = NULL;
+        //	read csv file
+        char *csv = CSV_file_name;
+        Head = Read_csv_file(csv, &nb_proc);
+        printf("nbr proc: %d\n", nb_proc);
+        printf("nbr proc: %d\n", nb_proc);
+        printTable_linkedList(Head, 0);
+        linkedlist_bubbleSort(&Head, nb_proc);
+        printf("\nlinked list loula sorted by ta\n");
+        printlist(Head);
+        /*******************************************************************************/
+        // ne7seb 9adeh andi men groupe
+        int nbP = calculateNumPriorities(Head);
+        // tawa nasn3 linkedlist of queus fer8a de taiile nbP
+        LinkedListOfQueues teamlist = create_linked_list_of_queues(nbP);
+        int *priorityArray = get_repeated_priorities(Head, &nbP);
+        // Sort the array
+        bubbleSort(priorityArray, nbP);
+        // Assign priorities to each queue in teamList
+        assign_priorities(&teamlist, priorityArray, nbP);
+        // print list
+        while (teamlist.head != NULL)
         {
-            if (Head->proc.ta <= current_time)
+            if (teamlist.head->queue != NULL)
             {
-                node *tmp2 = create_new_node(Head->proc);
-                insert_at_head(&waitlist, tmp2);
-                l2++;
-                Head = Head->next;
+                if (teamlist.head->queue->id != NULL)
+                {
+                    printf("\n%d", teamlist.head->queue->id);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            teamlist.head = teamlist.head->next;
+        }
+        // algo
+        int current_time = Head->proc.ta;
+        node *Chead = Head;
+        node *waitlist;
+        int l2 = 0;
+        int lastnode;
+        // bech ykounou fi wost while curs < last node
+        while (current_time < lastnode)
+        {
+            while (Head != NULL)
+            {
+                if (Head->proc.ta <= current_time)
+                {
+                    node *tmp2 = create_new_node(Head->proc);
+                    insert_at_head(&waitlist, tmp2);
+                    l2++;
+                    Head = Head->next;
+                }
+            }
+            // tawa wait list fyha el processes ily mawjoudin andi fel current time
+            // tawa na3mlelha sort hasb el priority
+            linkedlist_bubbleSortpriority(&waitlist, l2);
+            // tawa bch nasn3 men wait list groups w nhothom fel teamlist
+            join_team(&teamlist, waitlist);
+            // tawa bch n9aren awel elemtn fel wait list b awel elemnt f awl queu fel teamlist
+            if (waitlist->proc.priority > teamlist.head->queue->id && waitlist != NULL)
+            {
+                // ne5dem priority with interruption adiya
+                waitlist->proc.remaining_time--;
+                current_time++;
+                if (waitlist->proc.remaining_time == 0)
+                {
+                    // printf("\n process %s" , Head2->proc.name);
+                    // printf("is terminated");
+                    waitlist = waitlist->next;
+                    l2--;
+                }
+                // round robin
+            }
+            else if (teamlist.head->queue->head->proc.remaining_time > 0 && teamlist.head->queue->head->proc.remaining_qtm != qtm)
+            {
+                // ye5dem one unit
+                teamlist.head->queue->head->proc.remaining_time--;
+                current_time++;
+                // nchouf remaining time kenou 0 na3mlou dequee
+                if (teamlist.head->queue->head->proc.remaining_time == 0)
+                {
+                    dequeue(&teamlist.head->queue);
+                    if (is_empty(teamlist.head->queue))
+                    {
+                        teamlist.head = teamlist.head->next;
+                    }
+                    // ken remaining time te3ou mahouch 0 lazem na3mlou dequeue w ba3d enqueue bch n7awlou f a5er queue
+                }
+                else
+                {
+                    dequeue(&teamlist.head->queue);
+                    enqueue(&teamlist.head->queue);
+                }
             }
         }
-
-    // tawa wait list fyha el processes ily mawjoudin andi fel current time 
-    // tawa na3mlelha sort hasb el priority
-    linkedlist_bubbleSortpriority(&waitlist,l2);
-    
-    // tawa bch nasn3 men wait list groups w nhothom fel teamlist
-    join_team(&teamlist,waitlist);
-
-// tawa bch n9aren awel elemtn fel wait list b awel elemnt f awl queu fel teamlist 
-    if (waitlist->proc.priority > teamlist.head->queue->id && waitlist!= NULL){
-        //ne5dem priority with interruption adiya 
-        waitlist->proc.remaining_time--;
-        current_time++;
-        if (waitlist->proc.remaining_time==0){
-            //printf("\n process %s" , Head2->proc.name);
-            //printf("is terminated");
-            waitlist=waitlist->next;
-            l2--;
-        }
-
-  //round robin 
-    } else if (teamlist.head->queue->head->proc.remaining_time>0  &&  teamlist.head->queue->head->proc.remaining_qtm != qtm){
-        //ye5dem one unit
-        teamlist.head->queue->head->proc.remaining_time--;
-        current_time++;
-        // nchouf remaining time kenou 0 na3mlou dequee 
-        if (teamlist.head->queue->head->proc.remaining_time==0){
-            dequeue(&teamlist.head->queue);
-             if ( is_empty(teamlist.head->queue) ){
-                teamlist.head=teamlist.head->next;
-             }
-
-        // ken remaining time te3ou mahouch 0 lazem na3mlou dequeue w ba3d enqueue bch n7awlou f a5er queue
-        }else {
-            dequeue(&teamlist.head->queue);
-            enqueue(&teamlist.head->queue);
-
-        }
-        
-        
+        // tawa andi kol woslou w teamlist sorted   ne5dem bel te mch b unit by unit bch tji el update bar mrigla
+        //......
     }
-    
-
-}
-
-// tawa andi kol woslou w teamlist sorted   ne5dem bel te mch b unit by unit bch tji el update bar mrigla 
-//......
-}
-
 
 
 
@@ -381,7 +394,7 @@ int* priorityArray = get_repeated_priorities(Head, &nbP);
 
 
 
-}
+
 
 
 
