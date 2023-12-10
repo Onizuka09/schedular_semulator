@@ -24,15 +24,10 @@ tPP: create_BUILD_DIR $(PP_bin)
 
 # linking
 #---------------------------- main -----
-<<<<<<< HEAD
-$(BIN): menu_example.c process_def.h $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o  $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o $(BUILD_DIR)/fifo_algorithm.o $(BUILD_DIR)/round_robin.o $(BUILD_DIR)/priority_algorithm.o $(BUILD_DIR)/srt.o $(BUILD_DIR)/PP.o #$(BUILD_DIR)/multi_Level.o 
-	gcc $^ -o $@ -lm 
-=======
 $(BIN): menu_example.c process_def.h   $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o  $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o scheduling_algorithms/fifo_algorithm.c scheduling_algorithms/Round_Robin.c scheduling_algorithms/priority_algorithm.c scheduling_algorithms/SRT_2.c scheduling_algorithms/PP.c graphic_display/gantt_chart.h graphic_display/gantt_chart.c
 	gcc $^ -o $@ $(LDFLAGS) 
 
 
->>>>>>> moktar
 # ---------------------------------------------linking ---------------------------------
 $(FIFO_bin): $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o  $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o graphic_display/afficher2.c graphic_display/afficher2.h scheduling_algorithms/fifo_algorithm.c
 	$(CC) $^ -o $@ $(LDFLAGS)
