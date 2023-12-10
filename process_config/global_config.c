@@ -64,6 +64,7 @@ int generate_color(int *tab,int nb_proc){
 	// int time();
 	// srand((unsigned int)time(NULL));
 	int color;
+	do {
 	color = (rand() % TOTAL_CL )+ 1;
 	for (int i = 0; i < nb_proc; i++)
 	{ 
@@ -71,10 +72,10 @@ int generate_color(int *tab,int nb_proc){
 		{
 			i = 0;
 			color = (rand() % TOTAL_CL) + 1;
-			continue;
+			// continue;
 		}
 	}
-	color <= 0 ? color = 1 : color;
+	} while ((color <= 0));
 	return color;
 }
 void  random_process_generation(Process* proc,int nb_proc)

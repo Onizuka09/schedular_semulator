@@ -13,6 +13,7 @@
 #include "../dataStruct/linkedlist.h"
 //#include <unistd.h>
 
+#include "../graphic_display/gantt_chart.h"
 
 void FIFO_algo(void);
 void SRT_algo(void);

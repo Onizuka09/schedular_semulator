@@ -5,3 +5,6 @@ This is a university project about creating C application that simulates the exe
 * display_mangar floder contains all the function that is related to the display ( colors, update_bar function) ... 
 * process_config folder contains the definition of a process ( structure ) function to get user input ... 
 
+##  set GTK-30:
+to install GTK-3 jut run: 
+`sudo apt install libgtk-3-dev`

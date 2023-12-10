@@ -7,9 +7,12 @@ void Priority_algo(void) {
      /* n7awel nhotha fel for loop*/
     node *tmp;
     node *Head =NULL;
-    queue q1; 
-    init_queue(&q1);
-    Process p ;
+	queue q1;
+	init_queue(&q1);
+	queue GUIq;
+	init_queue(&GUIq);
+	Process *Gproc = malloc(sizeof(Process));
+	Process p ;
     int color, sum=0 ; 
     int nb_proc=0, nb_proc1=0;
     queue wait_list;
@@ -57,6 +60,11 @@ void Priority_algo(void) {
             update_time(total_t, wait_time, c_time, E_RESET_C);
             sleep(wait_time);
 			printf(ESC CSI "%d" previousLine, 3);
+			strcpy(Gproc->name, "waiting");
+			Gproc->ta = c_time;
+			Gproc->te = wait_time;
+			Gproc->color = E_RESET_C;
+			enqueue(&GUIq, Gproc);
 			c_time += wait_time;
 		}
         search_for_least_min_te(&q1, &wait_list, c_time);
@@ -75,6 +83,11 @@ void Priority_algo(void) {
 
 			printf(ESC CSI "%d" previousLine, 3);
 			sleep(te);
+			strcpy(Gproc->name, w_proc->name);
+			Gproc->ta = c_time;
+			Gproc->te = te;
+			Gproc->color = w_proc->color;
+			enqueue(&GUIq, Gproc);
 			c_time += te;
             search_for_least_min_te(&q1, &wait_list, c_time);
 		    queue_bsort_priority(&wait_list);
@@ -84,7 +97,15 @@ void Priority_algo(void) {
 
         printf("\n\n\n");
 		printf("done \n");
+		char *title = "Priority Execution";
+		create_widget(&GUIq,title);
+		while (GUIq.head != NULL)
+		{
+			Gproc = dequeue(&GUIq);
+		}
+		free(w_proc);
+		free(Gproc);
+		//free(Gproc);
 
-
-    return ;
+		return;
 }

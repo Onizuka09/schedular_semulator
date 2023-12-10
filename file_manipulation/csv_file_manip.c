@@ -80,7 +80,7 @@ bool fill_csv_file(char* file_name )
         for (int i = 0; i < nb_proc; i++)
         {
             random_process_generation(&pr[i], nb_proc);
-            cl=generate_color(color_tab, nb_proc);
+            cl=generate_color(color_tab, i);
             color_tab[i] = cl; 
             sprintf(pr[i].name, "P%d", i + 1);
             fprintf(fpt, "%s, %d, %d, %d, %d\n", pr[i].name, pr[i].te, pr[i].ta, pr[i].priority,cl);
