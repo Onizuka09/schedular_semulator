@@ -364,6 +364,66 @@ void main()
         //......
     }
 
+    // tawa wait list fyha el processes ily mawjoudin andi fel current time 
+    // tawa na3mlelha sort hasb el priority
+    linkedlist_bubbleSortpriority(&waitlist,l2);
+    
+    // tawa bch nasn3 men wait list groups w nhothom fel teamlist
+    join_team(&teamlist,waitlist);
+
+// tawa bch n9aren awel elemtn fel wait list b awel elemnt f awl queu fel teamlist 
+    if (waitlist->proc.priority > teamlist.head->queue->id && waitlist!= NULL){
+        //ne5dem priority with interruption adiya 
+        waitlist->proc.remaining_time--;
+        current_time++;
+        if (waitlist->proc.remaining_time==0){
+            //printf("\n process %s" , Head2->proc.name);
+            //printf("is terminated");
+            waitlist=waitlist->next;
+            l2--;
+        }
+
+  //round robin 
+    } else 
+    {
+        if (teamlist.head->queue->head->proc.remaining_time>0  &&  teamlist.head->queue->head->proc.remaining_qtm != qtm){
+             //ye5dem one unit
+            teamlist.head->queue->head->proc.remaining_time--;
+            current_time++;
+            // nchouf remaining time kenou 0 na3mlou dequee 
+            if (teamlist.head->queue->head->proc.remaining_time==0){
+               dequeue(&teamlist.head->queue);
+               if ( is_empty(teamlist.head->queue) ){
+                teamlist.head=teamlist.head->next;}
+
+             // ken remaining time te3ou mahouch 0 lazem na3mlou dequeue w ba3d enqueue bch n7awlou f a5er queue
+            }else {
+                 dequeue(&teamlist.head->queue);
+                 enqueue(&teamlist.head->queue);}
+        
+    } 
+    
+
+   }
+
+// tawa andi kol woslou w teamlist sorted   ne5dem bel te mch b unit by unit bch tji el update bar mrigla 
+while ( waitlist!=NULL || teamlist !=NULL){
+    if (waitlist->proc.priority > teamlist.head->queue->id && waitlist!=NULL){
+         //ne5dem el process kolou 
+        current_time +=  (waitlist->proc.te) - (waitlist->proc.remaining_time) ;
+        waitlist->proc.remaining_time = 0 ;
+        waitlist=waitlist->next;
+        l2--;
+    }else if (waitlist->proc.priority < teamlist.head->queue->id && teamlist!=NULL){
+        current_time += (teamlist.head->queue->head->proc.te) - (teamlist.head->queue->head->proc.remaining_time);
+        teamlist.head->queue->head->proc.remaining_time=0;
+        dequeue(&teamlist.head->queue);
+        if ( is_empty(teamlist.head->queue) ){
+                teamlist.head=teamlist.head->next;}
+
+    }
+}
+
 
 
 
