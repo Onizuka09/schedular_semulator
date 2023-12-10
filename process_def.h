@@ -61,6 +61,8 @@ typedef struct {
 	colors color;
     int remaining_time;
     int execution_time;// not te 
+	//nest7a9ha fel multilevel
+	int remaining_qtm;
 
 }Process;
 
