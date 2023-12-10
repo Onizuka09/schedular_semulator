@@ -59,8 +59,9 @@ enum
 	Priority,
 	Round_Robin,
 	SRT_p,
-	Multi_Level,
 	Priority_p, 
+	Multi_Level,
+	
 } algos;
 void menu_algos(void)
 {	char* st ; 	
@@ -104,18 +105,18 @@ void menu_algos(void)
 			choice_loop(st, &SRT_algo);
 			/* code */
 			break;
+		case Priority_p:
+			clear_screen();
+			// str = "Processes generation\n";
+			st = "Excuting Priority(preamptive))\n";
+			choice_loop(st, &PP);
+			/* code */
+			break;
 		case Multi_Level:
 			clear_screen();
 			// str = "Processes generation\n";
-			st = "Excuting Multilevel\n Ameni 93ada te5dem fih :)\n";
-			// choice_loop(st, &FIFO_algo);
-			/* code */
-			break;
-		case 6:
-			clear_screen();
-			// str = "Processes generation\n";
-			st = "Excuting Multilevel\n Ameni 93ada te5dem fih :)\n";
-			// choice_loop(st, &FIFO_algo);
+			st = "Excuting Multilevel\n";
+			//choice_loop(st, &multi);
 			/* code */
 			break;
 		case 7:
