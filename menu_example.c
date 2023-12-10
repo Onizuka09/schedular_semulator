@@ -64,8 +64,9 @@ enum
 } algos;
 void menu_algos(void)
 {	char* st ; 	
-	int select =0 ;  
-	do 
+	int select =0 ;
+	init_gtk();
+	do
 	{	
 		algo_start: p_menu_algorithms(); 
 		// printMenu();
@@ -148,6 +149,7 @@ printf("\t7: exit\n");
 int main() 
 {	int x ;
 	char *str;
+	
 	printf("Welocometo schedular simulato Application: \n");
 	do
 	{

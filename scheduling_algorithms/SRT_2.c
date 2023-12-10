@@ -1,4 +1,5 @@
 #include "scheculing_algorithm.h"
+
 int nbr = 0;
 float MOYTR = 0;
 float MOYTA = 0;
@@ -12,6 +13,10 @@ void SRT_algo(void ) {
 	
 	Process pr;
 
+	queue GUIq;
+	init_queue(&GUIq);
+	Process *Gproc = malloc(sizeof(Process));
+
 	char *csv = CSV_file_name;
 	// Create_CSV_file(csv);
 	// fill_csv_file(csv);
@@ -23,10 +28,8 @@ void SRT_algo(void ) {
 		tmp->proc.remaining_time = tmp->proc.te;
 		tmp = tmp->next; 
 	}
-	
 
-	
-	Process *c_proc, *w_proc;
+	Process *w_proc = (Process *)malloc(sizeof(Process));
 	queue wait_list;
 	queue q1;
 	init_queue(&wait_list);
@@ -71,6 +74,11 @@ void SRT_algo(void ) {
 			update_time(total_t, te, c_time, w_proc->color);
 			printf(ESC CSI "%d" previousLine, 3);
 			sleep(te);
+			strcpy(Gproc->name, w_proc->name);
+			Gproc->ta = c_time;
+			Gproc->te = te;
+			Gproc->color = w_proc->color;
+			enqueue(&GUIq, Gproc);
 			c_time += te;
 			w_proc->remaining_time -= te;
 			if (w_proc->remaining_time != 0)
@@ -88,9 +96,14 @@ void SRT_algo(void ) {
 
 			update_bar(total_t, wait_time, c_time, E_RESET_C);
 			update_time(total_t, wait_time, c_time, E_RESET_C);
-			sleep(wait_time);
 			printf(ESC CSI "%d" previousLine, 3);
+			strcpy(Gproc->name, "waiting");
+			Gproc->ta = c_time;
+			Gproc->te = wait_time;
+			Gproc->color = E_RESET_C;
+			enqueue(&GUIq, Gproc);
 			c_time += wait_time;
+			sleep(wait_time);
 		}
 		search_for_least_min_te(&q1, &wait_list, c_time);
 		queue_bsort_te(&wait_list);
@@ -108,6 +121,11 @@ void SRT_algo(void ) {
 			update_time(total_t,te, c_time, w_proc->color);
 
 			printf(ESC CSI "%d" previousLine, 3);
+			strcpy(Gproc->name, w_proc->name);
+			Gproc->ta = c_time;
+			Gproc->te = te;
+			Gproc->color = w_proc->color;
+			enqueue(&GUIq, Gproc);
 			sleep(te);
 			c_time +=te;
 			if (w_proc->remaining_time !=0)
@@ -131,18 +149,25 @@ void SRT_algo(void ) {
 		update_bar(total_t, te, c_time, w_proc->color);
 		update_time(total_t, te, c_time, w_proc->color);
 		printf(ESC CSI "%d" previousLine, 3);
+		strcpy(Gproc->name, w_proc->name);
+		Gproc->ta = c_time;
+		Gproc->te = te;
+		Gproc->color = w_proc->color;
+		enqueue(&GUIq, Gproc);
 		sleep(te);
 		c_time += te;
 	}
 	printf("\n\n\n");
 	printf("done \n");
-/*
-			MOYTR =tre/nbr;
-			MOYTA =tat /nbr;
-			printf("MOYTR%f",MOYTR);
-			*/
-
-		return ;
+	char *title = "SRT (Preamtive) Execution";
+	create_widget(&GUIq, title);
+	while (GUIq.head != NULL)
+	{
+		Gproc = dequeue(&GUIq);
+	}
+	free(w_proc);
+	free(Gproc);
+	return;
 }
 
 

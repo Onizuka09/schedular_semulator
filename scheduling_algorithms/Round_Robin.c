@@ -11,6 +11,10 @@ void Round_Robin_algo (void ) {
 	scanf("%d", &qtm);
 	 /* n7awel nhotha fel for loop*/
 
+	queue GUIq;
+	init_queue(&GUIq);
+	Process *Gproc = malloc(sizeof(Process));
+
 	node *tmp;
 	node *Head =NULL;
 
@@ -52,6 +56,11 @@ printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 				update_time(total_t, wait_time, c_time, E_RESET_C);
 				sleep(wait_time);
 				printf(ESC CSI "%d" previousLine, 3);
+				strcpy(Gproc->name, "waiting");
+				Gproc->ta = c_time;
+				Gproc->te = wait_time;
+				Gproc->color = E_RESET_C;
+				enqueue(&GUIq, Gproc);
 				c_time += wait_time;
 
 			}
@@ -69,7 +78,11 @@ printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 			update_time(total_t, p1->execution_time, c_time, p1->color);
 			sleep(p1->execution_time);
 			printf(ESC CSI "%d" previousLine, 3);
-
+			strcpy(Gproc->name, p1->name);
+			Gproc->ta = c_time;
+			Gproc->te = p1->execution_time;
+			Gproc->color = p1->color;
+			enqueue(&GUIq, Gproc);
 			p1->te -= p1->execution_time;
 
 			curs =  curs + p1->execution_time;
@@ -95,12 +108,21 @@ printTable_linkedList(Head,0);  // Round-robin scheduling simulation
 			Head = Head->next;
 		}
 
+
 	}
 	
 	printf("\n\n\n");
 	printf("done\n");
 	int tempRotMoy = tempRot / nb_proc;
 	int temAttMoy = temAtt/nb_proc;
-// printf("temp de rotation moy = %d \n",tempRotMoy);
-// printf("temp d'attente moy = %d \n",temAttMoy);
+	char *title = "Round-Robin Execution";
+
+	create_widget(&GUIq,title);
+	while (GUIq.head != NULL)
+	{
+		Gproc = dequeue(&GUIq);
+	}
+	// free(w_proc);
+	free(Gproc);
+	//free(Gproc);
 }
