@@ -6,7 +6,7 @@
 #include "scheculing_algorithm.h"
 
 
-void PP() {
+void Priority_Preamptive(void) {
 
     int nb_proc=0;
     node *tmp;
@@ -20,8 +20,8 @@ void PP() {
 
 linkedlist_bubbleSort(&Head,nb_proc);
 printTable_linkedList(Head,0);
-printf("linked list loula sorted by ta\n");
-printlist(Head);
+// printf("linked list loula sorted by ta\n");
+// printlist(Head);
 
 int curs = 0,c_time=0,wait_time=0;
 
@@ -116,9 +116,9 @@ while (Head2!= NULL){
     printf(clear_line);
     fflush(stdout);
     printf("\rexecuting proc %s for %d \n", Head2->proc.name, Head2->proc.remaining_time);
-    update_bar(total_t, Head2->proc.te, c_time, Head2->proc.color);
-    update_time(total_t, Head2->proc.te, c_time, Head2->proc.color);
-    sleep(Head2->proc.te);
+    update_bar(total_t, Head2->proc.remaining_time, c_time, Head2->proc.color);
+    update_time(total_t, Head2->proc.remaining_time, c_time, Head2->proc.color);
+    sleep(Head2->proc.remaining_time);
     printf(ESC CSI "%d" previousLine, 3);
 
     // curs++;
@@ -128,7 +128,7 @@ while (Head2!= NULL){
  
 printf("\n\n\n");
 printf("done !!\n");
-printTable_linkedList(Head,0);
+// printTable_linkedList(Head,0);
 return;
 
 }

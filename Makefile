@@ -111,6 +111,7 @@ clean:
 	@if [ -e $(PP_bin) ]; then \
 		rm $(PP_bin); \
 		echo "Removed $(PP_bin)."; \
+	fi
 	@if [ -e $(BIN) ]; then \
 		rm $(BIN); \
 		echo "Removed $(BIN)."; \
