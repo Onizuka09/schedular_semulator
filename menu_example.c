@@ -110,28 +110,16 @@ void menu_algos(void)
 			break;
 		case Priority_p:
 			clear_screen();
-<<<<<<< HEAD
 			
 			st = "Excuting Priority (Preamptive)\n";
 			choice_loop(st, &Priority_Preamptive);
-=======
-			// str = "Processes generation\n";
-			st = "Excuting Priority(preamptive))\n";
-			choice_loop(st, &PP);
-			/* code */
->>>>>>> Ameni
 			break;
 		case Multi_Level:
 			clear_screen();
 			// str = "Processes generation\n";
-<<<<<<< HEAD
-			st = "Excuting Multilevel\n Ameni 93ada te5dem fih :)\n";
-			// choice_loop(st, &FIFO_algo);
-=======
 			st = "Excuting Multilevel\n";
 			//choice_loop(st, &multi);
 			/* code */
->>>>>>> Ameni
 			break;
 		case 7:
 
