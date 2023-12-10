@@ -19,7 +19,10 @@ int my_round(float num);
 int generate_num_proc(void);
 void init_rand(void);
 int calculate_simulation_time(node *head);
-
+int temps_rotation(int tf, int ta);
+int temps_attente(int tf, int ta, int te);
+int MOY_TR(int tf, int ta, int nbr);
+int MOY_TA(int tf, int ta, int te, int nbr);
 /*----------------------------------------*/
 
 #endif /* ifndef  */

@@ -319,3 +319,43 @@ void printTable_linkedList(node *head, int num_proc)
 	}
 	printf("\n");
 }
+
+void printTable_view_metrics(Process *proc, int num_proc)
+{
+	int col = 4, ligne = num_proc;
+	char ch_color[50];
+	// for (int i=0 ; i<col; ++i)
+	//{
+	printf("%s\t", proc->name);
+	printf("%d\t", proc->ta);
+	printf("%d\t", proc->te);
+	printf("%d\t", proc->end);
+	printf("%d\t", proc->t_rot);
+	printf("%d\t", proc->t_att);
+	Color_to_string(proc->color, ch_color);
+	printf("%s\t", ch_color);
+}
+void printTable_metrics(queue *q, int num_proc)
+{
+	node *tmp = q->head;
+	printf("\nMetircs table: \n");
+	printf("P_name\tTa\tTe\tend\tt_rot\tt_att\tColor\n");
+	int sum_rot = 0, sum_att=0;
+	while (tmp != NULL)
+	{
+		Process proc = tmp->proc;
+		proc.t_rot = temps_rotation(proc.end, proc.ta);
+		proc.t_att = proc.t_rot - proc.te;
+		sum_att += proc.t_att;
+		sum_rot += proc.t_rot ; 
+
+
+		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
+		printTable_view_metrics(&proc, num_proc);
+		printf("\n");
+		tmp = tmp->next;
+	}
+	printf("\n");
+	printf("Temps rotation moyenne:%.2f \n", (float)sum_rot / num_proc);
+	printf("Temps attente moyenne:%.2f \n", (float)sum_att / num_proc);
+}

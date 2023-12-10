@@ -6,6 +6,8 @@
 typedef  struct { 
 	node* head ; 
 	node* tail ;
+	//nest7a9ha fel multilevel
+	int id;
  } queue; 
 
 void init_queue (queue *q );

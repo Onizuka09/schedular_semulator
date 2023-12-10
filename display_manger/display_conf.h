@@ -27,8 +27,8 @@ void update_time( int total_time,int te,int time,colors cl) ;
 void printTable(queue *q1, int num_proc);
 void printTable_linkedList(node *head, int num_proc);
 void printTable_view(Process *proc, int num_proc);
+void printTable_metrics(queue *q, int num_proc);
 /*-----------------------------------------------------------*/
-
 
 #endif 
 

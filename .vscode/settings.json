@@ -1,12 +1,16 @@
 {
     "files.associations": {
+        "*.c": "c",
         "type_traits": "c",
         "node.h": "c",
         "queue.h": "c",
         "typeinfo": "c",
         "memory": "c",
         "random": "c",
-        "optional": "c"
+        "optional": "c",
+        "scheculing_algorithm.h": "c",
+        "display_conf.h": "c",
+        "global_config.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

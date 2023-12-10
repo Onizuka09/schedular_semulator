@@ -4,6 +4,10 @@
 
 #define CSV_file_name "Processes.csv"
 #define CSV_file_header "P_Name, ta, te, Priority, Color\n"
+//upd1
+#define CSV_file_name2 "metrics_info.csv"
+#define CSV_file_header2 "P_Name, ta,tend, te\n"
+
 
 #define MAX_num_proc 10
 
@@ -57,6 +61,12 @@ typedef struct {
 	colors color;
     int remaining_time;
     int execution_time;// not te 
+	int burst_time ;
+	int t_att;
+	int t_rot;  
+	//nest7a9ha fel multilevel
+	int remaining_qtm;
+	int end ;
 
 }Process;
 
