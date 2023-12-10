@@ -61,10 +61,7 @@ enum
 	SRT_p,
 	Priority_p, 
 	Multi_Level,
-<<<<<<< HEAD
-=======
 	
->>>>>>> Ameni
 } algos;
 void menu_algos(void)
 {	char* st ; 	
