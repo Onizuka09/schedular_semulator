@@ -11,19 +11,21 @@ void Priority_Preamptive(void) {
     int nb_proc=0;
     node *tmp;
     node *Head = NULL ;
-    
-    //	read csv file 
+    Process *Gproc = malloc(sizeof(Process));
 
-	char *csv = CSV_file_name;
+    //	read csv file
+    queue GUIq;
+    init_queue(&GUIq);
+    char *csv = CSV_file_name;
 	Head = Read_csv_file(csv, &nb_proc);
 	printf("nbr proc: %d\n", nb_proc);
 
-linkedlist_bubbleSort(&Head,nb_proc);
-printTable_linkedList(Head,0);
+    linkedlist_bubbleSort(&Head,nb_proc);
+    printTable_linkedList(Head,0);
 // printf("linked list loula sorted by ta\n");
 // printlist(Head);
 
-int curs = 0,c_time=0,wait_time=0;
+    int curs = 0,c_time=0,wait_time=0;
 
 //printf(" curs = %d",curs);
 //printf("\n");
@@ -78,6 +80,11 @@ printf("\n");
         update_time(total_t, wait_time, c_time, E_RESET_C);
         printf(ESC CSI "%d" previousLine, 3);
         sleep(wait_time);
+        strcpy(Gproc->name, "waiting");
+		Gproc->ta = c_time;
+		Gproc->te = wait_time;
+		Gproc->color = E_RESET_C;
+		enqueue(&GUIq, Gproc);
         c_time += wait_time;
         
     }
@@ -97,7 +104,11 @@ printf("\n");
     update_time(total_t, Head2->proc.execution_time, c_time, Head2->proc.color);
     sleep(Head2->proc.execution_time);
 	printf(ESC CSI "%d" previousLine, 3);
-
+    strcpy(Gproc->name, Head2->proc.name);
+    Gproc->ta = c_time;
+    Gproc->te = Head2->proc.execution_time ;
+    Gproc->color = Head2->proc.color;
+    enqueue(&GUIq, Gproc);
     curs++;
     c_time++;
     b = true;
@@ -120,7 +131,11 @@ while (Head2!= NULL){
     update_time(total_t, Head2->proc.remaining_time, c_time, Head2->proc.color);
     sleep(Head2->proc.remaining_time);
     printf(ESC CSI "%d" previousLine, 3);
-
+    strcpy(Gproc->name, Head2->proc.name);
+    Gproc->ta = c_time;
+    Gproc->te = Head2->proc.remaining_time;
+    Gproc->color = Head2->proc.color;
+    enqueue(&GUIq, Gproc);
     // curs++;
     c_time += Head2->proc.remaining_time;
     Head2 = Head2->next; 
@@ -129,6 +144,13 @@ while (Head2!= NULL){
 printf("\n\n\n");
 printf("done !!\n");
 // printTable_linkedList(Head,0);
-return;
+char *title = "Round-Robin Execution";
 
+create_widget(&GUIq, title);
+while (GUIq.head != NULL)
+{
+    Gproc = dequeue(&GUIq);
+}
+free(Gproc);
+return;
 }

@@ -92,7 +92,6 @@ printTable_linkedList(CHead,0);  // Round-robin scheduling simulation
 			Gproc->te = p1->execution_time;
 			Gproc->color = p1->color;
 			enqueue(&GUIq, Gproc);
-			p1->te -= p1->execution_time;
 
 			p1->remaining_time -= p1->execution_time;
 

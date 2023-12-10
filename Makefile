@@ -11,7 +11,7 @@ Multi_bin := multiLevel
 PP_bin := PP
 
 BIN := schedular_semulator 
-LDFLAGS := `pkg-config --cflags --libs gtk+-3.0` -pthread -lm 
+LDFLAGS := `pkg-config --cflags --libs gtk+-3.0` -lm 
 # Define targets
 all: create_BUILD_DIR $(BIN)
 
@@ -24,7 +24,7 @@ tPP: create_BUILD_DIR $(PP_bin)
 
 # linking
 #---------------------------- main -----
-$(BIN): menu_example.c process_def.h   $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o  $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o scheduling_algorithms/fifo_algorithm.c scheduling_algorithms/Round_Robin.c scheduling_algorithms/priority_algorithm.c scheduling_algorithms/SRT_2.c graphic_display/gantt_chart.h graphic_display/gantt_chart.c
+$(BIN): menu_example.c process_def.h   $(BUILD_DIR)/csv.o $(BUILD_DIR)/linkedlist.o $(BUILD_DIR)/queue.o  $(BUILD_DIR)/conf.o $(BUILD_DIR)/display.o scheduling_algorithms/fifo_algorithm.c scheduling_algorithms/Round_Robin.c scheduling_algorithms/priority_algorithm.c scheduling_algorithms/SRT_2.c scheduling_algorithms/PP.c graphic_display/gantt_chart.h graphic_display/gantt_chart.c
 	gcc $^ -o $@ $(LDFLAGS) 
 
 
