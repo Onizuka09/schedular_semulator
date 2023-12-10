@@ -31,6 +31,9 @@ int curs = 0,c_time=0,wait_time=0;
     node *tmp2;
     node *Head2 =NULL;
     node *metrics_pp= NULL;
+    queue metrics_q;
+    Process* m_proc; 
+    init_queue(&metrics_q);
     metrics_pp = Head;
     int l2=0;
     bool b = true;
@@ -82,13 +85,17 @@ printf("\n");
         update_time(total_t, wait_time, c_time, E_RESET_C);
         printf(ESC CSI "%d" previousLine, 3);
         sleep(wait_time);
+        Head2->proc.burst_time = c_time;
         c_time += wait_time;
-        
+        }   
+    else {
+        Head2->proc.burst_time = c_time;
     }
 
     linkedlist_bubbleSortpriority(&Head2,l2);
     //printlist(Head2);
     //nexicuty awl process fel waitlist 
+    // if ()
     Head2->proc.remaining_time--;
     Head2->proc.execution_time=1;
     //printf("process  %s",Head2->proc.name);
@@ -110,7 +117,10 @@ printf("\n");
         //printf("\n process %s" , Head2->proc.name);
         //printf("is terminated");
         //mtrc
-        metrics_pp->proc.end =c_time;
+        Head2->proc.end = c_time ;
+        m_proc = &(Head2->proc);
+        enqueue(&metrics_q,m_proc);
+        // metrics_pp->proc.end = c_time;
         Head2=Head2->next;
         l2--;
 
@@ -120,25 +130,31 @@ printf("\n");
 }
 linkedlist_bubbleSortpriority(&Head2, l2);
 while (Head2!= NULL){
-
+    if (c_time == Head2->proc.ta)
+    {
+        Head2->proc.burst_time = c_time;
+    }
     printf(clear_line);
     fflush(stdout);
     printf("\rexecuting proc %s for %d \n", Head2->proc.name, Head2->proc.remaining_time);
-    update_bar(total_t, Head2->proc.te, c_time, Head2->proc.color);
-    update_time(total_t, Head2->proc.te, c_time, Head2->proc.color);
-    sleep(Head2->proc.te);
+    update_bar(total_t, Head2->proc.remaining_time, c_time, Head2->proc.color);
+    update_time(total_t, Head2->proc.remaining_time, c_time, Head2->proc.color);
+    sleep(Head2->proc.remaining_time);
     printf(ESC CSI "%d" previousLine, 3);
 
     // curs++;
     c_time += Head2->proc.remaining_time;
     //mtrcs
     metrics_pp->proc.end =c_time;
+    Head2->proc.end = c_time;
+    m_proc = &(Head2->proc);
+    enqueue(&metrics_q, m_proc);
     Head2 = Head2->next; 
 }
  
 printf("\n\n\n");
 printf("done !!\n");
-printTable_metrics(metrics_pp,0);
+printTable_metrics(&metrics_q,nb_proc);
 
 
 return;
