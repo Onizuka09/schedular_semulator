@@ -1,7 +1,4 @@
 #include "csv_file_manip.h"
-
-//updt
-
 bool Create_CSV_file(char * file_name , char * header )
 {
     FILE *fpt;
@@ -19,10 +16,7 @@ node* Read_csv_file(char* file_name,int *nbr)
 {
     node *tmp;
     node *tete = NULL;
-    // node *chead = tete;
     Process pr;
-    // Process currentProcess;
-
     FILE *fpt;
     fpt = fopen(file_name, "r");
     if (fpt == NULL)
@@ -30,20 +24,13 @@ node* Read_csv_file(char* file_name,int *nbr)
         fprintf(stderr, "Error opening the file.\n");
         exit(1);
     }
-
-    // Read the header line from the CSV file
     char buffer[100];
     fgets(buffer, sizeof(buffer), fpt);
-
-    // Read the remaining lines from the CSV file
     int color = 0;
     while (fgets(buffer, sizeof(buffer), fpt) != NULL)
     {
-
-        // Parse the CSV line
         if (sscanf(buffer, "%19[^,], %d, %d, %d,%d", pr.name, &pr.ta, &pr.te, &pr.priority, &color) == 5)
         {
-            // Create a new node and insert it into the linked list
             pr.color = intToColor(color);
             pr.remaining_time=pr.te;
             tmp = create_new_node(pr);
@@ -52,7 +39,6 @@ node* Read_csv_file(char* file_name,int *nbr)
         }
     }
     fclose(fpt);
-    // printTable_linkedList(tete,0);
     return tete;  
 }
 void print_csv_file_processes(char* file_name){
@@ -63,11 +49,9 @@ void print_csv_file_processes(char* file_name){
 }
 bool fill_csv_file(char* file_name )
 {
-
     FILE *fpt;
     if (fpt = fopen(file_name, "a"))
     {
-        // printf("opened file ");
         init_rand();
         int nb_proc = generate_num_proc();
         Process *pr = (Process *)malloc(nb_proc * sizeof(Process));
@@ -75,7 +59,6 @@ bool fill_csv_file(char* file_name )
         if (color_tab == NULL)
              exit(EXIT_FAILURE);
         memset(color_tab, 0, nb_proc * sizeof(int));
-        //= {0};
         int cl = 0; 
         for (int i = 0; i < nb_proc; i++)
         {
@@ -91,9 +74,6 @@ bool fill_csv_file(char* file_name )
         }
         return false;
 }
-
-// bool Read_csv_file();
-
 bool is_file_exits(char* file_name )
 {
     FILE *fpt;
@@ -104,4 +84,3 @@ bool is_file_exits(char* file_name )
     }
     return false; 
 }
-// bool remove_file();

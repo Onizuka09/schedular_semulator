@@ -1,54 +1,33 @@
 #include "scheculing_algorithm.h"
-
 int nbr = 0;
 float MOYTR = 0;
 float MOYTA = 0;
 int tre = 0, tat = 0;
-
 void SRT_algo(void ) {
-
-
 	node* tmp;
 	node *tete = NULL;
-	
 	Process pr;
-
 	queue GUIq;
 	init_queue(&GUIq);
 	Process *Gproc = malloc(sizeof(Process));
-
 	char *csv = CSV_file_name;
-	// Create_CSV_file(csv);
-	// fill_csv_file(csv);
 	tete = Read_csv_file(csv, &nbr);
 	printf("nbr proc: %d\n", nbr);
 	tmp = tete; 
-	/*
-	while (tmp!=NULL) // set up remaining time to be the same as te  
-	{
-		tmp->proc.remaining_time = tmp->proc.te;
-		tmp = tmp->next; 
-	}
-	}*/
-	
-
 	Process *w_proc = (Process *)malloc(sizeof(Process));
 	queue wait_list;
 	queue q1;
 	init_queue(&wait_list);
 	init_queue(&q1);
 	tmp = tete;
-	while (tmp != NULL) // transfomr a linked list to a queue ; 
+	while (tmp != NULL) 
 	{
 		enqueue(&q1,&tmp->proc);
 		tmp= tmp->next;
 	}
 	queue_bsort_1(&q1);
-
 	printTable(&q1, 0);
-
 	int c_time = 0, te = 0, wait_time = 0,ta=0;
-
 	int last_proc_ta = q1.tail->proc.ta;
 	int total_t = calculate_simulation_time(q1.head);
 	printf("Total simulation time %d\n", total_t);
@@ -73,7 +52,6 @@ void SRT_algo(void ) {
 			printf("\rexcuting porc %s for %d\n", w_proc->name, te);
 			fflush(stdout);
 			update_bar(total_t, te, c_time, w_proc->color);
-
 			update_time(total_t, te, c_time, w_proc->color);
 			printf(ESC CSI "%d" previousLine, 3);
 			sleep(te);
@@ -89,14 +67,12 @@ void SRT_algo(void ) {
 				enqueue(&wait_list, w_proc);
 			}
 		}
-
-		if (c_time < q1.head->proc.ta) // check for waiting time
+		if (c_time < q1.head->proc.ta) 
 		{
 			wait_time = q1.head->proc.ta - c_time;
 			printf(clear_line);
 			fflush(stdout);
 			printf("\rwaiting for %d \n", wait_time);
-
 			update_bar(total_t, wait_time, c_time, E_RESET_C);
 			update_time(total_t, wait_time, c_time, E_RESET_C);
 			printf(ESC CSI "%d" previousLine, 3);
@@ -120,9 +96,7 @@ void SRT_algo(void ) {
 			printf("\rexcuting porc %s for %d\n",w_proc->name ,te);
 			fflush(stdout);
 			update_bar(total_t, te, c_time, w_proc->color);
-
 			update_time(total_t,te, c_time, w_proc->color);
-
 			printf(ESC CSI "%d" previousLine, 3);
 			strcpy(Gproc->name, w_proc->name);
 			Gproc->ta = c_time;
@@ -134,15 +108,12 @@ void SRT_algo(void ) {
 			if (w_proc->remaining_time !=0)
 			{	
 				enqueue(&wait_list, w_proc);
-				
 			}
 		}
 	}
 	queue_bsort_te(&wait_list);
-		
 	while (!is_empty(&wait_list))
-	{ // fifo
-		
+	{ 
 		w_proc = dequeue(&wait_list);
 		te = w_proc->remaining_time;
 		printf(clear_line);
@@ -172,10 +143,3 @@ void SRT_algo(void ) {
 	free(Gproc);
 	return;
 }
-
-
-
-
-
-
-	

@@ -5,8 +5,6 @@ void init_queue (queue *q ) {
 	q->head = NULL ; 
 	q->tail = NULL ;
 } 
-
-
 bool enqueue ( queue *q, Process *proc ) 
 { 
 	node* nwnode = (node *)malloc( sizeof(node));
@@ -21,15 +19,12 @@ bool enqueue ( queue *q, Process *proc )
 	} 
 	q->tail->next = nwnode ; 
 	q->tail = nwnode ; 
-	// if the lis is empty 
-
 return  true;
 } 
 Process* dequeue ( queue *q) 
 {	Process *proc = malloc(sizeof(Process));
 	if (proc == NULL)
 		return NULL; 
-
 	if (q->head == NULL) return  NULL ;
 	node  *tmp = q->head ; 
 	*proc = tmp->proc; 
@@ -39,11 +34,8 @@ Process* dequeue ( queue *q)
 	q->head = q->head->next ; 
 	}	
 	free( tmp) ; 	
-
 	return proc ;	
-		 
 }
-
 void display(queue *q) {
     node *tmp = q->head;
     while (tmp != NULL) {
@@ -52,7 +44,6 @@ void display(queue *q) {
         printf(" | ");
     }
 }
-
 static void swap(Process* a,Process* b)
 {
 	Process temp; 
@@ -63,10 +54,6 @@ static void swap(Process* a,Process* b)
 void queue_bsort(queue *q)
 { 
 	node *i,*j ; 
-
-	//bool state=false;
-//	i=q; 
-//	j=i->nxt; 
 	for (i=q->head;i!=NULL;i=i->next)
 	{
 	  for (j=i->next;j!=NULL;j=j->next)
@@ -74,20 +61,14 @@ void queue_bsort(queue *q)
 		{
 		  if (j->proc.ta < i->proc.ta)
 		  	swap(&(j->proc), &(i->proc));
-
 		}
 	  }
 	}
-
 return; 
 }
 void queue_bsort_1(queue *q)
 {
 	node *i, *j;
-
-	// bool state=false;
-	//	i=q;
-	//	j=i->nxt;
 	for (i = q->head; i != NULL; i = i->next)
 	{
 		for (j = i->next; j != NULL; j = j->next)
@@ -103,16 +84,11 @@ void queue_bsort_1(queue *q)
 			}
 		}
 	}
-
 	return;
 }
 void queue_bsort_2(queue *q)
 {
 	node *i, *j;
-
-	// bool state=false;
-	//	i=q;
-	//	j=i->nxt;
 	for (i = q->head; i != NULL; i = i->next)
 	{
 		for (j = i->next; j != NULL; j = j->next)
@@ -128,16 +104,11 @@ void queue_bsort_2(queue *q)
 			}
 		}
 	}
-
 	return;
 }
 void queue_bsort_te(queue *q)
 {
 	node *i, *j;
-
-	// bool state=false;
-	//	i=q;
-	//	j=i->nxt;
 	for (i = q->head; i != NULL; i = i->next)
 	{
 		for (j = i->next; j != NULL; j = j->next)
@@ -153,17 +124,11 @@ void queue_bsort_te(queue *q)
 			}
 		}
 	}
-
 	return;
 }
-
 void queue_bsort_priority(queue *q)
 {
 	node *i, *j;
-
-	// bool state=false;
-	//	i=q;
-	//	j=i->nxt;
 	for (i = q->head; i != NULL; i = i->next)
 	{
 		for (j = i->next; j != NULL; j = j->next)
@@ -179,23 +144,17 @@ void queue_bsort_priority(queue *q)
 			}
 		}
 	}
-
 	return;
 }
-
-
 bool is_empty(queue* q) {
     return q->head == NULL;
 }
-
 void search_for_least_min_te(queue *q, queue *wait_list, int time)
 {
 	Process *p;
 	queue *tmp = (queue *)malloc(sizeof(queue));
 	if (tmp == NULL)
 	{
-		// Handle the case where memory allocation fails
-		// (e.g., print an error message and exit the program)
 		fprintf(stderr, "Failed to allocate memory for queue.\n");
 		exit(EXIT_FAILURE);
 	}
@@ -207,7 +166,6 @@ void search_for_least_min_te(queue *q, queue *wait_list, int time)
 		{
 			p = dequeue(tmp);
 			q->head = tmp->head;
-			// printTable_view(p,0);
 			enqueue(wait_list, p);
 		}
 		else

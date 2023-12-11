@@ -6,5 +6,4 @@ typedef struct node
     Process proc ;
     struct node* next   ;
 }node;
-
 #endif

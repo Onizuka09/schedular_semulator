@@ -7,153 +7,115 @@ static void Color_to_string(colors color, char *ch_color)
 	case E_BLACK_C:
 		strcpy(ch_color, BLACK "BLACK" RESET);
 		break;
-
 	case E_GREY_C:
 		strcpy(ch_color, GREY "GREY" RESET);
 		break;
-
 	case E_RED_C:
 		strcpy(ch_color, RED "RED" RESET);
 		break;
-
 	case E_GREEN_C:
 		strcpy(ch_color, GREEN "GREEN" RESET);
 		break;
-
 	case E_YELLOW_C:
 		strcpy(ch_color, YELLOW "YELLOW" RESET);
 		break;
-
 	case E_BLUE_C:
 		strcpy(ch_color, BLUE "BLUE" RESET);
 		break;
-
 	case E_PURPLE_C:
 		strcpy(ch_color, PURPLE "PURPLE" RESET);
 		break;
-
 	case E_CYAN_C:
 		strcpy(ch_color, CYAN "CYAN" RESET);
 		break;
-
 	case E_BRIGHT_GREY_C:
 		strcpy(ch_color, BRIGHT_GREY "BRIGHT_GREY" RESET);
 		break;
-
 	case E_BRIGHT_RED_C:
 		strcpy(ch_color, BRIGHT_RED "BRIGHT_RED" RESET);
 		break;
-
 	case E_BRIGHT_GREEN_C:
 		strcpy(ch_color, BRIGHT_GREEN "BRIGHT_GREEN" RESET);
 		break;
-
 	case E_BRIGHT_YELLOW_C:
 		strcpy(ch_color, BRIGHT_YELLOW "BRIGHT_YELLOW" RESET);
 		break;
-
 	case E_BRIGHT_BLUE_C:
 		strcpy(ch_color, BRIGHT_BLUE "BRIGHT_BLUE" RESET);
 		break;
-
 	case E_BRIGHT_PURPLE_C:
 		strcpy(ch_color, BRIGHT_PURPLE "BRIGHT_PURPLE" RESET);
 		break;
-
 	case E_BRIGHT_CYAN_C:
 		strcpy(ch_color, BRIGHT_CYAN "BRIGHT_CYAN" RESET);
 		break;
-
 	default:
 		strcpy(ch_color, RESET "WHITE" RESET);
 		break;
 	}
 }
-
 static int calculate_max_chars(int total_time)
 {
 	float quotion = (float)max_chars / total_time;
 	int max_ch = (floor(quotion) +1 )*total_time;
-	// printf("%d", max_ch);
 	return max_ch;
 }
-
 void pick_color(colors color, char* ch_color) {
 	switch (color)
 	{
 		case E_RESET_C:
 			strcpy(ch_color, RESET);
 			break;
-
 		case E_BLACK_C:
 			strcpy(ch_color, BLACK);
 			break;
-		
 		case E_GREY_C:
 			strcpy(ch_color, GREY);
 			break;
-		
 		case E_RED_C:
 			strcpy(ch_color, RED);
 			break;
-
 		case E_GREEN_C:
 			strcpy(ch_color, GREEN);
 			break;
-
 		case E_YELLOW_C:
 			strcpy(ch_color, YELLOW);
 			break;
-
 		case E_BLUE_C:
 			strcpy(ch_color, BLUE);
 			break;
-
 		case E_PURPLE_C:
 			strcpy(ch_color, PURPLE);
 			break;
-
 		case E_CYAN_C:
 			strcpy(ch_color, CYAN);
 			break;
-
 		case E_BRIGHT_GREY_C:
 			strcpy(ch_color, BRIGHT_GREY);
 			break;
-
 		case E_BRIGHT_RED_C:
 			strcpy(ch_color, BRIGHT_RED);
 			break;
-
 		case E_BRIGHT_GREEN_C:
 			strcpy(ch_color, BRIGHT_GREEN);
 			break;
-
 		case E_BRIGHT_YELLOW_C:
 			strcpy(ch_color, BRIGHT_YELLOW);
 			break;
-
 		case E_BRIGHT_BLUE_C:
 			strcpy(ch_color, BRIGHT_BLUE);
 			break;
-
 		case E_BRIGHT_PURPLE_C:
 			strcpy(ch_color, BRIGHT_PURPLE);
 			break;
-
 		case E_BRIGHT_CYAN_C:
 			strcpy(ch_color, BRIGHT_CYAN);
 			break;
-
 		default  :
 			strcpy(ch_color, RESET);
 		break;
 	}
-
-
-
 }
-
 colors intToColor(int value) {
     switch (value) {
         case 1:
@@ -190,19 +152,11 @@ colors intToColor(int value) {
 			return E_BLACK_C;
     }
 }
-
 void update_bar(int total_time,int te,int time,colors cl) {
-// printf("%d ",total_time);
-//	int p_t = round((float)(time*100)/total_time);
 int max_ch = calculate_max_chars(total_time);
 int written_chars = my_round((float)(time * max_ch) / total_time);
-
-//	int p_te = (float)(te*100)/total_time);
 	int num_chars =my_round( (float)(te * max_ch) /total_time) ;
-    // printf("%d: %d : %d",max_ch,written_chars,num_chars);
 	int p_ct =my_round ((float) (time+te) *100 / total_time) ;
-//	int char_ct = (p_ct * max_chars) /100 ;
-//printf("chars %d white = %d ", num_chars , - (num_chars+written_chars));
 	char cl_str[15]="";
 	pick_color(cl,cl_str);
 	int num_white_spaces=0;
@@ -211,7 +165,6 @@ int written_chars = my_round((float)(time * max_ch) / total_time);
 		printf(ESC CSI "%d" curs_pos erase_from_cur,max_ch - written_chars );   
 		fflush(stdout); 
 		num_white_spaces=max_ch -( num_chars + written_chars );
-        
 	}
 	else 
 	{	num_white_spaces = max_ch - num_chars ;
@@ -222,39 +175,21 @@ int written_chars = my_round((float)(time * max_ch) / total_time);
 	{	
 		printf("#");
 	}
-	
 	for (int i = 0; i<num_white_spaces; ++i )
 	{	 
 		printf(" ");
 	}
-
 	printf(RESET"] %d%% done\n",p_ct);
 	fflush(stdout); 
 }
-
 void update_time( int total_time,int te,int time,colors cl) {
 	int max_ch = calculate_max_chars(total_time);
-	/*
-		int p_t = time*100/total_time;
-		int written_chars = (p_t * max_chars) /100 ;
-
-
-		int p_te = te*100/total_time;
-		int num_chars = (p_te * max_chars) /100 ;
-
-	*/
-    
-	//int p_t = round((float)(time*100)/total_time);
 	int written_chars =my_round( (float) (time * max_ch) /total_time ) ;
-
-
-//	int p_te =my_round( (float)(te*100)/total_time);
 	int num_chars =my_round( (float)(te * max_ch) /total_time) ;
 	int num_points; 
 if (time !=0) 
 {
 printf(ESC CSI "%d" forward,written_chars+1);
-// time+=1; 
 te=time+te; 
 }
 else {
@@ -276,14 +211,10 @@ else
 	printf("\n");
 fflush(stdout);
 }
-    
-// ---------------------------//
 void printTable_view(Process *proc, int num_proc)
 {
 	int col = 4, ligne = num_proc;
 	char ch_color[50];
-	// for (int i=0 ; i<col; ++i)
-	//{
 	printf("%s\t", proc->name);
 	printf("%d\t", proc->ta);
 	printf("%d\t", proc->te);
@@ -298,7 +229,6 @@ void printTable(queue *q1, int num_proc)
 	while (tmp != NULL)
 	{
 		Process proc = tmp->proc;
-		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
 		printTable_view(&proc, num_proc);
 		printf("\n");
 		tmp = tmp->next;
@@ -312,20 +242,16 @@ void printTable_linkedList(node *head, int num_proc)
 	while (tmp != NULL)
 	{
 		Process proc = tmp->proc;
-		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
 		printTable_view(&proc, num_proc);
 		printf("\n");
 		tmp = tmp->next;
 	}
 	printf("\n");
 }
-
 void printTable_view_metrics(Process *proc, int num_proc)
 {
 	int col = 4, ligne = num_proc;
 	char ch_color[50];
-	// for (int i=0 ; i<col; ++i)
-	//{
 	printf("%s\t", proc->name);
 	printf("%d\t", proc->ta);
 	printf("%d\t", proc->te);
@@ -348,9 +274,6 @@ void printTable_metrics(queue *q, int num_proc)
 		proc.t_att = proc.t_rot - proc.te;
 		sum_att += proc.t_att;
 		sum_rot += proc.t_rot ; 
-
-
-		// printf("Proc: %s has arrived executing it now for: %d \n", proc->name, proc->te);
 		printTable_view_metrics(&proc, num_proc);
 		printf("\n");
 		tmp = tmp->next;

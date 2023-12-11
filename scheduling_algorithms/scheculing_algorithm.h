@@ -1,6 +1,5 @@
 #ifndef _SCHEDULING_ALGO__ 
 #define _SCHEDULING_ALGO__
-
 #include <stdio.h>		
 #include <stdlib.h>
 #include <stdbool.h> 
@@ -11,10 +10,7 @@
 #include "../process_def.h"
 #include "../file_manipulation/csv_file_manip.h"
 #include "../dataStruct/linkedlist.h"
-//#include <unistd.h>
-
 #include "../graphic_display/gantt_chart.h"
-
 void FIFO_algo(void);
 void SRT_algo(void);
 void Round_Robin_algo(void);

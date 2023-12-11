@@ -1,45 +1,35 @@
 #include "global_config.h"
-
 int temps_rotation(int tf, int ta)
 {
 	return tf - ta;
 }
-
 int temps_attente(int tf, int ta, int te)
 {
 	int tr = temps_rotation(tf, ta);
 	return tr - te;
 }
-
 int MOY_TR(int tf, int ta, int nbr)
 {
 	int mtr = 0;
 	float moyenne_tr;
 	for (int i = 0; i < nbr ;  i++)
 	{
-		// read tf
-		// read ta
 		mtr += temps_rotation(tf, ta);
 	}
 	moyenne_tr = mtr / nbr;
 	return moyenne_tr;
 }
-
 int MOY_TA(int tf, int ta, int te, int nbr)
 {
 	int mta = 0;
 	float moyenne_ta;
 	for (int i = 0; i < nbr; i++)
 	{
-		// read tf
-		// read ta
-		//  read te
 		mta += temps_attente(tf, ta, te);
 	}
 	moyenne_ta = mta / nbr;
 	return moyenne_ta;
 }
-
 int my_round(float num)
 {
 	int tmp = (int)(num * 10) % 10;
@@ -52,17 +42,12 @@ void init_rand(void)
 {
 	srand((unsigned int)time(NULL));
 }
-
 int generate_num_proc(void)
 {
-	// int time();
-
 	int nb_proc = (rand() % MAX_num_proc) + 1;
 	return nb_proc;
 }
 int generate_color(int *tab,int nb_proc){
-	// int time();
-	// srand((unsigned int)time(NULL));
 	int color;
 	do {
 	color = (rand() % TOTAL_CL )+ 1;
@@ -72,7 +57,6 @@ int generate_color(int *tab,int nb_proc){
 		{
 			i = 0;
 			color = (rand() % TOTAL_CL) + 1;
-			// continue;
 		}
 	}
 	} while ((color <= 0));
@@ -80,18 +64,13 @@ int generate_color(int *tab,int nb_proc){
 }
 void  random_process_generation(Process* proc,int nb_proc)
 {
-	// int time();
-	// srand((unsigned int)time(NULL));
 	proc->te = (rand() % max_TE) + 1;
 	proc->te <= 0 ? proc->te = 1 : proc->te;
-	// Arrival date
 	proc->ta = (rand() % max_TA);
 	proc->ta <= 0 ? proc->ta = 1 : proc->ta;
-	// Priority
 	proc->priority = rand() % nb_proc + 1;
 	proc->priority <= 0 ? proc->priority = 1 : proc->priority;
 }
-
 int calculate_simulation_time(node *head)
 {
 	int total_t = 0;

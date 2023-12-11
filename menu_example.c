@@ -2,10 +2,8 @@
 #include"process_def.h"
 #include "scheduling_algorithms/scheculing_algorithm.h"
 #include "file_manipulation/csv_file_manip.h"
-// #include "sc"
 #define num_choices 7
 #define num_algos  6
-
 void clear_screen()
 {
 	printf("\033[2J\033[H");
@@ -25,14 +23,12 @@ void Generate_processes ()
 	printf("Generated processes \n");
 	display_f(file_name);
 }
-// void view_proce()
 void choice_loop (char *wlcm_str , void (*p_choice_function)(void) )
 {	
 	int a = 0; 
 	do
 	{
 		printf("%s", wlcm_str); 
-		// printf("chices 1 \n");
 		p_choice_function();
 		printf("1- <-return to menu *(default)\n");
 		printf("2- re-run\n");
@@ -43,7 +39,6 @@ void choice_loop (char *wlcm_str , void (*p_choice_function)(void) )
 }
 void p_menu_algorithms(void )
 {
-	
 	printf("Please select an algorithm:) \n");
 	printf("\t1: FIFO (default): \n");
 	printf("\t2: Priority (non-preamptive):\n");
@@ -61,7 +56,6 @@ enum
 	SRT_p,
 	Priority_p, 
 	Multi_Level,
-	
 } algos;
 void menu_algos(void)
 {	char* st ; 	
@@ -70,7 +64,6 @@ void menu_algos(void)
 	do
 	{	
 		algo_start: p_menu_algorithms(); 
-		// printMenu();
 		printf("Enter a num: ");
 		scanf("%d", &select);
 		printf("\n");
@@ -83,57 +76,43 @@ void menu_algos(void)
 		{
 		case FIFO:
 			clear_screen();
-			// str = "Processes generation\n";
 			st = "Excuting FiFo\n";
 			choice_loop(st, &FIFO_algo);
 			break;
 		case Priority:
 			clear_screen();
-			// str = "Processes generation\n";
 			st = "Excuting Priority (Non preamptive) \n";
 			choice_loop(st, &Priority_algo);
 			break;
 		case Round_Robin:
 			clear_screen();
-			// str = "Processes generation\n";
 			st = "Excuting Round Robin\n";
 			choice_loop(st, &Round_Robin_algo);
 			break;
 		case SRT_p:
 			clear_screen();
-			// str = "Processes generation\n";
 			st = "Excuting SRT (Preamptive)\n";
 			choice_loop(st, &SRT_algo);
-			/* code */
 			break;
 		case Priority_p:
 			clear_screen();
-			
 			st = "Excuting Priority (Preamptive)\n";
 			choice_loop(st, &Priority_Preamptive);
 			break;
 		case Multi_Level:
 			clear_screen();
-			// str = "Processes generation\n";
 			st = "Excuting Multilevel\n";
-			//choice_loop(st, &multi);
-			/* code */
 			break;
 		case 7:
-
 			break;
-
 		default:
 			clear_screen();
-			// str = "Processes generation\n";
 			st = "Excuting FiFo\n";
 			choice_loop(st, &FIFO_algo);
 			break;
 		}
-
 		} while (select != num_algos + 1);
 }
-
 void printMenu()
 {
 printf("Please enter a number from 1..%d to select a functionanlity :) \n",num_choices); 
@@ -145,11 +124,9 @@ printf("\t5: View metrics:\n");
 printf("\t6: Configuration:\n");
 printf("\t7: exit\n");
 }
-
 int main() 
 {	int x ;
 	char *str;
-	
 	printf("Welocometo schedular simulato Application: \n");
 	do
 	{
@@ -165,13 +142,9 @@ int main()
 	} 
 	switch (x) {
  	case 1:
-
 		clear_screen();
 		str = "Processes generation\n";
-		// printf("Choice 1");
-
 		choice_loop(str,&Generate_processes);
-		// TARGET
 		break;	
 	case 2:
 		clear_screen();
@@ -185,27 +158,21 @@ int main()
 	case 4:
 		printf("\033[2J\033[H");
 		fflush(stdout);
-		printf("Choice 4");//TARGET
+		printf("Choice 4");
  		break;
 	case 5:
-		printf("Choice 5");//TARGET
+		printf("Choice 5");
  		break;
 	case 6:
-		printf("Choice 5"); // TARGET
+		printf("Choice 5"); 
 		break;
 	default:
 		printf("\033[2J\033[H");
 		fflush(stdout);
-		printf("Choice 1");	// choice 
-
-		//
+		printf("Choice 1");	
 		break;
  }
-
-//  sleep(1);
  printf("\n");
-//  printf("\033[2J\033[H");
-//  fflush(stdout);
 	} while (x != num_choices);
 printf("exited successfully \nThank you \n"); 
 return 0;		
