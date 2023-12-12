@@ -5,6 +5,8 @@ void Round_Robin_algo (void ) {
 	scanf("%d", &qtm);
 	queue GUIq;
 	init_queue(&GUIq);
+	queue metrics_q;
+	init_queue(&metrics_q);
 	Process *Gproc = malloc(sizeof(Process));
 	node *tmp;
 	node *Head =NULL;
@@ -74,8 +76,8 @@ printTable_linkedList(CHead,0);
 			if (p1->remaining_time > 0) {
 				enqueue(&wait_list, p1);
 			} else {
-				tempRot = tempRot + (curs-p1->ta);
-				temAtt = temAtt + (tempRot-p1->te);
+				p1->end  = c_time; 
+				enqueue(&metrics_q,p1);
 			}
 		}else{
 			enqueue(&wait_list,&CHead->proc);
@@ -86,8 +88,7 @@ printTable_linkedList(CHead,0);
 	}
 	printf("\n\n\n");
 	printf("done\n");
-	int tempRotMoy = tempRot / nb_proc;
-	int temAttMoy = temAtt/nb_proc;
+	printTable_metrics(&metrics_q, nb_proc);
 	char *title = "Round-Robin Execution";
 	create_widget(&GUIq,title);
 	while (GUIq.head != NULL)

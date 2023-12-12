@@ -21,6 +21,8 @@
 #define BRIGHT_BLUE "\x1b[94m"
 #define BRIGHT_PURPLE "\x1b[95m"
 #define BRIGHT_CYAN "\x1b[96m"
+
+#define BLINK "\033[5m"
 typedef enum
 {
 	E_RESET_C,

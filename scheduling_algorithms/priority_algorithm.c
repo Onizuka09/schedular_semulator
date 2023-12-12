@@ -8,10 +8,11 @@ void Priority_algo(void) {
 	init_queue(&GUIq);
 	Process *Gproc = malloc(sizeof(Process));
 	Process p ;
-    int color, sum=0 ; 
-    int nb_proc=0, nb_proc1=0;
-    queue wait_list;
-    init_queue(&wait_list);
+	queue metrics_q;
+	init_queue(&metrics_q);
+	int color;
+	queue wait_list;
+	init_queue(&wait_list);
     Process *c_proc, *w_proc;
 	int nbr = 0; 
 	char *csv = CSV_file_name;
@@ -29,8 +30,6 @@ void Priority_algo(void) {
 	int last_proc_ta = q1.tail->proc.ta;
 	int total_t = calculate_simulation_time(q1.head);
 	printf("Total simulation time %d\n", total_t);
-	printf("\nPriority:\n");
-	printf("%d \n", is_empty(&wait_list));
     while (q1.head != NULL)
 	{
         ta = q1.head->proc.ta;
@@ -69,12 +68,16 @@ void Priority_algo(void) {
 			Gproc->color = w_proc->color;
 			enqueue(&GUIq, Gproc);
 			c_time += te;
-            search_for_least_min_te(&q1, &wait_list, c_time);
-		    queue_bsort_priority(&wait_list);
+			w_proc->end = c_time;
+			enqueue(&metrics_q, w_proc);
+			search_for_least_min_te(&q1, &wait_list, c_time);
+			queue_bsort_priority(&wait_list);
 			}
     }
         printf("\n\n\n");
 		printf("done \n");
+		printTable_metrics(&metrics_q, nbr);
+
 		char *title = "Priority Execution";
 		create_widget(&GUIq,title);
 		while (GUIq.head != NULL)

@@ -9,6 +9,8 @@ void SRT_algo(void ) {
 	Process pr;
 	queue GUIq;
 	init_queue(&GUIq);
+	queue metrics_q;
+	init_queue(&metrics_q);
 	Process *Gproc = malloc(sizeof(Process));
 	char *csv = CSV_file_name;
 	tete = Read_csv_file(csv, &nbr);
@@ -66,6 +68,11 @@ void SRT_algo(void ) {
 			{ 
 				enqueue(&wait_list, w_proc);
 			}
+			else 
+			{
+				w_proc->end = c_time ;
+				enqueue(&metrics_q, w_proc);
+			}
 		}
 		if (c_time < q1.head->proc.ta) 
 		{
@@ -109,6 +116,11 @@ void SRT_algo(void ) {
 			{	
 				enqueue(&wait_list, w_proc);
 			}
+			else 
+			{
+				w_proc->end = c_time;
+				enqueue(&metrics_q, w_proc);
+			}
 		}
 	}
 	queue_bsort_te(&wait_list);
@@ -130,9 +142,12 @@ void SRT_algo(void ) {
 		enqueue(&GUIq, Gproc);
 		sleep(te);
 		c_time += te;
+		w_proc->end = c_time;
+		enqueue(&metrics_q, w_proc);
 	}
 	printf("\n\n\n");
 	printf("done \n");
+	printTable_metrics(&metrics_q, nbr);
 	char *title = "SRT (Preamtive) Execution";
 	create_widget(&GUIq, title);
 	while (GUIq.head != NULL)

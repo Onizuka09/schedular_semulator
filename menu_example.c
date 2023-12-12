@@ -4,7 +4,15 @@
 #include "file_manipulation/csv_file_manip.h"
 #define num_choices 7
 #define num_algos  6
-void clear_screen()
+const char *asciiArt =
+	"\t███████  ██████ ██   ██ ███████ ██████  ██    ██ ██      ███████ ██████      ███████ ██ ███    ███ ██    ██ ██       █████  ████████  ██████  ██████  \n"
+	"\t██      ██      ██   ██ ██      ██   ██ ██    ██ ██      ██      ██   ██     ██      ██ ████  ████ ██    ██ ██      ██   ██    ██    ██    ██ ██   ██ \n"
+	"\t███████ ██      ███████ █████   ██   ██ ██    ██ ██      █████   ██████      ███████ ██ ██ ████ ██ ██    ██ ██      ███████    ██    ██    ██ ██████  \n"
+	"\t     ██ ██      ██   ██ ██      ██   ██ ██    ██ ██      ██      ██   ██          ██ ██ ██  ██  ██ ██    ██ ██      ██   ██    ██    ██    ██ ██   ██ \n"
+	"\t███████  ██████ ██   ██ ███████ ██████   ██████  ███████ ███████ ██   ██     ███████ ██ ██      ██  ██████  ███████ ██   ██    ██     ██████  ██   ██ \n";
+
+	void
+	clear_screen()
 {
 	printf("\033[2J\033[H");
 	fflush(stdout);
@@ -23,6 +31,28 @@ void Generate_processes ()
 	printf("Generated processes \n");
 	display_f(file_name);
 }
+
+int get_user_choise(int defaul_choice)
+{
+	char ch;
+	int choice;
+	fflush(stdin);
+	scanf("%c", &ch);
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF);
+	if (ch == '\n')
+	{
+		choice = defaul_choice;
+	}
+	else
+	{
+		choice = ch - '0';
+	}
+	// printf("%c\n", ch);
+	// printf("%d\n", ch);
+
+	return choice;
+}
 void choice_loop (char *wlcm_str , void (*p_choice_function)(void) )
 {	
 	int a = 0; 
@@ -32,9 +62,10 @@ void choice_loop (char *wlcm_str , void (*p_choice_function)(void) )
 		p_choice_function();
 		printf("1- <-return to menu *(default)\n");
 		printf("2- re-run\n");
-		printf("$: ");
-		scanf("%d", &a);
-		clear_screen(); 
+		printf(BLINK"$:"RESET);
+		fflush(stdout);
+		a = get_user_choise(1);
+		clear_screen();
 	} while (a == 2);
 }
 void p_menu_algorithms(void )
@@ -60,16 +91,15 @@ enum
 void menu_algos(void)
 {	char* st ; 	
 	int select =0 ;
-	init_gtk();
 	do
 	{	
-		algo_start: p_menu_algorithms(); 
+		algo_start: p_menu_algorithms();
 		printf("Enter a num: ");
-		scanf("%d", &select);
+		select = get_user_choise(FIFO);
 		printf("\n");
 		if (select < 1 || select > num_algos + 1)
 		{
-			printf("ERROR: you ever entered a wrong choice \nPlease enter a choice form 1..%d \n", num_algos+1);
+			printf("ERROR: you ever entered a wrong choice \nPlease enter a choice form 1..%d \n", num_algos + 1);
 			goto algo_start;
 		}
 		switch (select)
@@ -105,11 +135,6 @@ void menu_algos(void)
 			break;
 		case 7:
 			break;
-		default:
-			clear_screen();
-			st = "Excuting FiFo\n";
-			choice_loop(st, &FIFO_algo);
-			break;
 		}
 		} while (select != num_algos + 1);
 }
@@ -122,58 +147,67 @@ printf("\t3: Simulate a schedular(Console):\n");
 printf("\t4: Simulate a schedular (Graphical User Inteface):\n");
 printf("\t5: View metrics:\n");
 printf("\t6: Configuration:\n");
-printf("\t7: exit\n");
+printf("\t7: exit (default)\n");
 }
+
 int main() 
-{	int x ;
+{	
+	init_gtk();
+	clear_screen();
+	int x;
 	char *str;
-	printf("Welocometo schedular simulato Application: \n");
+	printf(PURPLE);
+	printf(BLINK);
+	printf("\n%s\n", asciiArt);
+	printf(RESET);
+	printf("Welocome to the scheduler simulator Application: \n");
 	do
 	{
-	clear_screen();
-	start:	printMenu(); 
-	printf("Enter a num: ") ; 
-	scanf("%d",&x);
-	printf("\n");
-	if (x < 1 || x > num_choices)
-	{
-		printf("ERROR: you ever entered a wrong choice \nPlease enter a choice form 1..%d \n",num_choices) ; 
-		goto start; 
-	} 
-	switch (x) {
- 	case 1:
+	start:
+		printMenu();
+		printf("Enter a num: ");
+		// printf("%d\n",x);
+		x = get_user_choise(num_choices);
+		printf("\n");
+		if (x < 1 || x > num_choices)
+		{
+			printf("ERROR: you ever entered a wrong choice \nPlease enter a choice form 1..%d \n", num_choices);
+			sleep(1);
+			goto start;
+		}
+		switch (x)
+		{
+		case 1:
+			clear_screen();
+			str = "Processes generation\n";
+			choice_loop(str, &Generate_processes);
+			break;
+		case 2:
+			clear_screen();
+			str = "CSV file content:\n ";
+			choice_loop(str, &display_f);
+			break;
+		case 3:
+			clear_screen();
+			menu_algos();
+			break;
+		case 4:
+			printf("\033[2J\033[H");
+			fflush(stdout);
+			printf("Choice 4");
+			break;
+		case 5:
+			printf("Choice 5");
+			break;
+		case 7:
+			printf("exiting ... \n");
+			// printf("")
+			sleep(1);
+			break;
+		}
+		printf("\n");
 		clear_screen();
-		str = "Processes generation\n";
-		choice_loop(str,&Generate_processes);
-		break;	
-	case 2:
-		clear_screen();
-		str = "CSV file content:\n ";
-		choice_loop(str, &display_f);
-		break;
-	case 3:
-		clear_screen();
-		menu_algos();
-		break;
-	case 4:
-		printf("\033[2J\033[H");
-		fflush(stdout);
-		printf("Choice 4");
- 		break;
-	case 5:
-		printf("Choice 5");
- 		break;
-	case 6:
-		printf("Choice 5"); 
-		break;
-	default:
-		printf("\033[2J\033[H");
-		fflush(stdout);
-		printf("Choice 1");	
-		break;
- }
- printf("\n");
 	} while (x != num_choices);
-printf("exited successfully \nThank you \n"); 
-return 0;		
+	printf("GOOD BYE :)\n");
+	return 0;
 }

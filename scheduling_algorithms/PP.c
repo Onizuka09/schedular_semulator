@@ -16,8 +16,8 @@ void Priority_Preamptive(void) {
     node *Head2 =NULL;
     node *metrics_pp= NULL;
     queue metrics_q;
-    Process* m_proc; 
     init_queue(&metrics_q);
+    Process* m_proc; 
     metrics_pp = Head;
     int l2=0;
     bool b = true;
