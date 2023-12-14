@@ -13,7 +13,7 @@ PP_bin := PP
 BIN := schedular_semulator 
 LDFLAGS := `pkg-config --cflags --libs gtk+-3.0` -lm 
 
-all: create_BUILD_DIR $(BIN)
+all: install_depenencies create_BUILD_DIR $(BIN)
 
 
 
@@ -61,13 +61,13 @@ create_BUILD_DIR:
 	mkdir -p $(PWD)/$(BUILD_DIR)
 
 unintsall_bin: 
-	bash sudo ./My_scripts/uninstall.sh
+	sudo ./My_scripts/uninstall.sh
 
 install_depenencies: 
-	bash  My_scripts/install_dpendencies.sh
+	sudo ./My_scripts/install_dpendencies.sh
 
 install_bin:
-	bash sudo ./My_scripts/instal_app.sh
+	sudo ./My_scripts/instal_app.sh
 
 clean:
 	@if [ -d $(BUILD_DIR) ]; then\
