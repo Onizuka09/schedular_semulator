@@ -14,7 +14,8 @@ else
     if [ "$x" == "y" ]; then 
         sudo apt install -y libgtk-3-dev
         echo "finished installing libgtk-3-dev"
-    else 
-        echo "GOODBYE 🙂"
-    fi
+	fi
+fi
+echo "GOODBYE 🙂"
+    
 
