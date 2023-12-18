@@ -6,3 +6,4 @@ obj/*
 test
 test_color.c
 Processes.csv
+test.c
