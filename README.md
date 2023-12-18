@@ -1,4 +1,4 @@
-# projet_se
+# schedular_semulator
 This is a university project about creating C application that simulates the execution of multiple processes using different scheduling algorithms ( RR,FIFO ...)
 ## Notes: 
 * dataStruct folder contains the queue data stucture (header file and src file) 
@@ -12,7 +12,7 @@ This is a university project about creating C application that simulates the exe
 	- `uninstall.sh`: unsintall the application. 
 	- `install_dpendencies.sh`: check if the GTK library is installed, if not instal it. 
 	- `remove_comments.sh`: remove commentes and white spaces (this is module called later in the `search_and_clean.sh` ).
-	- `search_and_clean.sh`: parses the project structure looking for .c and .h files and then calls the `search_and_clean` function. 
+	- `search_and_clean.sh`: parses the project structure looking for .c and .h files and then calls the `remove_comments` function. 
 
 ## A video:  enjoy 🙂 !
 
