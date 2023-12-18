@@ -1,4 +1,4 @@
-# projet_se
+# schedular_semulator
 This is a university project about creating C application that simulates the execution of multiple processes using different scheduling algorithms ( RR,FIFO ...)
 ## Notes: 
 * dataStruct folder contains the queue data stucture (header file and src file) 
