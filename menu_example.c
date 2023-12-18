@@ -99,7 +99,7 @@ void menu_algos(void)
 		printf("\n");
 		if (select < 1 || select > num_algos + 1)
 		{
-			printf("ERROR: you ever entered a wrong choice \nPlease enter a choice form 1..%d \n", num_algos + 1);
+			printf("ERROR: you ever entered the wrong choice \nPlease enter a choice form 1..%d \n", num_algos + 1);
 			goto algo_start;
 		}
 		switch (select)
