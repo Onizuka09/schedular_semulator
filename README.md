@@ -14,9 +14,9 @@ This is a university project about creating C application that simulates the exe
 	- `remove_comments.sh`: remove commentes and white spaces (this is module called later in the `search_and_clean.sh` ).
 	- `search_and_clean.sh`: parses the project structure looking for .c and .h files and then calls the `remove_comments` function. 
 
-## A video:  enjoy 🙂 !
+## A GIF: Enjoy 🙂 !
 
-[![Watch the video](resources/projet_se.png)](resources/show_case_porjet_se.mp4)
+![App Screenshot](resources/projet_se.gif)
 
 ## set up envireonment for C programming
 - To install GCC 
